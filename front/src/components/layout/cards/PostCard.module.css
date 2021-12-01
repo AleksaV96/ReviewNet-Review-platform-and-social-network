@@ -1,0 +1,25 @@
+.item {
+    margin: 1rem 0;
+  }
+   
+  .content {
+    text-align: left;
+    padding: 5mm;
+  }
+  
+  .content h3 {
+    text-align: left;
+    font-size: 1.25rem;
+    color: #000000;
+  }
+
+  .content h2 {
+    text-align: right;
+    font-size: 2.25rem;
+    color: #f83200;
+  }
+
+  .content div {
+    max-width: 2cm;
+    float: right;
+  }
