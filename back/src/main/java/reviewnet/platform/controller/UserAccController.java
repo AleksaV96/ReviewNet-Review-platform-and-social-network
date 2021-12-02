@@ -8,7 +8,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
-import reviewnet.platform.domain.user.GlobalAdmin;
 import reviewnet.platform.domain.user.Moderator;
 import reviewnet.platform.domain.user.Subscriber;
 import reviewnet.platform.domain.user.User;
@@ -53,10 +52,10 @@ public class UserAccController {
 		 	return new ResponseEntity<User>(moderator, HttpStatus.CREATED);
 	 }
 	 
-	 @PostMapping(value="/register/globaladmin")
-	 public ResponseEntity<User> addGlobalAdmin(@RequestBody GlobalAdmin globalAdmin){
-		 userAccService.addUser(globalAdmin);
-		 	return new ResponseEntity<User>(globalAdmin, HttpStatus.CREATED);
+	 @PostMapping(value="/register/admin")
+	    public ResponseEntity<User> addAdmin(@RequestBody User user){
+	        userAccService.addAdmin(user);
+	        return new ResponseEntity<User>(user, HttpStatus.CREATED);
 	 }
 	 
 	 @DeleteMapping(value="userId/{id}/remove")

@@ -6,6 +6,13 @@ import java.util.List;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import reviewnet.platform.domain.security.AuthProvider;
+import reviewnet.platform.domain.security.Permission;
+
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.validation.constraints.NotNull;
+
 
 @Document
 public class User {
@@ -20,15 +27,16 @@ public class User {
     private String imgUrl;
     private List<String> subscribed = new ArrayList<String>();
     private List<String> friends = new ArrayList<String>();
-    //private Permission permission;
-    //@NotNull
-    //@Enumerated(EnumType.STRING)
-    //private AuthProvider provider;
+    private Permission permission = new Permission();
+    @NotNull
+    @Enumerated(EnumType.STRING)
+    private AuthProvider provider;
     
     public User() {}
     
     public User(String id, String name, String surname, String username, String password, String email, 
-    		String imgUrl, List<String> subscribed, List<String> friends) {
+    		String imgUrl, List<String> subscribed, List<String> friends,
+    		Permission permission, AuthProvider provider) {
 		this.id = id;
 		this.name = name;
 		this.surname = surname;
@@ -38,6 +46,8 @@ public class User {
 		this.imgUrl = imgUrl;
 		this.subscribed = subscribed;
 		this.friends = friends;
+		this.permission = permission;
+		this.provider = provider;
 	}
 
 
@@ -99,5 +109,23 @@ public class User {
 	public void setFriends(List<String> friends) {
 		this.friends = friends;
 	}
+
+	public Permission getPermission() {
+		return permission;
+	}
+
+	public void setPermission(Permission permission) {
+		this.permission = permission;
+	}
+
+	public AuthProvider getProvider() {
+		return provider;
+	}
+
+	public void setProvider(AuthProvider provider) {
+		this.provider = provider;
+	}
+	
+	
 	 
 }

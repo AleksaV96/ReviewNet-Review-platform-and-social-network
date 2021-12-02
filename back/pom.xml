@@ -2,23 +2,27 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
+	
+	<groupId>reviewnet</groupId>
+		<artifactId>platform</artifactId>
+		<version>0.0.1-SNAPSHOT</version>
+		<name>platform</name>
+	<description>Spring Boot Backend</description>
+	
+	<properties>
+		<java.version>11</java.version>
+		<maven-jar-plugin.version>3.1.1</maven-jar-plugin.version>
+		<maven.compiler.source>1.8</maven.compiler.source>
+	  	<maven.compiler.target>1.8</maven.compiler.target>
+	</properties>
+	
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
 		<version>2.5.6</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
-	<groupId>reviewnet</groupId>
-	<artifactId>platform</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
-	<name>platform</name>
-	<description>Spring Boot Backend</description>
-	<properties>
-		<java.version>11</java.version>
-		<maven-jar-plugin.version>3.1.1</maven-jar-plugin.version>
-		<maven.compiler.source>1.8</maven.compiler.source>
-  		<maven.compiler.target>1.8</maven.compiler.target>
-	</properties>
+		
 	<dependencies>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -44,7 +48,49 @@
 		</dependency>
 		
 		<!-- Security -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-security</artifactId>
+		</dependency>
 		
+		<dependency>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-test</artifactId>
+			<scope>test</scope>
+		</dependency>
+		
+		<dependency>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-oauth2-client</artifactId>
+		</dependency>
+		
+		<!-- Util -->
+		<dependency>
+			<groupId>org.hibernate.javax.persistence</groupId>
+			<artifactId>hibernate-jpa-2.1-api</artifactId>
+			<version>1.0.0.Draft-6</version>
+		</dependency>
+		<!-- Thanks for using https://jar-download.com -->
+		
+		<dependency>
+		    <groupId>javax.validation</groupId>
+		    <artifactId>validation-api</artifactId>
+		    </dependency>
+		
+		<dependency>
+			<groupId>org.modelmapper</groupId>
+			<artifactId>modelmapper</artifactId>
+			<version>2.3.5</version>
+		</dependency>
+		
+		
+		<!-- JSON web token -->
+		
+		<dependency>
+			<groupId>io.jsonwebtoken</groupId>
+			<artifactId>jjwt</artifactId>
+			<version>0.9.1</version>
+		</dependency>
 		
 		<!-- Mongo.db -->
 		<dependency>
