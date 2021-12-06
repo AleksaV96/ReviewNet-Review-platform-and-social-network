@@ -10,7 +10,13 @@ function ReviewElements() {
     useEffect(() => {
       setIsLoading(true);
       fetch(
-        'http://localhost:8080/reviewElements/all'
+        'http://localhost:8080/reviewElements/all',
+        {
+          headers: {
+              'Content-Type': 'application/json',
+          },
+          credentials: 'include'
+        }
       )
         .then((response) => {
           return response.json();

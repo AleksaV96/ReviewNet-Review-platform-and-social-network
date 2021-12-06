@@ -18,7 +18,13 @@ function ReviewElementPage() {
     useEffect(() => {
         setIsLoading(true);
         fetch(
-            address
+            address,
+            {
+              headers: {
+                  'Content-Type': 'application/json',
+              },
+              credentials: 'include'
+            }
         )
           .then((response) => {
             return response.json();
@@ -41,7 +47,13 @@ function ReviewElementPage() {
       useEffect(() => {
         setIsLoading(true);
         fetch(
-            address2
+            address2,
+            {
+              headers: {
+                  'Content-Type': 'application/json',
+              },
+              credentials: 'include'
+            }
         )
           .then((response) => {
             return response.json();

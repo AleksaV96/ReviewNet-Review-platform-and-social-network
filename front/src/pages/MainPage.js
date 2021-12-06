@@ -13,7 +13,13 @@ function MainPage() {
     useEffect(() => {
         setIsLoading(true);
         fetch(
-            address
+            address,
+            {
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            credentials: 'include'
+            }
         )
         .then((response) => {
             return response.json();
