@@ -26,11 +26,14 @@ function PostAddPage(props) {
          body: JSON.stringify(postData),
          headers: {
              'Content-Type': 'application/json',
-        }
-         
-     },
-     window.location.reload(),
-     )}
+        },
+        credentials: 'include'
+        },
+     
+        window.location.reload(),
+     
+        )
+    }
      
 
         if(type!=="reviewSpace") {

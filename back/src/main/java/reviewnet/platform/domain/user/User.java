@@ -50,7 +50,6 @@ public class User {
 		this.provider = provider;
 	}
 
-
     public String getId() {
 		return id;
 	}

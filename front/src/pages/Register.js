@@ -21,12 +21,25 @@ function Register() {
         body: JSON.stringify(userData),
         headers: {
             'Content-Type': 'application/json',
-        }
+                 }
         
-    },
-    setRedirect(true),
-    console.log(JSON.stringify(userData))
-    )};
+      }
+
+    ).then((response) => {
+      if(response.status === 201) {
+        console.log(response)
+        alert("Account created!")
+        setRedirect(true)
+      }
+      else if(response.status === 226) {
+        alert("Username already in use!")
+      }
+      else{
+        alert("Unknown error!")
+      }
+
+    })
+    };
     
     if(redirect){
       return <Navigate to="/login"/>

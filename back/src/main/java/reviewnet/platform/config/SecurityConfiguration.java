@@ -56,12 +56,18 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
 	@Override
     protected void configure(HttpSecurity httpSecurity) throws Exception {
-        httpSecurity.csrf().disable().authorizeRequests().
-        antMatchers(
+        httpSecurity
+        	.cors()
+        	.and()
+        	.csrf()
+        	.disable()
+            .authorizeRequests()
+        	.antMatchers(
         		"/login",
-        		"/users/register/admin"
+        		"/register"
         		)
-        	.permitAll().anyRequest()
+        	.permitAll()
+        	.anyRequest()
         	.authenticated();
         httpSecurity.addFilterBefore(tokenAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class);
 

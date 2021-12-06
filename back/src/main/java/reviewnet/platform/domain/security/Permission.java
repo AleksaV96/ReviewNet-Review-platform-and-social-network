@@ -3,6 +3,8 @@ package reviewnet.platform.domain.security;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import reviewnet.platform.domain.user.role.UserRole;
+
 
 @Document
 public class Permission {
@@ -11,6 +13,8 @@ public class Permission {
     private String id;
 
     private String authority;
+    
+    private UserRole roleDetails;
 
     public Permission() {
 
@@ -32,5 +36,12 @@ public class Permission {
         this.authority = authority;
     }
 
+	public UserRole getRoleDetails() {
+		return roleDetails;
+	}
 
+	public void setRoleDetails(UserRole roleDetails) {
+		this.roleDetails = roleDetails;
+	}
+    
 }

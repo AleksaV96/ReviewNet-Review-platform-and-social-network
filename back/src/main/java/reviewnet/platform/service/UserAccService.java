@@ -46,7 +46,37 @@ public class UserAccService {
     }
 	
 	
+	public HttpStatus addSubscriber(User user) {
+
+        Optional<User> accountData = userAccRepository.findByUsername(user.getUsername());
+        if (accountData.isPresent()) {
+        	System.out.println("Already used");
+            return HttpStatus.IM_USED;
+        } else {
+            user.setPassword(passwordEncoder.encode(user.getPassword()));
+            user.setProvider(AuthProvider.local);
+            
+            permissionService.addSubscriberPermission(user.getPermission());
+            userAccRepository.save(user);
+            return HttpStatus.CREATED;
+        }
+    }
 	
+	public HttpStatus addModerator(User user) {
+
+        Optional<User> accountData = userAccRepository.findByUsername(user.getUsername());
+        if (accountData.isPresent()) {
+        	System.out.println("Already used");
+            return HttpStatus.IM_USED;
+        } else {
+            user.setPassword(passwordEncoder.encode(user.getPassword()));
+            user.setProvider(AuthProvider.local);
+            
+            permissionService.addModeratorPermission(user.getPermission());
+            userAccRepository.save(user);
+            return HttpStatus.CREATED;
+        }
+    }
 	
 	public HttpStatus addAdmin(User user) {
 
@@ -59,7 +89,6 @@ public class UserAccService {
             user.setProvider(AuthProvider.local);
             
             permissionService.addAdminPermission(user.getPermission());
-            System.out.println(user.getPermission());
             userAccRepository.save(user);
             return HttpStatus.CREATED;
         }

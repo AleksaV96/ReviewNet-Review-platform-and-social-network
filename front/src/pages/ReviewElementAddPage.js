@@ -16,12 +16,14 @@ function ReviewElementAddPage() {
          body: JSON.stringify(reviewElementData),
          headers: {
              'Content-Type': 'application/json',
-         }
+         },
+         credentials: 'include'
          
-     },
-     setRedirect(true)
+        },
+        
+        setRedirect(true)
       
-     )};
+      )};
 
      if(redirect){
        return <Navigate to="/reviewElements"/>

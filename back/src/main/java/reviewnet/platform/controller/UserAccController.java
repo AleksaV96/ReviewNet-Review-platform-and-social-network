@@ -8,8 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
-import reviewnet.platform.domain.user.Moderator;
-import reviewnet.platform.domain.user.Subscriber;
+
 import reviewnet.platform.domain.user.User;
 import reviewnet.platform.service.UserAccService;
 
@@ -41,21 +40,30 @@ public class UserAccController {
 	 }
 	 
 	 @PostMapping(value="/register/subscriber")
-	 public ResponseEntity<User> addSubscriber(@RequestBody Subscriber subscriber){
-		 userAccService.addUser(subscriber);
-		 	return new ResponseEntity<User>(subscriber, HttpStatus.CREATED);
+	 public ResponseEntity<User> addSubscriber(@RequestBody User user){
+		 userAccService.addUser(user);
+		 	return new ResponseEntity<User>(user, HttpStatus.CREATED);
 	 }
 	 
 	 @PostMapping(value="/register/moderator")
-	 public ResponseEntity<User> addModerator(@RequestBody Moderator moderator){
-		 userAccService.addUser(moderator);
-		 	return new ResponseEntity<User>(moderator, HttpStatus.CREATED);
+	 public ResponseEntity<User> addModerator(@RequestBody User user){
+		 userAccService.addUser(user);
+		 	return new ResponseEntity<User>(user, HttpStatus.CREATED);
 	 }
 	 
 	 @PostMapping(value="/register/admin")
 	    public ResponseEntity<User> addAdmin(@RequestBody User user){
-	        userAccService.addAdmin(user);
-	        return new ResponseEntity<User>(user, HttpStatus.CREATED);
+	        HttpStatus accCreatorHandler = userAccService.addAdmin(user);
+	        if(accCreatorHandler == HttpStatus.CREATED) {
+	        	return new ResponseEntity<User>(user, HttpStatus.CREATED);
+	        }
+	        else if(accCreatorHandler == HttpStatus.IM_USED) {
+	        	return new ResponseEntity<User>(user, HttpStatus.IM_USED);
+	        }
+	        else {
+	        	return new ResponseEntity<User>(user, HttpStatus.BAD_REQUEST);
+	        }
+	        
 	 }
 	 
 	 @DeleteMapping(value="userId/{id}/remove")

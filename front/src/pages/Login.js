@@ -20,9 +20,16 @@ function Login() {
                 'Content-Type': 'application/json',
             },
             credentials: 'include'
-        },
-        setRedirect(true)
-        )};
+        }
+        ).then((response) => {
+            if(response.status === 200){
+                setRedirect(true);
+            }
+            else{
+                alert("WRONG USERNAME OR PASSWORD")
+            }
+        })
+        };
     
     if(redirect){
         return <Navigate to="/main"/>
