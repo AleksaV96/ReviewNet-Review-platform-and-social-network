@@ -13,6 +13,7 @@ function PostList(props) {
               id={post.id}
               name={post.name}
               content={post.content}
+              authorUsername={post.authorUsername}
               grade={post.grade}
             />
             </div>

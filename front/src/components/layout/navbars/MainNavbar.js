@@ -1,8 +1,13 @@
-import { Link } from 'react-router-dom';
-
 import classes from './MainNavbar.module.css'
 
+import { Link } from 'react-router-dom';
+
+import { useContext } from 'react';
+import UserContext from '../../../store/user-context';
+
 function MainNavbar() {
+
+    const userCtx = useContext(UserContext);
 
     return(
     <header className={classes.header}>
@@ -10,7 +15,7 @@ function MainNavbar() {
       <nav>
         <ul>
           <li>
-            <Link to='/'>Profile</Link>
+            <Link to='/'>{userCtx.content.username}</Link>
           </li>
           <li>
             <Link to='/reviewElements'>Review</Link>

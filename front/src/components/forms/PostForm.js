@@ -1,22 +1,29 @@
 import { useRef } from 'react';
 import Card from '../ui/Card';
 
+import { useContext } from 'react';
+import UserContext from '../../store/user-context';
+
 import classes from './Form.module.css';
 
 function PostForm(props) {
 
+    const userCtx = useContext(UserContext);
+
     const nameInputRef = useRef();
     const contentInputRef = useRef();
-
+    
     function submitHandler(event) {
         event.preventDefault();
 
         const enteredName = nameInputRef.current.value;
         const enteredContent = contentInputRef.current.value;
+        const authorUsername = userCtx.content.username;
 
     const postData = {
         name: enteredName,
         content: enteredContent,
+        authorUsername: authorUsername
     }
 
       props.onPostAdd(postData);

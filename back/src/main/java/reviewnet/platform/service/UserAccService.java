@@ -2,6 +2,7 @@ package reviewnet.platform.service;
 
 import java.util.Optional;
 
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -10,6 +11,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 
 import reviewnet.platform.domain.security.AuthProvider;
 import reviewnet.platform.domain.user.User;
+import reviewnet.platform.dto.UserViewDTO;
 import reviewnet.platform.repository.user.UserRepository;
 import reviewnet.platform.service.security.PermissionService;
 
@@ -24,6 +26,9 @@ public class UserAccService {
 
     @Autowired
     PasswordEncoder passwordEncoder;
+    
+    @Autowired
+    ModelMapper modelMapper;
 
 	public Iterable<User> getAll() {
         return userAccRepository.findAll();
@@ -50,7 +55,6 @@ public class UserAccService {
 
         Optional<User> accountData = userAccRepository.findByUsername(user.getUsername());
         if (accountData.isPresent()) {
-        	System.out.println("Already used");
             return HttpStatus.IM_USED;
         } else {
             user.setPassword(passwordEncoder.encode(user.getPassword()));
@@ -66,7 +70,6 @@ public class UserAccService {
 
         Optional<User> accountData = userAccRepository.findByUsername(user.getUsername());
         if (accountData.isPresent()) {
-        	System.out.println("Already used");
             return HttpStatus.IM_USED;
         } else {
             user.setPassword(passwordEncoder.encode(user.getPassword()));
@@ -82,7 +85,6 @@ public class UserAccService {
 
         Optional<User> accountData = userAccRepository.findByUsername(user.getUsername());
         if (accountData.isPresent()) {
-        	System.out.println("Already used");
             return HttpStatus.IM_USED;
         } else {
             user.setPassword(passwordEncoder.encode(user.getPassword()));
@@ -94,9 +96,17 @@ public class UserAccService {
         }
     }
 	
+	public void logicDeleteUser(String id) {
+		 Optional<User> user = userAccRepository.findById(id);
+		 user.get().setLogicDelete(true);
+		 updateUser(id, user.get());
+	}
 	
-	
-	
+	public void restoreUser(String id) {
+		 Optional<User> user = userAccRepository.findById(id);
+		 user.get().setLogicDelete(false);
+		 updateUser(id, user.get());
+	}
 	
 	public void removeUser(String id) {
         Optional<User> user = userAccRepository.findById(id);
@@ -109,5 +119,10 @@ public class UserAccService {
 			user.setId(usr.get().getId());
 			userAccRepository.save(user);
 		}
+	}
+	
+	public UserViewDTO convertToDto(User user) {
+		UserViewDTO userViewDTO = modelMapper.map(user, UserViewDTO.class);
+	    	return userViewDTO;
 	}
 }

@@ -3,12 +3,17 @@ import { useState, useEffect } from 'react';
 import PostList from "../components/layout/lists/PostList";
 import MainLayout from "../components/layout/MainLayout";
 
+import { useContext } from 'react';
+import UserContext from '../store/user-context';
+
 function MainPage() {
 
     const [isLoading, setIsLoading] = useState(true);
     const [loadedPosts, setLoadedPosts] = useState([]);
 
     const address = 'http://localhost:8080/posts/all';
+
+    const userCtx = useContext(UserContext);
 
     useEffect(() => {
         setIsLoading(true);
@@ -39,6 +44,15 @@ function MainPage() {
             setLoadedPosts(posts);
         });
     }, [address]);
+
+
+    try {
+        if(userCtx.restrictions.length !== 0)
+            console.log(userCtx.restrictions);
+    }
+    catch(err){
+        console.log(err);
+    }
 
 
     if (isLoading) {

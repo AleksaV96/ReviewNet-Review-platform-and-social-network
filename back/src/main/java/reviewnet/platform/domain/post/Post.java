@@ -14,18 +14,18 @@ public class Post {
 	private String id;
 	private String name;
 	private String content;
-	private String creatorId;
+	private String authorUsername;
 	private Like[] likes;
 	private List<String> replies = new ArrayList<String>();
 	
 	public Post() {
 	}
 	
-	public Post(String id, String name, String content, String creatorId, Like[] likes, List<String> replies) {
+	public Post(String id, String name, String content, String authorUsername, Like[] likes, List<String> replies) {
 		this.id = id;
 		this.name = name;
 		this.content = content;
-		this.creatorId = creatorId;
+		this.authorUsername = authorUsername;
 		this.likes = likes;
 		this.replies = replies;
 	}
@@ -54,12 +54,12 @@ public class Post {
 		this.content = content;
 	}
 
-	public String getCreatorId() {
-		return creatorId;
+	public String getAuthorUsername() {
+		return authorUsername;
 	}
 
-	public void setCreatorId(String creatorId) {
-		this.creatorId = creatorId;
+	public void setAuthorUsername(String authorUsername) {
+		this.authorUsername = authorUsername;
 	}
 
 	public Like[] getLikes() {

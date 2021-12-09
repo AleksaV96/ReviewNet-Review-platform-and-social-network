@@ -15,7 +15,7 @@ function Register() {
     
     
     fetch(
-       'http://localhost:8080/users/register/admin',
+       'http://localhost:8080/users/register/moderator',
       {
         method: 'POST',
         body: JSON.stringify(userData),

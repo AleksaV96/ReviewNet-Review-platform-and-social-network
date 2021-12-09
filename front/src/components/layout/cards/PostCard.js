@@ -16,7 +16,7 @@ function PostCard(props) {
               </div>
               <h3>{props.name}</h3>
               <p>{props.content}</p>
-              
+              <p>By: {props.authorUsername}</p>
             </div>
           </Card>
         </div>

@@ -40,9 +40,8 @@ public class TokenProvider {
         claims.put("uniq", userPrincipal.getUsername());
         claims.put("created", new Date(System.currentTimeMillis()));
         claims.put("role", authentication.getAuthorities());
-
         return Jwts.builder().setClaims(claims).setExpiration(expiryDate)
-                .signWith(SignatureAlgorithm.HS512, this.secret).compact();
+                .signWith(SignatureAlgorithm.HS256, this.secret).compact();
     }
 
     public String getUserIdFromToken(String token) {
@@ -50,7 +49,6 @@ public class TokenProvider {
                 .setSigningKey(appProperties.getAuth().getTokenSecret())
                 .parseClaimsJws(token)
                 .getBody();
-
         return (claims.getSubject());
     }
 

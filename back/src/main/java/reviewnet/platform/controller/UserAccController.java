@@ -27,9 +27,18 @@ public class UserAccController {
 	 @GetMapping(value="/userId/{id}")
 	 public ResponseEntity<User> getUserById(@PathVariable String id) {
 		 Optional<User> accountData = userAccService.getById(id);
-		 	if(accountData.isPresent()) {
+		 	if(accountData.isPresent() && accountData.get().isLogicDelete() == false) {
 		 		return new ResponseEntity<User>(accountData.get(), HttpStatus.OK);
 	 }
+		 	return new ResponseEntity<User>(HttpStatus.NOT_FOUND);
+	 }
+	 
+	 @GetMapping(value="/{username}")
+	 public ResponseEntity<User> getByUsername(@PathVariable String username) {
+		 Optional<User> accountData = userAccService.findByUsername(username);
+		 	if(accountData.isPresent() && accountData.get().isLogicDelete() == false) {
+		 		return new ResponseEntity<User>(accountData.get(), HttpStatus.OK);
+		 	}
 		 	return new ResponseEntity<User>(HttpStatus.NOT_FOUND);
 	 }
 	 
@@ -41,14 +50,30 @@ public class UserAccController {
 	 
 	 @PostMapping(value="/register/subscriber")
 	 public ResponseEntity<User> addSubscriber(@RequestBody User user){
-		 userAccService.addUser(user);
-		 	return new ResponseEntity<User>(user, HttpStatus.CREATED);
+		 HttpStatus accCreatorHandler = userAccService.addSubscriber(user);
+	     if(accCreatorHandler == HttpStatus.CREATED) {
+	        return new ResponseEntity<User>(user, HttpStatus.CREATED);
+	        }
+	     else if(accCreatorHandler == HttpStatus.IM_USED) {
+	        return new ResponseEntity<User>(user, HttpStatus.IM_USED);
+	        }
+	     else {
+	        return new ResponseEntity<User>(user, HttpStatus.BAD_REQUEST);
+	        }
 	 }
 	 
 	 @PostMapping(value="/register/moderator")
-	 public ResponseEntity<User> addModerator(@RequestBody User user){
-		 userAccService.addUser(user);
-		 	return new ResponseEntity<User>(user, HttpStatus.CREATED);
+		 public ResponseEntity<User> addModerator(@RequestBody User user){
+			 HttpStatus accCreatorHandler = userAccService.addModerator(user);
+		     if(accCreatorHandler == HttpStatus.CREATED) {
+		        return new ResponseEntity<User>(user, HttpStatus.CREATED);
+		        }
+		     else if(accCreatorHandler == HttpStatus.IM_USED) {
+		        return new ResponseEntity<User>(user, HttpStatus.IM_USED);
+		        }
+		     else {
+		        return new ResponseEntity<User>(user, HttpStatus.BAD_REQUEST);
+		        }
 	 }
 	 
 	 @PostMapping(value="/register/admin")
@@ -64,6 +89,26 @@ public class UserAccController {
 	        	return new ResponseEntity<User>(user, HttpStatus.BAD_REQUEST);
 	        }
 	        
+	 }
+	 
+	 @PutMapping(value="userId/{id}/logic-delete")
+	 	public ResponseEntity<User> logicDeleteUser(@PathVariable String id){
+		 	try {
+	            userAccService.logicDeleteUser(id);
+	        }catch(Exception e){
+	            return new ResponseEntity<User>(HttpStatus.NOT_FOUND);
+	        }
+	        return new ResponseEntity<User>(HttpStatus.ACCEPTED);
+	 }
+	 
+	 @PutMapping(value="userId/{id}/restore-user")
+	 	public ResponseEntity<User> restoreUser(@PathVariable String id){
+		 	try {
+	            userAccService.restoreUser(id);
+	        }catch(Exception e){
+	            return new ResponseEntity<User>(HttpStatus.NOT_FOUND);
+	        }
+	        return new ResponseEntity<User>(HttpStatus.ACCEPTED);
 	 }
 	 
 	 @DeleteMapping(value="userId/{id}/remove")
