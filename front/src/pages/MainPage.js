@@ -6,6 +6,8 @@ import MainLayout from "../components/layout/MainLayout";
 import { useContext } from 'react';
 import UserContext from '../store/user-context';
 
+import parseJwt from '../logic/JWTutil'
+
 function MainPage() {
 
     const [isLoading, setIsLoading] = useState(true);
@@ -46,14 +48,50 @@ function MainPage() {
     }, [address]);
 
 
-    try {
-        if(userCtx.restrictions.length !== 0)
-            console.log(userCtx.restrictions);
+    let address2;
+    let userSearch;
+    const [isUserLogged, setIsUserLogged] = useState(false);
+    let token = localStorage.getItem('Bearer');
+    
+    if(token !== null){
+        userSearch = parseJwt(token).uniq;
+        address2 = 'http://localhost:8080/users/' + userSearch;
     }
-    catch(err){
-        console.log(err);
-    }
+    
+    useEffect(() => {
+      if(userSearch !== undefined && isUserLogged === false 
+        && JSON.stringify(userCtx.content) === "{}") {
+      fetch(
+          address2,
+          {
+          headers: {
+              'Content-Type': 'application/json',
+          },
+          credentials: 'include'
+          }
+      )
+      .then((response) => {
+          return response.json();
+      })
+      .then((data) => {
 
+          const user = {
+              "id" : data.id,
+              "name" : data.name,
+              "surname" : data.surname,
+              "username" : data.username,
+              "permission" : data.permission,
+              "email" : data.email,
+              "imgUrl" : data.imgUrl
+          }
+          userCtx.openUser(user);
+          userCtx.setRestrictions(data.permission.roleDetails.restrictions);
+          console.log("MAIN METODA SE POZVALA!!!")
+          setIsUserLogged(true);
+          });
+        }
+      }, [userSearch, isUserLogged, address2, userCtx]);
+    
 
     if (isLoading) {
         return (

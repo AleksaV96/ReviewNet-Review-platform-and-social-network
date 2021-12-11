@@ -10,6 +10,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 import reviewnet.platform.domain.security.AuthProvider;
+import reviewnet.platform.domain.security.PasswordChangeAttempt;
 import reviewnet.platform.domain.user.User;
 import reviewnet.platform.dto.UserViewDTO;
 import reviewnet.platform.repository.user.UserRepository;
@@ -113,12 +114,31 @@ public class UserAccService {
         userAccRepository.delete(user.get());
     }
 	
-	public void updateUser(String id, User user) {
+	public HttpStatus updateUser(String id, User user) {
 		Optional<User> usr = userAccRepository.findById(id);
 		if(usr.isPresent()) {
-			user.setId(usr.get().getId());
-			userAccRepository.save(user);
+			usr.get().setName(user.getName());
+			usr.get().setSurname(user.getSurname());
+			usr.get().setUsername(user.getUsername());
+			usr.get().setEmail(user.getEmail());
+			usr.get().setImgUrl(user.getImgUrl());
+			userAccRepository.save(usr.get());
+			return HttpStatus.ACCEPTED;
 		}
+		return HttpStatus.BAD_REQUEST;
+	}
+	
+	public HttpStatus changePassword(String id, PasswordChangeAttempt password) {
+		Optional<User> usr = userAccRepository.findById(id);
+		if(usr.isPresent()) {
+			if(passwordEncoder.matches(password.getOldPassword(), usr.get().getPassword())) {
+				usr.get().setPassword(passwordEncoder.encode(password.getNewPassword()));
+				userAccRepository.save(usr.get());
+				return HttpStatus.ACCEPTED;
+			}
+			return HttpStatus.UNAUTHORIZED;
+		}
+		return HttpStatus.BAD_REQUEST;
 	}
 	
 	public UserViewDTO convertToDto(User user) {

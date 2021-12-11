@@ -9,11 +9,14 @@ import ReviewElementView from './pages/ReviewElementPage';
 import DomainPage from './pages/DomainPage';
 import ReviewElementAddPage from './pages/ReviewElementAddPage';
 
+import ProtectedRoutes from './logic/ProtectedRoutes';
+
 import parseJwt from './logic/JWTutil'
 
 import { useContext } from 'react';
 import UserContext from './store/user-context';
 import { useState, useEffect } from 'react';
+import ProfilePage from './pages/ProfilePage';
 
 function App() {
 
@@ -50,7 +53,9 @@ function App() {
               "name" : data.name,
               "surname" : data.surname,
               "username" : data.username,
-              "permission" : data.permission
+              "permission" : data.permission,
+              "email" : data.email,
+              "imgUrl" : data.imgUrl
           }
           userCtx.openUser(user);
           userCtx.setRestrictions(data.permission.roleDetails.restrictions);
@@ -65,11 +70,14 @@ function App() {
           <Route path='/' exact element={<LandingPage />} />
           <Route path='/register'element={<Register />} />
           <Route path='/login' element={<Login />} />
-          <Route path='/main' element={<MainPage />} />
-          <Route path='/reviewElements' element={<ReviewElementListPage />} />
-          <Route path='/reviewElements/:id' element={<ReviewElementView />} />
-          <Route path='/reviewElement/domain/:id' element={<DomainPage />} />
-          <Route path='/reviewElements/create-company' element={<ReviewElementAddPage />} />
+          <Route element={<ProtectedRoutes />}>
+            <Route path='/main' element={<MainPage />} />
+            <Route path='/reviewElements' element={<ReviewElementListPage />} />
+            <Route path='/reviewElements/:id' element={<ReviewElementView />} />
+            <Route path='/reviewElement/domain/:id' element={<DomainPage />} />
+            <Route path='/reviewElements/create-company' element={<ReviewElementAddPage />} />
+            <Route path='/profile/:username' element ={<ProfilePage />} />
+          </Route>
       </Routes>
     </div>
   );

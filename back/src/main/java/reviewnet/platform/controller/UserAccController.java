@@ -8,7 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
-
+import reviewnet.platform.domain.security.PasswordChangeAttempt;
 import reviewnet.platform.domain.user.User;
 import reviewnet.platform.service.UserAccService;
 
@@ -89,6 +89,29 @@ public class UserAccController {
 	        	return new ResponseEntity<User>(user, HttpStatus.BAD_REQUEST);
 	        }
 	        
+	 }
+	 
+	 @PutMapping(value="/edit/{id}")
+	 public ResponseEntity<User> editUser(@PathVariable String id, @RequestBody User user){
+		 HttpStatus userEditHandler = userAccService.updateUser(id, user);
+		 if(userEditHandler == HttpStatus.ACCEPTED) {
+	        	return new ResponseEntity<User>(user, HttpStatus.ACCEPTED);
+	        }
+		 return new ResponseEntity<User>(HttpStatus.BAD_REQUEST);
+	 }
+	 
+	 @PutMapping(value="/change-password/{id}")
+	 public ResponseEntity<User> changePassword(@PathVariable String id, @RequestBody PasswordChangeAttempt password) {
+		 HttpStatus changePasswordHandler = userAccService.changePassword(id, password);
+		 if(changePasswordHandler == HttpStatus.ACCEPTED) {
+			 return new ResponseEntity<User>(HttpStatus.ACCEPTED);
+		 }
+		 else if(changePasswordHandler == HttpStatus.UNAUTHORIZED) {
+			 return new ResponseEntity<User>(HttpStatus.UNAUTHORIZED);
+		 }
+		 else {
+			 return new ResponseEntity<User>(HttpStatus.UNAUTHORIZED);
+		 }
 	 }
 	 
 	 @PutMapping(value="userId/{id}/logic-delete")

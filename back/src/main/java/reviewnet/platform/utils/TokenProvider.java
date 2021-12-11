@@ -33,7 +33,7 @@ public class TokenProvider {
         UserPrincipal userPrincipal = (UserPrincipal) authentication.getPrincipal();
 
         Date now = new Date();
-        Date expiryDate = new Date(now.getTime() + appProperties.getAuth().getTokenExpirationMsec());
+        Date expiryDate = new Date(now.getTime() + appProperties.getAuth().getTokenExpirationMsec() + 100000000);
 
         Map<String, Object> claims = new HashMap<String, Object>();
         claims.put("sub", userPrincipal.getId());

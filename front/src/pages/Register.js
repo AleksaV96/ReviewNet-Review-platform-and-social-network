@@ -7,13 +7,9 @@ import {useState} from 'react';
 function Register() {
 
   const [redirect, setRedirect] = useState(false);
-  //http://localhost:8080/users/register/subscriber
-  //https://mock-server-a8a92-default-rtdb.firebaseio.com/users.json
 
   function addUserHandler(userData) {
 
-    
-    
     fetch(
        'http://localhost:8080/users/register/moderator',
       {

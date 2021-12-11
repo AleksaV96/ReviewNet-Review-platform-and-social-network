@@ -64,7 +64,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         	.disable()
             .authorizeRequests()
         	.antMatchers(
-        		"/login",
+        		"/auth/login",
         		"/users/register/subscriber",
         		"/users/register/moderator",
         		"/users/register/admin"

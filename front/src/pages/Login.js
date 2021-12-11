@@ -14,7 +14,7 @@ function Login() {
     function loginHandler(loginData) {
         
         fetch(
-           'http://localhost:8080/login',
+           'http://localhost:8080/auth/login',
           {
             method: 'POST',
             body: JSON.stringify(loginData),

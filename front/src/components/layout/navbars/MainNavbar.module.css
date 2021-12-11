@@ -7,6 +7,11 @@
     background-color: #535353;
     padding: 0 10%;
   }
+
+  .header img {
+    height: 50px;
+    width: 50px;
+  }
   
   .logo {
     font-size: 2rem;
