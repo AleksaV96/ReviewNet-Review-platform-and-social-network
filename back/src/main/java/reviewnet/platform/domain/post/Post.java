@@ -15,13 +15,13 @@ public class Post {
 	private String name;
 	private String content;
 	private String authorUsername;
-	private Like[] likes;
+	private List<Like> likes = new ArrayList<Like>();
 	private List<String> replies = new ArrayList<String>();
 	
 	public Post() {
 	}
 	
-	public Post(String id, String name, String content, String authorUsername, Like[] likes, List<String> replies) {
+	public Post(String id, String name, String content, String authorUsername, List<Like> likes, List<String> replies) {
 		this.id = id;
 		this.name = name;
 		this.content = content;
@@ -62,12 +62,16 @@ public class Post {
 		this.authorUsername = authorUsername;
 	}
 
-	public Like[] getLikes() {
+	public List<Like> getLikes() {
 		return likes;
 	}
 
-	public void setLikes(Like[] likes) {
+	public void setLikes(List<Like> likes) {
 		this.likes = likes;
+	}
+	
+	public void addLike(Like like) {
+		this.likes.add(like);
 	}
 
 	public List<String> getReplies() {

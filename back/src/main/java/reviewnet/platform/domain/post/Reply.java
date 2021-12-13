@@ -11,7 +11,7 @@ public class Reply extends Post {
 	public Reply() {
 	}
 
-	public Reply(String id, String name, String content, String authorUsername, Like[] likes, List<String> replies) {
+	public Reply(String id, String name, String content, String authorUsername, List<Like> likes, List<String> replies) {
 		super(id, name, content, authorUsername, likes, replies);
 	}
 		

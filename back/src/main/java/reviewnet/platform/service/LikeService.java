@@ -20,8 +20,6 @@ import reviewnet.platform.repository.post.type.PostRepository;
 @Service
 public class LikeService {
 	
-	Query query = new Query();
-	
 	@Autowired
 	LikeRepository likeRepository;
 	
@@ -48,22 +46,35 @@ public class LikeService {
 		likeRepository.delete(like.get());
 	}
 	
-	public void likePost(String userId, String postId) {
+	public void likePost(String postId, String username, String type, int value) {
+		Query query = new Query();
 		Optional<Post> post = postRepository.findById(postId);
         if (post.isPresent()) {
             Like like = new Like();
-            like.setLikeCreator(userId);
-            like.setValue(1);
+            like.setLikeCreatorName(username);
+            like.setType(type);
+            like.setValue(value);
             query.addCriteria(Criteria.where("id").is(postId));
             mongoTemplate.updateFirst(query, new Update().push("likes", like), Post.class);
         }
     }
 
-    public void unlikePost(String userId, String postId) {
+	public void unlikePost(String postId, String username) {
+		Query query = new Query();
         Optional<Post> post = postRepository.findById(postId);
         if (post.isPresent()) {
-            query.addCriteria(Criteria.where("likes").elemMatch(Criteria.where("owner").is(userId)));
-            Update update = new Update().pull("likes", new BasicDBObject("owner", userId));
+            query.addCriteria(Criteria.where("likes").elemMatch(Criteria.where("likeCreatorName").is(username).and("type").is("LIKE")));
+            Update update = new Update().pull("likes", new BasicDBObject("likeCreatorName", username));
+            mongoTemplate.updateMulti(query, update, Post.class);
+        }
+    }
+	
+	public void undislikePost(String postId, String username) {
+		Query query = new Query();
+        Optional<Post> post = postRepository.findById(postId);
+        if (post.isPresent()) {
+            query.addCriteria(Criteria.where("likes").elemMatch(Criteria.where("likeCreatorName").is(username).and("type").is("DISLIKE")));
+            Update update = new Update().pull("likes", new BasicDBObject("likeCreatorName", username));
             mongoTemplate.updateMulti(query, update, Post.class);
         }
     }

@@ -85,7 +85,7 @@ function MainPage() {
               "imgUrl" : data.imgUrl
           }
           userCtx.openUser(user);
-          userCtx.setRestrictions(data.permission.roleDetails.restrictions);
+          //userCtx.setRestrictions(data.permission.roleDetails.restrictions);
           console.log("MAIN METODA SE POZVALA!!!")
           setIsUserLogged(true);
           });

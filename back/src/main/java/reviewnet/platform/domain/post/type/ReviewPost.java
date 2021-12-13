@@ -16,7 +16,7 @@ public class ReviewPost extends Post {
 	public ReviewPost() {
 	}
 
-	public ReviewPost(String id, String name, String content, String authorUsername, Like[] likes, List<String> replies,
+	public ReviewPost(String id, String name, String content, String authorUsername, List<Like> likes, List<String> replies,
 			double grade) {
 		super(id, name, content, authorUsername, likes, replies);
 		this.grade = grade;

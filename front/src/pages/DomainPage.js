@@ -41,10 +41,9 @@ function DomainPage() {
                 id: key,
                 ...data[key]
             };
-
+            
             posts.push(post);
             }
-           
             setIsLoading(false);
             setLoadedPosts(posts);
             
@@ -117,7 +116,6 @@ function DomainPage() {
         }
     }
     */
-
     
     return (
         <MainLayout>

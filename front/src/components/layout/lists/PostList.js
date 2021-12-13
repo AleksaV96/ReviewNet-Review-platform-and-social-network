@@ -3,7 +3,6 @@ import classes from "./PostList.module.css";
 import { Link } from 'react-router-dom';
 
 function PostList(props) {
-
     return (
         <ul className={classes.list}>
           {props.posts.map((post) => (
@@ -13,6 +12,7 @@ function PostList(props) {
               id={post.id}
               name={post.name}
               content={post.content}
+              likes={post.likes}
               authorUsername={post.authorUsername}
               grade={post.grade}
             />

@@ -56,7 +56,7 @@ public class PostService {
     }
 	
 	public Iterable<Post> getAbstractPostSpacePosts(String id) {
-        List<String> postIds;
+		List<String> postIds;
         List<Post> posts = new ArrayList<Post>();
         Post post;
 
@@ -67,5 +67,6 @@ public class PostService {
             posts.add(post);
         }
         return posts;
+
     }
 }

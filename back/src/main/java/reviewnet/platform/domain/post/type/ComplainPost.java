@@ -13,7 +13,7 @@ public class ComplainPost extends Post {
 	public ComplainPost() {
 	}
 	
-	public ComplainPost(String id, String name, String content, String authorUsername, Like[] likes, List<String> replies) {
+	public ComplainPost(String id, String name, String content, String authorUsername, List<Like> likes, List<String> replies) {
 		super(id, name, content, authorUsername, likes, replies);
 	}
 

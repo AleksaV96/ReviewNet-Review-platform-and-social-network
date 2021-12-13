@@ -9,6 +9,7 @@ function RegisterForm(props) {
     const surnameInputRef = useRef();
     const usernameInputRef = useRef();
     const passwordInputRef = useRef();
+    const repeatPasswordInputRef = useRef();
     const emailInputRef = useRef();
     const imgUrlInputRef = useRef();
 
@@ -19,21 +20,26 @@ function RegisterForm(props) {
         const enteredSurname = surnameInputRef.current.value;
         const enteredUsername = usernameInputRef.current.value;
         const enteredPassword = passwordInputRef.current.value;
+        const repeatedPassword = repeatPasswordInputRef.current.value;
         const enteredEmail = emailInputRef.current.value;
         const enteredImgUrl = imgUrlInputRef.current.value;
+
+        if(enteredPassword !== repeatedPassword){
+          return alert("PASSWORDS DONT MATACH!")
+        }
     
 
-    const userData = {
-        name: enteredName,
-        surname: enteredSurname,
-        username: enteredUsername,
-        password: enteredPassword,
-        email: enteredEmail,
-        imgUrl: enteredImgUrl,
-    };
+      const userData = {
+          name: enteredName,
+          surname: enteredSurname,
+          username: enteredUsername,
+          password: enteredPassword,
+          email: enteredEmail,
+          imgUrl: enteredImgUrl,
+      };
 
-      props.onUserAdd(userData);
-    }
+        props.onUserAdd(userData);
+      }
 
     return (
         <Card>
@@ -53,6 +59,10 @@ function RegisterForm(props) {
             <div className={classes.control}>
              <label htmlFor='password'>Password</label>
              <input type='password' required id='password' ref={passwordInputRef} />
+            </div>
+            <div className={classes.control}>
+             <label htmlFor='password'>Repeat password</label>
+             <input type='password' required id='password' ref={repeatPasswordInputRef} />
             </div>
             <div className={classes.control}>
              <label htmlFor='email'>Email</label>

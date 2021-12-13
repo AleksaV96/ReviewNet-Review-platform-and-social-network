@@ -38,6 +38,7 @@ function Login() {
         }
         else{
             alert("WRONG USERNAME OR PASSWORD");
+            window.location.reload(); // temp fix
         }
     }
 

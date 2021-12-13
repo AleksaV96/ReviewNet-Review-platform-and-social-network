@@ -5,6 +5,8 @@ import java.util.List;
 
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import reviewnet.platform.domain.post.Post;
+
 @Document
 public class AbstractPostSpace {
 	

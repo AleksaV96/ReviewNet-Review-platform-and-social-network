@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import reviewnet.platform.domain.post.Like;
 import reviewnet.platform.domain.post.Post;
 import reviewnet.platform.domain.post.Reply;
 import reviewnet.platform.domain.post.type.ComplainPost;
@@ -101,14 +102,20 @@ public class PostController {
     }
 	
 	@PostMapping(value = "postId/{id}/like")
-    public ResponseEntity<String> likePost(@PathVariable String id, @RequestBody String userId) {
-        likeService.likePost(userId, id);
+    public ResponseEntity<String> likePost(@PathVariable String id, @RequestBody Like like) {
+        likeService.likePost(id, like.getLikeCreatorName(), like.getType(), like.getValue());
         return new ResponseEntity<String>("Liked", HttpStatus.OK);
     }
 
     @PostMapping(value = "postId/{id}/unlike")
-    public ResponseEntity<String> unlikePost(@PathVariable String id, @RequestBody String userId) {
-        likeService.unlikePost(userId, id);
+    public ResponseEntity<String> unlikePost(@PathVariable String id, @RequestBody Like like) {
+        likeService.unlikePost(id, like.getLikeCreatorName());
+        return new ResponseEntity<String>("Unliked", HttpStatus.OK);
+    }
+    
+    @PostMapping(value = "postId/{id}/undislike")
+    public ResponseEntity<String> undislike(@PathVariable String id, @RequestBody Like like) {
+        likeService.undislikePost(id, like.getLikeCreatorName());
         return new ResponseEntity<String>("Unliked", HttpStatus.OK);
     }
 }

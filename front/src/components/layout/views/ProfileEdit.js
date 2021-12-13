@@ -64,7 +64,7 @@ function ProfileEdit(props) {
          };
     
     if(changed && !(usernameChanged)){
-    return(<Navigate to="/main" />)
+      window.location.reload();
     }
     else if(changed && usernameChanged) {
       logout();

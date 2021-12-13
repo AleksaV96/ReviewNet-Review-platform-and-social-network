@@ -23,3 +23,11 @@
     max-width: 2cm;
     float: right;
   }
+
+.like {
+  cursor:pointer;
+}
+
+.like:hover {
+  color:#f83200;
+}

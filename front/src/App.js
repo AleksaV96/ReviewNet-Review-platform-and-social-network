@@ -58,7 +58,7 @@ function App() {
               "imgUrl" : data.imgUrl
           }
           userCtx.openUser(user);
-          userCtx.setRestrictions(data.permission.roleDetails.restrictions);
+          //userCtx.setRestrictions(data.permission.roleDetails.restrictions);
           setIsUserLogged(true);
           });
         }
