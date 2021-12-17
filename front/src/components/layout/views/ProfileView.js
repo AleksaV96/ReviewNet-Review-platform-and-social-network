@@ -1,3 +1,4 @@
+import React from 'react';
 import classes from './ProfileView.module.css'
 
 function ProfileView(props) {

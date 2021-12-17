@@ -1,3 +1,4 @@
+import React from 'react';
 import MainNavbar from './navbars/MainNavbar';
 
 import classes from './MainLayout.module.css'

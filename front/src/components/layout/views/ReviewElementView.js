@@ -1,3 +1,4 @@
+import React from 'react';
 import classes from '../cards/ReviewElementCard.module.css';
 import ReviewElementViewCard from '../cards/ReviewElementViewCard';
 

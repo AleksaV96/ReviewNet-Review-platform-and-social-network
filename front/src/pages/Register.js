@@ -1,3 +1,4 @@
+import React from 'react';
 import RegisterForm from '../components/forms/RegisterForm'
 import LandingPageLayout from '../components/layout/LandingPageLayout';
 import {Navigate } from 'react-router-dom';
@@ -44,7 +45,6 @@ function Register() {
     return(
       <LandingPageLayout>
         <section>
-          <h1>Register</h1>
           <RegisterForm onUserAdd={addUserHandler} />
         </section>
       </LandingPageLayout>

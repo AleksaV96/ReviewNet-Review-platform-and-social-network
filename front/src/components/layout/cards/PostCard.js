@@ -1,3 +1,4 @@
+import React from 'react';
 import classes from "./PostCard.module.css";
 import Card from "../../ui/Card";
 
@@ -12,8 +13,8 @@ function PostCard(props) {
     var likeScore = 0;
     var username = userCtx.content.username;
 
-    var likeButton = <p className={classes.like} onClick={likeHandler}>Like</p>; 
-    var dislikeButton = <p className={classes.like} onClick={dislikeHandler}>Dislike</p>; 
+    var likeButton = <p className={classes.like} onClick={likeHandler}>Like👍</p>; 
+    var dislikeButton = <p className={classes.like} onClick={dislikeHandler}>Dislike👎</p>; 
 
 
     if(props.likes !== undefined){
@@ -21,19 +22,18 @@ function PostCard(props) {
     }
 
     for(let i=0; i < likes.length; i++){
-      console.log(likes[i]);
       likeScore += likes[i].value;
     }
 
     for(let i=0; i < likes.length; i++){
       if(likes[i].likeCreatorName === username){
         if(likes[i].type === "LIKE"){
-          likeButton = <p className={classes.like} onClick={unLikeHandler}>Liked</p>;
+          likeButton = <p className={classes.likeClicked} onClick={unLikeHandler}>Liked👍</p>;
           dislikeButton = <p></p>;
           break;
         }
         else if(likes[i].type === "DISLIKE"){
-          dislikeButton = <p className={classes.like} onClick={unDislikeHandler}>Disliked</p>;
+          dislikeButton = <p className={classes.dislikeClicked} onClick={unDislikeHandler}>Disliked👎</p>;
           likeButton = <p></p>;
           break;
         }
@@ -65,7 +65,7 @@ function PostCard(props) {
           'http://localhost:8080/posts/postId/' + props.id + '/unlike',
         {
           method: 'POST',
-          body: JSON.stringify({likeCreatorName : username}),
+          body: JSON.stringify({likeCreatorName : username, type : "LIKE"}),
           headers: {
               'Content-Type': 'application/json',
           },
@@ -94,10 +94,10 @@ function PostCard(props) {
 
         function unDislikeHandler() {
           fetch(
-            'http://localhost:8080/posts/postId/' + props.id + '/undislike',
+            'http://localhost:8080/posts/postId/' + props.id + '/unlike',
           {
             method: 'POST',
-            body: JSON.stringify({likeCreatorName : username}),
+            body: JSON.stringify({likeCreatorName : username, type : "DISLIKE"}),
             headers: {
                 'Content-Type': 'application/json',
             },

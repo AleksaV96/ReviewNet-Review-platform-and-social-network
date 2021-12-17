@@ -59,23 +59,14 @@ public class LikeService {
         }
     }
 
-	public void unlikePost(String postId, String username) {
+	public void unlikePost(String postId, String username, String type) {
 		Query query = new Query();
         Optional<Post> post = postRepository.findById(postId);
         if (post.isPresent()) {
-            query.addCriteria(Criteria.where("likes").elemMatch(Criteria.where("likeCreatorName").is(username).and("type").is("LIKE")));
+            query.addCriteria(Criteria.where("likes").elemMatch(Criteria.where("likeCreatorName").is(username).and("type").is(type)));
             Update update = new Update().pull("likes", new BasicDBObject("likeCreatorName", username));
             mongoTemplate.updateMulti(query, update, Post.class);
         }
     }
 	
-	public void undislikePost(String postId, String username) {
-		Query query = new Query();
-        Optional<Post> post = postRepository.findById(postId);
-        if (post.isPresent()) {
-            query.addCriteria(Criteria.where("likes").elemMatch(Criteria.where("likeCreatorName").is(username).and("type").is("DISLIKE")));
-            Update update = new Update().pull("likes", new BasicDBObject("likeCreatorName", username));
-            mongoTemplate.updateMulti(query, update, Post.class);
-        }
-    }
 }

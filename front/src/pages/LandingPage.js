@@ -1,3 +1,4 @@
+import React from 'react';
 import LandingPageLayout from "../components/layout/LandingPageLayout";
 
 function LandingPage() {

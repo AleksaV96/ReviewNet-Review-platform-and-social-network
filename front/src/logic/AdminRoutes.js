@@ -3,15 +3,15 @@ import { Navigate, Outlet } from "react-router";
 
 import parseJwt from './JWTutil';
 
-function ProtectedRoutes() {
+function AdminRoutes() {
 
     const useAuth = () => {
 
         const token = localStorage.getItem('Bearer')
 
         if(token !== null) {
-            const auth = parseJwt(token).sub
-            if(auth.length === 24) {
+            const role = parseJwt(token).role[0].authority;
+            if(role === 'ROLE_ADMIN') {
                 return true
             }
         }
@@ -20,8 +20,10 @@ function ProtectedRoutes() {
 
     const isAuth = useAuth()
 
-    return isAuth ? <Outlet /> : <Navigate to="/login" />
+    return isAuth ? <Outlet /> : alert("You need admin permission") ;
+
+
 
 }
 
-export default ProtectedRoutes;
+export default AdminRoutes;

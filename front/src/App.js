@@ -1,3 +1,4 @@
+import React from 'react';
 import { Route, Routes } from 'react-router-dom';
 
 import LandingPage from './pages/LandingPage';
@@ -8,8 +9,11 @@ import ReviewElementListPage from './pages/ReviewElementListPage';
 import ReviewElementView from './pages/ReviewElementPage';
 import DomainPage from './pages/DomainPage';
 import ReviewElementAddPage from './pages/ReviewElementAddPage';
+import Dashboard from './pages/Dashboard';
+import ProfileAdminEdit from './components/layout/views/ProfileAdminEdit';
 
 import ProtectedRoutes from './logic/ProtectedRoutes';
+import AdminRoutes from './logic/AdminRoutes';
 
 import parseJwt from './logic/JWTutil'
 
@@ -58,7 +62,13 @@ function App() {
               "imgUrl" : data.imgUrl
           }
           userCtx.openUser(user);
-          //userCtx.setRestrictions(data.permission.roleDetails.restrictions);
+          
+          try{
+          userCtx.setRestrictions(data.permission.roleDetails.restrictions);
+          }
+          catch(error){
+            console.log(error);
+          }
           setIsUserLogged(true);
           });
         }
@@ -71,12 +81,16 @@ function App() {
           <Route path='/register'element={<Register />} />
           <Route path='/login' element={<Login />} />
           <Route element={<ProtectedRoutes />}>
-            <Route path='/main' element={<MainPage />} />
-            <Route path='/reviewElements' element={<ReviewElementListPage />} />
-            <Route path='/reviewElements/:id' element={<ReviewElementView />} />
-            <Route path='/reviewElement/domain/:id' element={<DomainPage />} />
-            <Route path='/reviewElements/create-company' element={<ReviewElementAddPage />} />
-            <Route path='/profile/:username' element ={<ProfilePage />} />
+              <Route path='/main' element={<MainPage />} />
+              <Route path='/reviewElements' element={<ReviewElementListPage />} />
+              <Route path='/reviewElements/:id' element={<ReviewElementView />} />
+              <Route path='/reviewElement/domain/:id' element={<DomainPage />} />
+              <Route path='/reviewElements/create-company' element={<ReviewElementAddPage />} />
+              <Route path='/profile/:username' element ={<ProfilePage />} />
+          </Route>
+          <Route element={<AdminRoutes />}>
+              <Route path='/dashboard' element={<Dashboard/>} />
+              <Route path='/dashboard/user/:id' element={<ProfileAdminEdit/>} />
           </Route>
       </Routes>
     </div>

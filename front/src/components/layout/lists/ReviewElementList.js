@@ -1,3 +1,4 @@
+import React from 'react';
 import ReviewElementCard from "../cards/ReviewElementCard";
 import classes from "./ReviewElementList.module.css"
 import { Link } from 'react-router-dom';

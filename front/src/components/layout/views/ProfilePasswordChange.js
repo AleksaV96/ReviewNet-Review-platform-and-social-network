@@ -1,3 +1,4 @@
+import React from 'react';
 import { useRef } from 'react';
 import Card from '../../ui/Card';
 import classes from './ProfileEdit.module.css';

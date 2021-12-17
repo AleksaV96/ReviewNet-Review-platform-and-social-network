@@ -1,3 +1,4 @@
+import React from 'react';
 import PostCard from "../cards/PostCard";
 import classes from "./PostList.module.css";
 import { Link } from 'react-router-dom';

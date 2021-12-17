@@ -1,13 +1,17 @@
+import React from 'react';
 import { useContext } from 'react';
 import ProfileView from '../components/layout/views/ProfileView';
 import ProfileEdit from '../components/layout/views/ProfileEdit';
 import UserContext from '../store/user-context';
+
+import useStyles from './pages.style';
 
 import { useState, useEffect } from 'react';
 import MainLayout from '../components/layout/MainLayout';
 import ProfilePasswordChange from '../components/layout/views/ProfilePasswordChange';
 
 function ProfilePage() {
+    const classes = useStyles();
 
     const userCtx = useContext(UserContext); 
     const [loadedUser, setLoadedUser] = useState({});
@@ -72,7 +76,7 @@ function ProfilePage() {
 
 
     return (
-        <MainLayout>
+        <MainLayout >
             <ProfileView profile={loadedUser}/>
             <button onClick={editProfileHandler}>EDIT</button>
             <button onClick={setPasswordChangeMode}>CHANGE PASSWORD</button>

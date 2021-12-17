@@ -3,8 +3,6 @@ package reviewnet.platform.domain.space;
 import java.util.List;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-import reviewnet.platform.domain.post.Post;
-
 @Document
 public class Theme extends AbstractPostSpace {
 	

@@ -109,13 +109,8 @@ public class PostController {
 
     @PostMapping(value = "postId/{id}/unlike")
     public ResponseEntity<String> unlikePost(@PathVariable String id, @RequestBody Like like) {
-        likeService.unlikePost(id, like.getLikeCreatorName());
+        likeService.unlikePost(id, like.getLikeCreatorName(), like.getType());
         return new ResponseEntity<String>("Unliked", HttpStatus.OK);
     }
     
-    @PostMapping(value = "postId/{id}/undislike")
-    public ResponseEntity<String> undislike(@PathVariable String id, @RequestBody Like like) {
-        likeService.undislikePost(id, like.getLikeCreatorName());
-        return new ResponseEntity<String>("Unliked", HttpStatus.OK);
-    }
 }

@@ -100,13 +100,19 @@ public class UserAccService {
 	public void logicDeleteUser(String id) {
 		 Optional<User> user = userAccRepository.findById(id);
 		 user.get().setLogicDelete(true);
-		 updateUser(id, user.get());
+		 userAccRepository.save(user.get());
 	}
 	
 	public void restoreUser(String id) {
 		 Optional<User> user = userAccRepository.findById(id);
 		 user.get().setLogicDelete(false);
-		 updateUser(id, user.get());
+		 userAccRepository.save(user.get());
+	}
+	
+	public void setActiveStatus(String id, boolean status) {
+		 Optional<User> user = userAccRepository.findById(id);
+		 user.get().setLogicDelete(status);
+		 userAccRepository.save(user.get());
 	}
 	
 	public void removeUser(String id) {
@@ -122,6 +128,7 @@ public class UserAccService {
 			usr.get().setUsername(user.getUsername());
 			usr.get().setEmail(user.getEmail());
 			usr.get().setImgUrl(user.getImgUrl());
+			usr.get().setPermission(user.getPermission());
 			userAccRepository.save(usr.get());
 			return HttpStatus.ACCEPTED;
 		}

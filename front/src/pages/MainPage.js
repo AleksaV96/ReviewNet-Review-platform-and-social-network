@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import React from 'react';
 
 import PostList from "../components/layout/lists/PostList";
 import MainLayout from "../components/layout/MainLayout";
@@ -85,8 +86,12 @@ function MainPage() {
               "imgUrl" : data.imgUrl
           }
           userCtx.openUser(user);
-          //userCtx.setRestrictions(data.permission.roleDetails.restrictions);
-          console.log("MAIN METODA SE POZVALA!!!")
+          try{
+            userCtx.setRestrictions(data.permission.roleDetails.restrictions);
+            }
+            catch(error){
+              console.log(error);
+            }
           setIsUserLogged(true);
           });
         }

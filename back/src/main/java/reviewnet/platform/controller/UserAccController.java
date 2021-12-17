@@ -33,6 +33,15 @@ public class UserAccController {
 		 	return new ResponseEntity<User>(HttpStatus.NOT_FOUND);
 	 }
 	 
+	 @GetMapping(value="/admin/userId/{id}")
+	 public ResponseEntity<User> getUserByIdAdmin(@PathVariable String id) {
+		 Optional<User> accountData = userAccService.getById(id);
+		 	if(accountData.isPresent()) {
+		 		return new ResponseEntity<User>(accountData.get(), HttpStatus.OK);
+	 }
+		 	return new ResponseEntity<User>(HttpStatus.NOT_FOUND);
+	 }
+	 
 	 @GetMapping(value="/{username}")
 	 public ResponseEntity<User> getByUsername(@PathVariable String username) {
 		 Optional<User> accountData = userAccService.findByUsername(username);
@@ -128,6 +137,16 @@ public class UserAccController {
 	 	public ResponseEntity<User> restoreUser(@PathVariable String id){
 		 	try {
 	            userAccService.restoreUser(id);
+	        }catch(Exception e){
+	            return new ResponseEntity<User>(HttpStatus.NOT_FOUND);
+	        }
+	        return new ResponseEntity<User>(HttpStatus.ACCEPTED);
+	 }
+	 
+	 @PutMapping(value="userId/{id}/set-active-status")
+	 	public ResponseEntity<User> activeStauts(@PathVariable String id, @RequestBody boolean status){
+		 	try {
+	            userAccService.setActiveStatus(id, status);
 	        }catch(Exception e){
 	            return new ResponseEntity<User>(HttpStatus.NOT_FOUND);
 	        }

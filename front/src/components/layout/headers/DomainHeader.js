@@ -1,3 +1,4 @@
+import React from 'react';
 import DomainHeaderItem from "./DomainHeaderItem"
 
 import classes from './DomainHeader.module.css'

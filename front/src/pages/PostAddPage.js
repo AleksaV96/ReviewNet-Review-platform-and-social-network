@@ -1,3 +1,4 @@
+import React from 'react';
 import PostForm from "../components/forms/PostForm";
 import ReviewPostForm from "../components/forms/ReviewPostForm";
 

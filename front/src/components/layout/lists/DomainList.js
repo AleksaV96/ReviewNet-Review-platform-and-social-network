@@ -1,3 +1,4 @@
+import React from 'react';
 import classes from "./DomainList.module.css";
 import DomainCard from "../cards/DomainCard"
 import { Link } from 'react-router-dom';
