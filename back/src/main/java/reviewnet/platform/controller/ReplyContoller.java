@@ -8,7 +8,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import reviewnet.platform.domain.post.Like;
 import reviewnet.platform.domain.post.Reply;
+import reviewnet.platform.service.LikeService;
 import reviewnet.platform.service.ReplyService;
 
 @Controller
@@ -17,6 +19,9 @@ public class ReplyContoller {
 	
 	@Autowired
 	ReplyService replyService;
+	
+	@Autowired
+	LikeService likeService;
 	
 	@GetMapping(value="/all")
 	public ResponseEntity<Iterable<Reply>> getAllReplies() {
@@ -40,5 +45,17 @@ public class ReplyContoller {
             return new ResponseEntity<Reply>(HttpStatus.NOT_FOUND);
         }
         return new ResponseEntity<Reply>(HttpStatus.NO_CONTENT);
+    }
+	
+	@PostMapping(value = "replyId/{id}/like")
+    public ResponseEntity<String> likeReply(@PathVariable String id, @RequestBody Like like) {
+        likeService.likeReply(id, like.getLikeCreatorName(), like.getType(), like.getValue());
+        return new ResponseEntity<String>("Liked", HttpStatus.OK);
+    }
+
+    @PostMapping(value = "replyId/{id}/unlike")
+    public ResponseEntity<String> unlikeReply(@PathVariable String id, @RequestBody Like like) {
+        likeService.unlikeReply(id, like.getLikeCreatorName(), like.getType());
+        return new ResponseEntity<String>("Unliked", HttpStatus.OK);
     }
 }

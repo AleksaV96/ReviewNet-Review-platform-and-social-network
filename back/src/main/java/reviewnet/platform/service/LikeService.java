@@ -13,7 +13,9 @@ import com.mongodb.BasicDBObject;
 
 import reviewnet.platform.domain.post.Like;
 import reviewnet.platform.domain.post.Post;
+import reviewnet.platform.domain.post.Reply;
 import reviewnet.platform.repository.post.LikeRepository;
+import reviewnet.platform.repository.post.ReplyRepository;
 import reviewnet.platform.repository.post.type.PostRepository;
 
 
@@ -25,6 +27,9 @@ public class LikeService {
 	
 	@Autowired 
 	PostRepository postRepository;
+	
+	@Autowired
+	ReplyRepository replyRepository;
 	
 	@Autowired
     private MongoTemplate mongoTemplate;
@@ -66,6 +71,29 @@ public class LikeService {
             query.addCriteria(Criteria.where("likes").elemMatch(Criteria.where("likeCreatorName").is(username).and("type").is(type)));
             Update update = new Update().pull("likes", new BasicDBObject("likeCreatorName", username));
             mongoTemplate.updateMulti(query, update, Post.class);
+        }
+    }
+	
+	public void likeReply(String replyId, String username, String type, int value) {
+		Query query = new Query();
+		Optional<Reply> reply = replyRepository.findById(replyId);
+        if (reply.isPresent()) {
+            Like like = new Like();
+            like.setLikeCreatorName(username);
+            like.setType(type);
+            like.setValue(value);
+            query.addCriteria(Criteria.where("id").is(replyId));
+            mongoTemplate.updateFirst(query, new Update().push("likes", like), Reply.class);
+        }
+    }
+	
+	public void unlikeReply(String replyId, String username, String type) {
+		Query query = new Query();
+        Optional<Reply> reply = replyRepository.findById(replyId);
+        if (reply.isPresent()) {
+            query.addCriteria(Criteria.where("likes").elemMatch(Criteria.where("likeCreatorName").is(username).and("type").is(type)));
+            Update update = new Update().pull("likes", new BasicDBObject("likeCreatorName", username));
+            mongoTemplate.updateMulti(query, update, Reply.class);
         }
     }
 	

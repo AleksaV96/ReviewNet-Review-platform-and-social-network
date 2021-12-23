@@ -4,6 +4,8 @@ import java.util.List;
 
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import reviewnet.platform.domain.user.User;
+
 
 @Document
 public class Reply extends Post {
@@ -11,9 +13,10 @@ public class Reply extends Post {
 	public Reply() {
 	}
 
-	public Reply(String id, String name, String content, String authorUsername, List<Like> likes, List<String> replies) {
-		super(id, name, content, authorUsername, likes, replies);
+	public Reply(String id, String name, String content, String authorUsername, User author, String elementId,
+			String postLocation, List<Like> likes, List<String> replies) {
+		super(id, name, content, authorUsername, author, elementId, postLocation, likes, replies);
 	}
-		
+
 
 }

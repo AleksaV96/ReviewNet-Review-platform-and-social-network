@@ -14,9 +14,16 @@ function MainPage() {
     const [isLoading, setIsLoading] = useState(true);
     const [loadedPosts, setLoadedPosts] = useState([]);
 
-    const address = 'http://localhost:8080/posts/all';
-
+    let userId;
+    let address;
+    let token = localStorage.getItem('Bearer');
     const userCtx = useContext(UserContext);
+
+    if(token !== null){
+        userId = parseJwt(token).sub;
+        address = 'http://localhost:8080/users/userId/' + userId + '/getFeed';
+    }
+
 
     useEffect(() => {
         setIsLoading(true);
@@ -52,7 +59,7 @@ function MainPage() {
     let address2;
     let userSearch;
     const [isUserLogged, setIsUserLogged] = useState(false);
-    let token = localStorage.getItem('Bearer');
+    
     
     if(token !== null){
         userSearch = parseJwt(token).uniq;
@@ -83,7 +90,9 @@ function MainPage() {
               "username" : data.username,
               "permission" : data.permission,
               "email" : data.email,
-              "imgUrl" : data.imgUrl
+              "imgUrl" : data.imgUrl,
+              "friends" : data.friends,
+              "subscribed" : data.subscribed
           }
           userCtx.openUser(user);
           try{

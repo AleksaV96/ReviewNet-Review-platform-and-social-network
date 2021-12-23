@@ -1,5 +1,6 @@
 package reviewnet.platform.service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -8,6 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.PathVariable;
 
 import reviewnet.platform.domain.element.ReviewElement;
+import reviewnet.platform.domain.post.Post;
 import reviewnet.platform.domain.user.User;
 import reviewnet.platform.domain.user.role.restriction.RestrictionType;
 import reviewnet.platform.repository.user.UserRepository;
@@ -25,17 +27,37 @@ public class UserFunctionsService {
 	@Autowired 
 	PermissionService permissionService;
 	
-	public Optional<User> addFriend (String id, User friend){
+	@Autowired
+	PostService postService;
+	
+	@Autowired
+	ReviewElementService elementService;
+	
+	public Optional<User> addFriend (String id, String friendId){
 		Optional<User> selectedUser = userAccService.getById(id);
-		selectedUser.get().getFriends().add(friend.getId());
-		userAccService.updateUser(id, selectedUser.get());
+		selectedUser.get().getFriends().add(friendId);
+		userFunctionsRepository.save(selectedUser.get());
 		return selectedUser;
 	}
 	
-	public Optional<User> subscribe (String id, ReviewElement reviewElement){
+	public Optional<User> removeFriend (String id, String friendId){
 		Optional<User> selectedUser = userAccService.getById(id);
-		selectedUser.get().getSubscribed().add(reviewElement.getId());
-		userAccService.updateUser(id, selectedUser.get());
+		selectedUser.get().getFriends().remove(friendId);
+		userFunctionsRepository.save(selectedUser.get());
+		return selectedUser;
+	}
+	
+	public Optional<User> subscribe (String id, String elementId){
+		Optional<User> selectedUser = userAccService.getById(id);
+		selectedUser.get().getSubscribed().add(elementId);
+		userFunctionsRepository.save(selectedUser.get());
+		return selectedUser;
+	}
+	
+	public Optional<User> unsubscribe (String id, String elementId){
+		Optional<User> selectedUser = userAccService.getById(id);
+		selectedUser.get().getSubscribed().remove(elementId);
+		userFunctionsRepository.save(selectedUser.get());
 		return selectedUser;
 	}
 	
@@ -106,7 +128,60 @@ public class UserFunctionsService {
 			}
 		return Optional.empty();
 		}
-
 	
+	
+	public Iterable<Post> getUserFeed(String id){
+		
+		List<String> friendList;
+		List<String> subsList;
+		
+		List<Post> feedPostsList = new ArrayList<Post>();
+		Optional<User> selectedUser = userAccService.getById(id);
+		
+		friendList = selectedUser.get().getFriends();
+		subsList = selectedUser.get().getSubscribed();
+		
+		for(String friendId : friendList) {
+			List<Post> friendPosts = (List<Post>) postService.getUserPosts(friendId);
+			for(Post post : friendPosts) {
+				feedPostsList.add(post);
+			}
+		}
+		
+		for(String friendId : friendList) {
+			List<Post> friendPosts = (List<Post>) postService.getUserPosted(friendId);
+			for(Post post : friendPosts) {
+				feedPostsList.add(post);
+			}
+		}
+		
+		for(String subId : subsList) {
+			List<Post> subPosts = (List<Post>) elementService.getReviewElementPosts(subId);
+			for(Post post : subPosts) {
+				feedPostsList.add(post);
+			}
+		}
+		return feedPostsList;
+	}
+	
+	public Iterable<User> getUserFriends(String id){
+		Optional<User> selectedUser = userAccService.getById(id);
+		List<String> friendIds = selectedUser.get().getFriends();
+		List<User> friends = new ArrayList<User>();
+		for(String friendId : friendIds) {
+			friends.add(userAccService.getById(friendId).get());
+		}
+		return friends;
+	}
+
+	public Iterable<ReviewElement> getUserSubscriptions(String id){
+		Optional<User> selectedUser = userAccService.getById(id);
+		List<String> subIds = selectedUser.get().getSubscribed();
+		List<ReviewElement> subscribed = new ArrayList<ReviewElement>();
+		for(String subId : subIds) {
+			subscribed.add(elementService.getById(subId).get());
+		}
+		return subscribed;
+	}
 
 }

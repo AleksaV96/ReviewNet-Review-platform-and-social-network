@@ -1,5 +1,5 @@
 import { useRef } from 'react';
-import Card from '../ui/Card';
+import CardPost from '../ui/CardPost';
 import React from 'react';
 
 import { useContext } from 'react';
@@ -32,7 +32,7 @@ function PostForm(props) {
 
     return(
 
-        <Card>
+        <CardPost>
             <form className={classes.form} onSubmit={submitHandler}>
             <div className={classes.control}>
                 <label htmlFor='name'>Title</label>
@@ -43,7 +43,7 @@ function PostForm(props) {
             <textarea
                 id='content'
                 required
-                rows='5'
+                rows='3'
                 ref={contentInputRef}
             ></textarea>
             </div>
@@ -51,7 +51,7 @@ function PostForm(props) {
                 <button>Post</button>
             </div>
             </form>
-      </Card>
+      </CardPost>
 
     )
 

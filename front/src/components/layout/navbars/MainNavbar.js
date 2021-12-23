@@ -22,6 +22,7 @@ import ListItemButton from '@mui/material/ListItemButton';
 import PeopleAltIcon from '@mui/icons-material/PeopleAlt';
 import SubscriptionsIcon from '@mui/icons-material/Subscriptions';
 import PreviewIcon from '@mui/icons-material/Preview';
+import FeedIcon from '@mui/icons-material/Feed';
 
 
 function MainNavbar() {
@@ -59,8 +60,16 @@ function MainNavbar() {
         <Toolbar />
         <Box sx={{ overflow: 'auto' }}>
         <List>
+        <ListItem disablePadding>
+            <ListItemButton component={Link} to="/main">
+              <ListItemIcon>
+                <FeedIcon/>
+              </ListItemIcon>
+              <ListItemText primary="Main Feed" />
+            </ListItemButton>
+          </ListItem>
           <ListItem disablePadding>
-            <ListItemButton>
+            <ListItemButton component={Link} to="/friends">
               <ListItemIcon>
                 <PeopleAltIcon />
               </ListItemIcon>
@@ -68,11 +77,11 @@ function MainNavbar() {
             </ListItemButton>
           </ListItem>
           <ListItem disablePadding>
-            <ListItemButton>
+            <ListItemButton component={Link} to="/subscriptions">
               <ListItemIcon>
                 <SubscriptionsIcon />
               </ListItemIcon>
-              <ListItemText primary="Subsribed" />
+              <ListItemText primary="Subscribed" />
             </ListItemButton>
           </ListItem>
           <ListItem disablePadding>

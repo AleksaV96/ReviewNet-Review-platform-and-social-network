@@ -25,6 +25,7 @@ public class User {
 	private String password;
     private String email;
     private String imgUrl;
+    private Profile profile = new Profile();
     private boolean logicDelete = false;
     private List<String> subscribed = new ArrayList<String>();
     private List<String> friends = new ArrayList<String>();
@@ -36,7 +37,7 @@ public class User {
     public User() {}
     
     public User(String id, String name, String surname, String username, String password, String email, 
-    		String imgUrl, boolean logicDelete, List<String> subscribed, List<String> friends,
+    		String imgUrl, Profile profile, boolean logicDelete, List<String> subscribed, List<String> friends,
     		Permission permission, AuthProvider provider) {
 		this.id = id;
 		this.name = name;
@@ -44,6 +45,7 @@ public class User {
 		this.username = username;
 		this.password = password;
 		this.email = email;
+		this.profile = profile;
 		this.imgUrl = imgUrl;
 		this.logicDelete = logicDelete;
 		this.subscribed = subscribed;
@@ -95,6 +97,14 @@ public class User {
 		this.imgUrl = imgUrl;
 	}
 	
+	public Profile getProfile() {
+		return profile;
+	}
+
+	public void setProfile(Profile profile) {
+		this.profile = profile;
+	}
+
 	public boolean isLogicDelete() {
 		return logicDelete;
 	}

@@ -47,19 +47,22 @@ public class ReviewElementController {
 	
 	@PostMapping(value="/create")
 	public ResponseEntity<ReviewElement> addElement(@RequestBody ReviewElement element){
-		reviewElementService.addElement(createDomains(element));
+		reviewElementService.addElement(element);
+		createDomains(element);
 			return new ResponseEntity<ReviewElement>(element, HttpStatus.CREATED);
 	}
 	
 	@PostMapping(value="/createCompany")
 	public ResponseEntity<ReviewElement> addCompany(@RequestBody Company company){
-		reviewElementService.addElement(createDomains(company));
+		reviewElementService.addElement(company);
+		createDomains(company);
 			return new ResponseEntity<ReviewElement>(company, HttpStatus.CREATED);
 	}
 	
 	@PostMapping(value="/createProduct")
 	public ResponseEntity<ReviewElement> addProduct(@RequestBody Product product){
-		reviewElementService.addElement(createDomains(product));
+		reviewElementService.addElement(product);
+		createDomains(product);
 			return new ResponseEntity<ReviewElement>(product, HttpStatus.CREATED);
 	}
 	
@@ -73,39 +76,45 @@ public class ReviewElementController {
         return new ResponseEntity<ReviewElement>(HttpStatus.NO_CONTENT);
     }
 	
-	public ReviewElement createDomains(ReviewElement element) {
+	public void createDomains(ReviewElement element) {
 		
+		Optional<ReviewElement> elementData = reviewElementService.findByName(element.getName());
 		List<AbstractPostSpace> domains = new ArrayList<AbstractPostSpace>();
 		
-		String elementName = element.getName();
+		String elementName = elementData.get().getName();
+		String elementId = elementData.get().getId();
 		
 		ComplainSpace complainSpace = new ComplainSpace();
 		Forum forum = new Forum();
 		ReviewSpace reviewSpace = new ReviewSpace();
 		RoadMapSpace roadMapSpace = new RoadMapSpace();
 		
+		forum.setParentId(elementId);
 		forum.setName(elementName+" Forum");
 		forum.setType("forum");
 		abstractPostSpaceService.addPostSpace(forum);
 		domains.add(forum);
 		
+		reviewSpace.setParentId(elementId);
 		reviewSpace.setName(elementName+" Reviews");
 		reviewSpace.setType("reviewSpace");
 		abstractPostSpaceService.addPostSpace(reviewSpace);
 		domains.add(reviewSpace);
 		
+		complainSpace.setParentId(elementId);
 		complainSpace.setName(elementName+" Complain Area");
 		complainSpace.setType("complainSpace");
 		abstractPostSpaceService.addPostSpace(complainSpace);
 		domains.add(complainSpace);
 		
+		roadMapSpace.setParentId(elementId);
 		roadMapSpace.setName(elementName+" Road Map");
 		roadMapSpace.setType("roadMap");
 		abstractPostSpaceService.addPostSpace(roadMapSpace);
 		domains.add(roadMapSpace);
 		
-		element.setDomains(domains);
-		return element;
+		elementData.get().setDomains(domains);
+		reviewElementService.addElement(elementData.get());
 	}
 	
 	

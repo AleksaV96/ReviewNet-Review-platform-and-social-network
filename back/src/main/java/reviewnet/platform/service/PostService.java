@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import reviewnet.platform.domain.post.Post;
 import reviewnet.platform.domain.space.AbstractPostSpace;
+import reviewnet.platform.domain.user.User;
 import reviewnet.platform.repository.post.type.PostRepository;
 import reviewnet.platform.repository.space.AbstractPostSpaceRepository;
 
@@ -24,6 +25,10 @@ public class PostService {
 	@Autowired
 	AbstractPostSpaceService abstractPostSpaceService;
 	
+	@Autowired
+	UserAccService userService;
+
+	
 	public Iterable<Post> getAll() {
 		return postRepository.findAll();
 	}
@@ -33,7 +38,11 @@ public class PostService {
 	}
 	
 	public Optional<AbstractPostSpace> addPost(String id, Post post) {
+		Optional<User> author = userService.findByUsername(post.getAuthorUsername());
+		post.setAuthor(author.get());
 		postRepository.save(post);
+		author.get().getProfile().addPostedId(post.getId());
+		userService.addUser(author.get());
 		Optional<AbstractPostSpace> selectedPostSpace = abstractPostSpaceService.getById(id);
 		selectedPostSpace.get().getPostCollection().add(post.getId());
 		abstractPostSpaceService.updateAbstractPostSpace(id, selectedPostSpace.get());
@@ -67,6 +76,34 @@ public class PostService {
             posts.add(post);
         }
         return posts;
+	}
+	
+	public Iterable<Post> getUserPosts(String id) {
+		List<String> postIds;
+        List<Post> posts = new ArrayList<Post>();
+        Post post;
 
-    }
+        Optional<User> selectedUser = userService.getById(id);
+        postIds = selectedUser.get().getProfile().getProfilePostIds();
+        for (String postId : postIds) {
+            post = getById(postId).get();
+            posts.add(post);
+        }
+        return posts;
+	}
+	
+	public Iterable<Post> getUserPosted(String id) {
+		List<String> postIds;
+        List<Post> posts = new ArrayList<Post>();
+        Post post;
+
+        Optional<User> selectedUser = userService.getById(id);
+        postIds = selectedUser.get().getProfile().getPosted();
+        for (String postId : postIds) {
+            post = getById(postId).get();
+            posts.add(post);
+        }
+        return posts;
+	}
+	
 }

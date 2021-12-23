@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import reviewnet.platform.domain.post.Post;
 import reviewnet.platform.domain.post.Reply;
+import reviewnet.platform.domain.user.User;
 import reviewnet.platform.repository.post.ReplyRepository;
 import reviewnet.platform.repository.post.type.PostRepository;
 
@@ -24,6 +25,9 @@ public class ReplyService {
 	@Autowired 
 	PostService postService;
 	
+	@Autowired
+	UserAccService userService;
+	
 	public Iterable<Reply> getAll() {
 		return replyRepository.findAll();
 	}
@@ -33,6 +37,8 @@ public class ReplyService {
 	}
 	
 	public Optional<Post> addReply(String id, Reply reply) {
+		Optional<User> author = userService.findByUsername(reply.getAuthorUsername());
+		reply.setAuthor(author.get());
 		replyRepository.save(reply);
 		Optional<Post> selectedPost = postService.getById(id);
 		selectedPost.get().getReplies().add(reply.getId());

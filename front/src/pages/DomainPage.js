@@ -70,8 +70,7 @@ function DomainPage() {
                 "id" : data.id,
                 "name" : data.name,
                 "type" : data.type,
-                "description" : data.description,
-                "imgUrl" : data.imgUrl
+                "parentId" : data.parentId
             }
 
             dmn.push(domain);

@@ -1,8 +1,9 @@
 import React from 'react';
-import { useContext } from 'react';
+
 import ProfileView from '../components/layout/views/ProfileView';
 import ProfileEdit from '../components/layout/views/ProfileEdit';
 import UserContext from '../store/user-context';
+import { useContext } from 'react';
 
 import useStyles from './pages.style';
 

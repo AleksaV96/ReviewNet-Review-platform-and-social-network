@@ -21,6 +21,9 @@ import { useContext } from 'react';
 import UserContext from './store/user-context';
 import { useState, useEffect } from 'react';
 import ProfilePage from './pages/ProfilePage';
+import UserPage from './pages/UserPage';
+import SubscriptionsPage from './pages/SubscriptionsPage';
+import FriendsPage from './pages/FriendsPage';
 
 function App() {
 
@@ -59,7 +62,9 @@ function App() {
               "username" : data.username,
               "permission" : data.permission,
               "email" : data.email,
-              "imgUrl" : data.imgUrl
+              "imgUrl" : data.imgUrl,
+              "friends" : data.friends,
+              "subscribed" : data.subscribed
           }
           userCtx.openUser(user);
           
@@ -87,6 +92,9 @@ function App() {
               <Route path='/reviewElement/domain/:id' element={<DomainPage />} />
               <Route path='/reviewElements/create-company' element={<ReviewElementAddPage />} />
               <Route path='/profile/:username' element ={<ProfilePage />} />
+              <Route path='/user/:username' element={<UserPage />} />
+              <Route path='/subscriptions' element={<SubscriptionsPage />} />
+              <Route path='/friends' element={<FriendsPage />} />
           </Route>
           <Route element={<AdminRoutes />}>
               <Route path='/dashboard' element={<Dashboard/>} />

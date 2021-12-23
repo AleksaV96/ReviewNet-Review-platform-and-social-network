@@ -4,6 +4,7 @@ import classes from "./ReviewElementList.module.css"
 import { Link } from 'react-router-dom';
 
 function ReviewElementList(props) {
+  //<Link to={'/reviewElements/'+ element.id}></Link>
     return (
       <div>
         <div className={classes.actions}>
@@ -14,7 +15,7 @@ function ReviewElementList(props) {
         </div >
         <ul className={classes.list}>
           {props.elements.map((element) => (
-            <Link to={'/reviewElements/'+ element.id}>
+            <div>
             <ReviewElementCard
               key={element.id}
               id={element.id}
@@ -22,7 +23,7 @@ function ReviewElementList(props) {
               description={element.description}
               image={element.imgUrl}
             />
-            </Link>
+            </div>
           ))}
         </ul>
         </div>

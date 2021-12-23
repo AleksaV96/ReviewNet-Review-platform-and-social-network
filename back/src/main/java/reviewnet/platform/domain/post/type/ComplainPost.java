@@ -6,17 +6,18 @@ import org.springframework.data.mongodb.core.mapping.Document;
 
 import reviewnet.platform.domain.post.Like;
 import reviewnet.platform.domain.post.Post;
+import reviewnet.platform.domain.user.User;
 
 @Document
 public class ComplainPost extends Post {
 	
 	public ComplainPost() {
 	}
-	
-	public ComplainPost(String id, String name, String content, String authorUsername, List<Like> likes, List<String> replies) {
-		super(id, name, content, authorUsername, likes, replies);
-	}
 
+	public ComplainPost(String id, String name, String content, String authorUsername, User author, String elementId,
+			String postLocation, List<Like> likes, List<String> replies) {
+		super(id, name, content, authorUsername, author, elementId, postLocation, likes, replies);
+	}
 	
 	
 }
