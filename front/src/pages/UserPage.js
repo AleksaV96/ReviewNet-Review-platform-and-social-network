@@ -1,6 +1,7 @@
 import React from 'react';
-import { useParams } from "react-router";
+import { Navigate, useParams } from "react-router";
 import ProfileView from '../components/layout/views/ProfileView';
+import ProfilePage from './ProfilePage';
 
 
 import useStyles from './pages.style';
@@ -22,16 +23,22 @@ function UserPage(){
     const classes = useStyles();
     const [loadedUser, setLoadedUser] = useState({});
     var friends = [];
-
+    var isUser = false;
+    
     const address = 'http://localhost:8080/users/' + username;
     
     let token = localStorage.getItem('Bearer');
 
     if(token !== null){
         const userId = parseJwt(token).sub;
+        if(userId === loadedUser.id){
+            isUser = true;
+        }  
         var address2 = 'http://localhost:8080/users/userId/' + userId + '/add-friend/' + loadedUser.id;
         var address3 = 'http://localhost:8080/users/userId/' + userId + '/remove-friend/' + loadedUser.id;
     }
+
+
 
     if(userCtx.content.friends !== undefined){
         friends = userCtx.content.friends;
@@ -46,9 +53,6 @@ function UserPage(){
             break;
         }
     }
-
-    console.log(address2);
-    console.log(address3);
 
     useEffect(() => {
         fetch(
@@ -109,6 +113,12 @@ function UserPage(){
             window.location.reload();
             }
         )};
+        
+        if(isUser){
+            return(
+                <ProfilePage />
+            );
+        }
 
         return (
             <MainLayout >

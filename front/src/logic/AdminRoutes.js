@@ -20,7 +20,7 @@ function AdminRoutes() {
 
     const isAuth = useAuth()
 
-    return isAuth ? <Outlet /> : alert("You need admin permission") ;
+    return isAuth ? <Outlet /> : <Navigate to="/login"/> ;
 
 
 

@@ -2,6 +2,7 @@ import React from 'react';
 import ReviewElementCard from "../cards/ReviewElementCard";
 import classes from "./ReviewElementList.module.css"
 import { Link } from 'react-router-dom';
+import { Grid } from '@mui/material';
 
 function ReviewElementList(props) {
   //<Link to={'/reviewElements/'+ element.id}></Link>
@@ -13,9 +14,9 @@ function ReviewElementList(props) {
           <button type="button">Add New</button>
           </Link>
         </div >
-        <ul className={classes.list}>
+        <Grid container spacing={1}>  
           {props.elements.map((element) => (
-            <div>
+            <Grid item xs={6} md={6}>
             <ReviewElementCard
               key={element.id}
               id={element.id}
@@ -23,10 +24,10 @@ function ReviewElementList(props) {
               description={element.description}
               image={element.imgUrl}
             />
-            </div>
+            </Grid>
           ))}
-        </ul>
-        </div>
+        </Grid>
+      </div>
       );
 }
 

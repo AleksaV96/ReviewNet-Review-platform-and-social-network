@@ -64,7 +64,7 @@ function SubscriptionCard(props) {
     )};
 
     return (
-      <Card sx={{ maxWidth: 345, marginBottom : "10px" }}>
+      <Card>
           <CardMedia 
           component="img"
           height="140"

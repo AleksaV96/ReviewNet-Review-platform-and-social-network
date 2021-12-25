@@ -1,25 +1,24 @@
 import { Link } from 'react-router-dom';
 import SubscriptionCard from "../cards/SubscriptionCard";
+import { Grid } from '@mui/material';
 
 function SubscriptionList(props){
     return (
-        <div>
-          <ul>
+      <Grid container spacing={2}>  
             {props.elements.map((element) => (
-              <div>
+              <Grid item xs={6} md={6}>
               <SubscriptionCard
                 key={element.id}
                 id={element.id}
                 name={element.name}
                 description={element.description}
-                image={element.imgUrl}
+                image={element.imgUrl}     
               />
-              </div>
+            </Grid>
             ))}
-          </ul>
-          </div>
+        </Grid>
         );
-
+  
 }
 
 export default SubscriptionList;

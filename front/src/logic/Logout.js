@@ -1,3 +1,5 @@
+import { Navigate } from "react-router";
+
 export function logout() {
 
     localStorage.clear();
@@ -19,6 +21,7 @@ export function logout() {
             return response.json();
         })
         };
+    return( <Navigate to="/login"/>)
     
 }
 

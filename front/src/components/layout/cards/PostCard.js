@@ -1,4 +1,6 @@
 import React from 'react';
+import ReactDOM from 'react-dom';
+import { render } from "react-dom";
 import classes from "./PostCard.module.css";
 import { styled } from '@mui/material/styles';
 import { Link } from 'react-router-dom';
@@ -11,7 +13,6 @@ import ThumbUpOffAltIcon from '@mui/icons-material/ThumbUpOffAlt';
 import ThumbDownAltIcon from '@mui/icons-material/ThumbDownAlt';
 import ThumbDownOffAltIcon from '@mui/icons-material/ThumbDownOffAlt';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import ReplyList from '../lists/ReplyList';
 
 import { useState, useEffect } from 'react';
 import ReplyCard from './ReplyCard';
@@ -33,10 +34,17 @@ function PostCard(props) {
     var likes = [];
     var likeScore = 0;
     var username = userCtx.content.username;
+    var likeId = props.id + "like";
+    var dislikeId = props.id + "dislike";
+    var likeIdClc = props.id + "likeClc";
+    var dislikeIdClc = props.id + "dislikeClc";
+    var likeIdDsl = props.id + "likeDsl";
+    var dislikeIdDsl = props.id + "dislikeDsl";
 
     const address =  'http://localhost:8080/posts/postId/' + props.id + '/replies'
 
     const [isLoading, setIsLoading] = useState(true);
+    const [refresh, setRefresh] = useState(true);
     const [loadedPosts, setLoadedPosts] = useState([]);
 
     const [expanded, setExpanded] = useState(false);
@@ -44,8 +52,13 @@ function PostCard(props) {
       setExpanded(!expanded);
     };
 
-    var likeButton = <IconButton  onClick={likeHandler}><ThumbUpOffAltIcon/></IconButton>
-    var dislikeButton = <IconButton onClick={dislikeHandler}><ThumbDownOffAltIcon/></IconButton>
+    var likeButton = <IconButton id={likeId}  onClick={likeHandler}><ThumbUpOffAltIcon/></IconButton>
+    var dislikeButton = <IconButton id={dislikeId} onClick={dislikeHandler}><ThumbDownOffAltIcon/></IconButton>
+    var likeButtonClicked = <IconButton id={likeIdClc} onClick={unLikeHandler}><ThumbUpAltIcon color="info"/></IconButton>;
+    var dislikeButtonClicked = <IconButton id={dislikeIdClc} onClick={unDislikeHandler}><ThumbDownAltIcon color="error"/></IconButton>;
+    var likeButtonDisabled = <IconButton id={likeIdDsl} disabled><ThumbUpOffAltIcon/></IconButton>;
+    var dislikeButtonDisabled = <IconButton id={dislikeIdDsl} disabled><ThumbDownOffAltIcon/></IconButton>;
+    
     var replyButton = <Button sx={{maxWidth:10}} onClick={replyHandler}>Reply</Button>
 
     if(userCtx.selectedPost === props.id){
@@ -59,22 +72,22 @@ function PostCard(props) {
     for(let i=0; i < likes.length; i++){
       likeScore += likes[i].value;
     }
-
+    if(refresh){
     for(let i=0; i < likes.length; i++){
       if(likes[i].likeCreatorName === username){
         if(likes[i].type === "LIKE"){
-          likeButton = <IconButton  onClick={unLikeHandler}><ThumbUpAltIcon color="info"/></IconButton>;
-          dislikeButton = <IconButton disabled><ThumbDownOffAltIcon/></IconButton>;
+          likeButton = likeButtonClicked;
+          dislikeButton = dislikeButtonDisabled;
           break;
         }
         else if(likes[i].type === "DISLIKE"){
-          dislikeButton = <IconButton onClick={unDislikeHandler}><ThumbDownAltIcon color="error"/></IconButton>;
-          likeButton = <IconButton disabled><ThumbUpOffAltIcon/></IconButton>;
+          likeButton = likeButtonDisabled;
+          dislikeButton = dislikeButtonClicked;
           break;
         }
       }
     }
-
+    }
     if(props.grade != null) {
       var grade = <h2>{props.grade}</h2>;
     }
@@ -91,11 +104,12 @@ function PostCard(props) {
         credentials: 'include'
         }
       ).then((response) => {
-        window.location.reload();
+        window.location.reload()
       }
       )};  
 
       function unLikeHandler() {
+        setRefresh(false);
         fetch(
           'http://localhost:8080/posts/postId/' + props.id + '/unlike',
         {
@@ -107,7 +121,7 @@ function PostCard(props) {
           credentials: 'include'
           }
         ).then((response) => {
-          window.location.reload();
+          window.location.reload()
         }
         )};
       
@@ -123,11 +137,12 @@ function PostCard(props) {
           credentials: 'include'
           }
         ).then((response) => {
-          window.location.reload();
+          window.location.reload()
         }
         )};  
 
         function unDislikeHandler() {
+          setRefresh(false);
           fetch(
             'http://localhost:8080/posts/postId/' + props.id + '/unlike',
           {
@@ -139,7 +154,7 @@ function PostCard(props) {
             credentials: 'include'
             }
           ).then((response) => {
-            window.location.reload();
+            window.location.reload()
           }
           )};
 

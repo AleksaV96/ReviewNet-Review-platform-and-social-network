@@ -7,6 +7,9 @@ import { useContext } from 'react';
 
 import useStyles from './pages.style';
 
+import Button from '@mui/material/Button';
+import ButtonGroup from '@mui/material/ButtonGroup';
+
 import { useState, useEffect } from 'react';
 import MainLayout from '../components/layout/MainLayout';
 import ProfilePasswordChange from '../components/layout/views/ProfilePasswordChange';
@@ -61,7 +64,7 @@ function ProfilePage() {
         return(
         <MainLayout>
             <ProfileEdit profile={loadedUser} />
-            <button onClick={editProfileHandler}>BACK</button>
+            <Button variant="contained" onClick={editProfileHandler}>BACK</Button>
         </MainLayout>
         )
     }
@@ -70,7 +73,7 @@ function ProfilePage() {
         return(
         <MainLayout>
             <ProfilePasswordChange profile={loadedUser}/>
-            <button onClick={passwordChangeHandler}>BACK</button>
+            <Button variant="contained" onClick={passwordChangeHandler}>BACK</Button>
         </MainLayout>
         )
     }
@@ -79,8 +82,10 @@ function ProfilePage() {
     return (
         <MainLayout >
             <ProfileView profile={loadedUser}/>
-            <button onClick={editProfileHandler}>EDIT</button>
-            <button onClick={setPasswordChangeMode}>CHANGE PASSWORD</button>
+            <ButtonGroup variant="contained" aria-label="outlined primary button group">
+                <Button onClick={editProfileHandler}>EDIT</Button>
+                <Button onClick={setPasswordChangeMode}>CHANGE PASSWORD</Button>
+            </ButtonGroup>
         </MainLayout>
     )
 }

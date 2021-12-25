@@ -119,9 +119,10 @@ function DomainPage() {
     return (
         <MainLayout>
         <section>
+            <PostAddPage domain={loadedDomain}/>
             <DomainHeader domain={loadedDomain} grades={loadedGrades}/>
             <PostList posts={loadedPosts} />
-            <PostAddPage domain={loadedDomain}/>
+            
         </section>
         </MainLayout>
     );

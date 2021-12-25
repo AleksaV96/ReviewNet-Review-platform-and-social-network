@@ -128,7 +128,6 @@ public class UserAccService {
 			usr.get().setUsername(user.getUsername());
 			usr.get().setEmail(user.getEmail());
 			usr.get().setImgUrl(user.getImgUrl());
-			usr.get().setPermission(user.getPermission());
 			userAccRepository.save(usr.get());
 			return HttpStatus.ACCEPTED;
 		}
