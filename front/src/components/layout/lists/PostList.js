@@ -19,6 +19,7 @@ function PostList(props) {
               authorUsername={post.authorUsername}
               grade={post.grade}
               elementId={post.elementId}
+              domainId={post.domainId}
               postLocation={post.postLocation}
               user={post.author}
             />

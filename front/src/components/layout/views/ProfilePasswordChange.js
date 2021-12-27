@@ -1,12 +1,12 @@
 import React from 'react';
 import { useRef } from 'react';
-import Card from '../../ui/Card';
-import classes from './ProfileEdit.module.css';
+
 
 import {Navigate} from 'react-router-dom';
 import {useState} from 'react';
 
 import logout from '../../../logic/Logout'
+import Card from '@mui/material/Card';
 import VpnKeyIcon from '@mui/icons-material/VpnKey';
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
@@ -82,11 +82,13 @@ function ProfilePasswordChange(props){
 
     return (
 
+      <Card sx={{ marginBottom: 2}}>
       <Container component="main" maxWidth="xs">
       <CssBaseline />
       <Box
         sx={{
-          marginTop: 8,
+          marginTop: 3,
+          marginBottom: 5,
           display: 'flex',
           flexDirection: 'column',
           alignItems: 'center',
@@ -148,6 +150,7 @@ function ProfilePasswordChange(props){
         </Box>
       </Box>
     </Container>
+    </Card>
 
 
 

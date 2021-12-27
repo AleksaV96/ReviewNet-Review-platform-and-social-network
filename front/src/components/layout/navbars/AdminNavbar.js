@@ -23,21 +23,25 @@ import PeopleAltIcon from '@mui/icons-material/PeopleAlt';
 import SubscriptionsIcon from '@mui/icons-material/Subscriptions';
 import PreviewIcon from '@mui/icons-material/Preview';
 import FeedIcon from '@mui/icons-material/Feed';
+import AddModeratorIcon from '@mui/icons-material/AddModerator';
 import PageviewIcon from '@mui/icons-material/Pageview';
 
+import DashboardIcon from '@mui/icons-material/Dashboard';
+import AnalyticsIcon from '@mui/icons-material/Analytics';
 
-function MainNavbar() {
+
+function AdminNavbar() {
   
     const userCtx = useContext(UserContext);
 
     return(
       <div>
       <CssBaseline />
-        <AppBar sx={{ zIndex: (theme) => theme.zIndex.drawer + 1}}>
+        <AppBar sx={{ zIndex: (theme) => theme.zIndex.drawer + 1, bgcolor:"#673ab7"}}>
           <Toolbar>
             <ConnectWithoutContactIcon />
             <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-              ReviewNet
+              ReviewNet Admin
             </Typography>
             <IconButton>
             <Avatar alt="loggedUser" src={userCtx.content.imgUrl} component={Link} to={'/main'} sx={{ width: 50, height: 50 }}/>
@@ -53,36 +57,20 @@ function MainNavbar() {
         <Drawer
         variant="permanent"
         sx={{
-          width: 180,
+          width: 200,
           flexShrink: 0,
-          [`& .MuiDrawer-paper`]: { width: 180, boxSizing: 'border-box' },
+          [`& .MuiDrawer-paper`]: { width: 200, boxSizing: 'border-box' },
         }}
       >
         <Toolbar />
         <Box sx={{ overflow: 'auto' }}>
         <List>
         <ListItem disablePadding>
-            <ListItemButton component={Link} to="/main">
+            <ListItemButton component={Link} to="/dashboard">
               <ListItemIcon>
-                <FeedIcon/>
+                <DashboardIcon/>
               </ListItemIcon>
-              <ListItemText primary="Main Feed" />
-            </ListItemButton>
-          </ListItem>
-          <ListItem disablePadding>
-            <ListItemButton component={Link} to="/friends">
-              <ListItemIcon>
-                <PeopleAltIcon />
-              </ListItemIcon>
-              <ListItemText primary="Friends" />
-            </ListItemButton>
-          </ListItem>
-          <ListItem disablePadding>
-            <ListItemButton component={Link} to="/subscriptions">
-              <ListItemIcon>
-                <SubscriptionsIcon />
-              </ListItemIcon>
-              <ListItemText primary="Subscribed" />
+              <ListItemText primary="Dashboard" />
             </ListItemButton>
           </ListItem>
           <ListItem disablePadding>
@@ -90,7 +78,15 @@ function MainNavbar() {
               <ListItemIcon>
                 <PageviewIcon />
               </ListItemIcon>
-              <ListItemText primary="Review" />
+              <ListItemText primary="Elements" />
+            </ListItemButton>
+          </ListItem>
+          <ListItem disablePadding>
+            <ListItemButton>
+              <ListItemIcon>
+                <AnalyticsIcon />
+              </ListItemIcon>
+              <ListItemText primary="Analitics" />
             </ListItemButton>
           </ListItem>
         <Divider />
@@ -98,34 +94,10 @@ function MainNavbar() {
         </Box>
       </Drawer>
       </div>
-
-
-    /*
-    <header className={classes.header}>
-      <div className={classes.logo}>ReviewNet</div>
-      <nav>
-        <ul>
-          <li>
-            <Link to='/reviewElements'>Review</Link>
-          </li>
-          <li>
-            <Link to={'/profile/' + userCtx.content.username}>{userCtx.content.username}</Link>
-          </li>
-          <li>
-            <img src={userCtx.content.imgUrl} alt=""/>
-          </li>
-          <li>
-            <Link to='/' onClick={logout}>Logout</Link>
-          </li>
-        </ul>
-      </nav>
-    </header>
-    */
-
     );
 
 
 
 }
 
-export default MainNavbar;
+export default AdminNavbar;

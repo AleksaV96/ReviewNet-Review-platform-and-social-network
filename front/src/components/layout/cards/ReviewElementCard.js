@@ -74,7 +74,7 @@ function ReviewElementCard(props) {
         alt="element pic"
         />
         <CardContent >
-          <Typography gutterBottom variant="h5" component="div" component={Link} to={'/reviewElements/'+ props.id}>
+          <Typography  variant="h5" sx={{color:"black"}} component={Link} to={'/reviewElements/'+ props.id}>
             {props.name}
           </Typography>
           <Typography variant="body2" color="text.secondary">

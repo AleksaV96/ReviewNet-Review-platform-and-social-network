@@ -102,13 +102,13 @@ public class ReviewElementController {
 		domains.add(reviewSpace);
 		
 		complainSpace.setParentId(elementId);
-		complainSpace.setName(elementName+" Complain Area");
+		complainSpace.setName(elementName+" Complains");
 		complainSpace.setType("complainSpace");
 		abstractPostSpaceService.addPostSpace(complainSpace);
 		domains.add(complainSpace);
 		
 		roadMapSpace.setParentId(elementId);
-		roadMapSpace.setName(elementName+" Road Map");
+		roadMapSpace.setName(elementName+" RoadMap");
 		roadMapSpace.setType("roadMap");
 		abstractPostSpaceService.addPostSpace(roadMapSpace);
 		domains.add(roadMapSpace);

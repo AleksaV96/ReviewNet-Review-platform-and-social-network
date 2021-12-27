@@ -22,7 +22,7 @@ function DomainCard(props) {
       case "reviewSpace":
         icon = <ReviewsIcon/>;
         type = "Reviews";
-        bcolor = "#8e24aa";
+        bcolor = "#00897b";
         break;
       case "complainSpace":
         icon = <SentimentVeryDissatisfiedIcon/>;
@@ -31,8 +31,8 @@ function DomainCard(props) {
         break;
       case "roadMap":
         icon = <MapIcon/>;
-        type = "Road Map";
-        bcolor = "#00897b";
+        type = "RoadMap";
+        bcolor = "#8e24aa";
         break;
     }
 

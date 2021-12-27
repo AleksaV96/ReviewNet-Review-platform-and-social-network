@@ -1,4 +1,4 @@
-import { useRef } from 'react';
+import { useRef, useState } from 'react';
 import React from 'react';
 
 import { styled } from '@mui/material/styles';
@@ -43,7 +43,10 @@ function PostForm(props) {
     const postData = {
         name: enteredName,
         content: enteredContent,
-        authorUsername: authorUsername
+        authorUsername: authorUsername,
+        elementId : props.elementId,
+        domainId : props.domainId,
+        postLocation : props.postLocation
     }
 
       props.onPostAdd(postData);
@@ -60,7 +63,8 @@ function PostForm(props) {
         }),
       }));
     
-    const [expanded, setExpanded] = React.useState(false);
+    const [expanded, setExpanded] = useState(false);
+
       
     const handleExpandClick = () => {
         setExpanded(!expanded);
@@ -113,7 +117,6 @@ function PostForm(props) {
                   name="Content"
                   autoComplete="content"
                   multiline={true}
-                  multiline
                   rows={3}
                   inputRef={contentInputRef}
                 />

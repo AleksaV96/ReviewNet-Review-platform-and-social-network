@@ -209,28 +209,41 @@ function PostCard(props) {
         }
 
         let elementLink = "/reviewElements/" + props.elementId;
+        let domainLink = "/reviewElement/domain/" + props.domainId;
         let userLink = "/user/" + props.authorUsername;
 
+        let postLocation;
+        try{
+        postLocation = props.postLocation.split(' ');
+        }
+        catch(e){
+          console.log(e);
+        }
 
     return (
       <div>
       <Card sx={{marginBottom : "10px"}}>
         <CardHeader 
           avatar = {<Avatar alt="user" src={props.user.imgUrl} component={Link} to={userLink}></Avatar>}
-          title = {<div><Typography sx={{display:'inline'}} variant="h6">{props.name}</Typography>
-          <Typography sx={{display:'inline'}} variant="h6" component={Link} to={elementLink}> in {props.postLocation}</Typography></div>}
-          subheader = {<Typography color="text.secondary" component={Link} to={userLink}>{props.user.name} {props.user.surname}
+          title = {<div><Typography sx={{display:'inline', textTransform:"capitalize", color:"#3949ab"}} variant="h6">{props.name}</Typography>
+          <Typography sx={{display:'inline'}} variant="h6"> in </Typography>
+          <Typography sx={{display:'inline', color:"#d81b60"}} variant="h6" component={Link} to={elementLink}>{postLocation[0]}</Typography>
+          <Typography sx={{display:'inline', color:"black"}} variant="h6" component={Link} to={domainLink}> {postLocation[1]}</Typography>
+          <Typography sx={{display:'inline', position:"relative"}} variant="h4" color="#e91e63"> {props.grade}</Typography>
+          </div>}
+          subheader = {<Typography color="text.secondary" sx={{display:'inline'}} component={Link} to={userLink}>{props.user.name} {props.user.surname}
           </Typography>}
           />
         <CardContent>
-          <Typography variant="body1" color="text.secondary">{props.content}</Typography>
+          <Typography sx={{display:"inline"}} variant="body1" color="text.secondary">{props.content}</Typography>
+          
         </CardContent>
         <CardActions disableSpacing>
           {likeButton}
           {likeScore}
           {dislikeButton}
           {replyButton}
-          <Typography sx={{position:"relative", right:"-9.6cm"}} variant="body1" noWrap color="text.secondary">Replies: {props.replies.length}</Typography>
+          <Typography sx={{position:"relative", right:"-9.2cm"}} variant="body1" noWrap color="text.secondary">Replies: {props.replies.length}</Typography>
           <ExpandMore
           expand={expanded}
           onClick={handleExpandClick}
@@ -251,6 +264,7 @@ function PostCard(props) {
             likes={post.likes}
             authorUsername={post.authorUsername}
             user={post.author}
+            postUserImg={props.user.imgUrl}
           />
         )}
       </Collapse>

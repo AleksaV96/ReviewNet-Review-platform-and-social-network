@@ -1,6 +1,6 @@
 import React from 'react';
 import { Navigate, useParams } from "react-router";
-import ProfileView from '../components/layout/views/ProfileView';
+import UserView from '../components/layout/views/UserView';
 import ProfilePage from './ProfilePage';
 
 
@@ -77,7 +77,8 @@ function UserPage(){
                 "permission" : data.permission,
                 "email" : data.email,
                 "imgUrl" : data.imgUrl,
-                "friends" : data.friends
+                "friends" : data.friends,
+                "subscribed" : data.subscribed
             }
             setLoadedUser(user);
             });
@@ -122,7 +123,7 @@ function UserPage(){
 
         return (
             <MainLayout >
-                <ProfileView profile={loadedUser}/>
+                <UserView profile={loadedUser}/>
                 {addFriendButton}
             </MainLayout>
         )

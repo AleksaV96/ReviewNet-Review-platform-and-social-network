@@ -15,8 +15,10 @@ public class ForumPost extends Post {
 	}
 
 	public ForumPost(String id, String name, String content, String authorUsername, User author, String elementId,
-			String postLocation, List<Like> likes, List<String> replies) {
-		super(id, name, content, authorUsername, author, elementId, postLocation, likes, replies);
+			String domainId, String postLocation, List<Like> likes, List<String> replies) {
+		super(id, name, content, authorUsername, author, elementId, domainId, postLocation, likes, replies);
 	}
+
+	
 
 }

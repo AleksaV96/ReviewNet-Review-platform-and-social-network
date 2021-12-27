@@ -12,7 +12,7 @@ function DomainPage() {
     const [isLoading, setIsLoading] = useState(true);
     //const [isDomainLoaded, isDomainLoadedSet] = useState(false);
     const [loadedPosts, setLoadedPosts] = useState([]);
-    const [loadedDomain, setLoadedDomain] = useState([]);
+    const [loadedDomain, setLoadedDomain] = useState({});
     const [loadedGrades, setLoadedGrades] = useState([]);
 
     const address = 'http://localhost:8080/reviewElement/postSpace/' + id + '/feed';
@@ -65,17 +65,14 @@ function DomainPage() {
             return response.json();
           })
           .then((data) => {
-            const dmn = [];
             const domain = {
                 "id" : data.id,
                 "name" : data.name,
                 "type" : data.type,
                 "parentId" : data.parentId
             }
-
-            dmn.push(domain);
             setIsLoading(false);
-            setLoadedDomain(dmn);
+            setLoadedDomain(domain);
         
             //isDomainLoadedSet(true);
           });
@@ -115,14 +112,13 @@ function DomainPage() {
         }
     }
     */
-    
+
     return (
         <MainLayout>
         <section>
             <PostAddPage domain={loadedDomain}/>
             <DomainHeader domain={loadedDomain} grades={loadedGrades}/>
-            <PostList posts={loadedPosts} />
-            
+            <PostList posts={loadedPosts}/>
         </section>
         </MainLayout>
     );

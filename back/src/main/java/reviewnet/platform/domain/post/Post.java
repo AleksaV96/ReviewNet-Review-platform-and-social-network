@@ -19,6 +19,7 @@ public class Post {
 	private String authorUsername;
 	private User author;
 	private String elementId;
+	private String domainId;
 	private String postLocation;
 	private List<Like> likes = new ArrayList<Like>();
 	private List<String> replies = new ArrayList<String>();
@@ -26,8 +27,8 @@ public class Post {
 	public Post() {
 	}
 	
-	public Post(String id, String name, String content, String authorUsername, User author, String elementId, String postLocation,
-			List<Like> likes, List<String> replies) {
+	public Post(String id, String name, String content, String authorUsername, User author, String elementId, String domainId,
+			String postLocation, List<Like> likes, List<String> replies) {
 		this.id = id;
 		this.name = name;
 		this.content = content;
@@ -35,6 +36,7 @@ public class Post {
 		this.postLocation = postLocation;
 		this.author = author;
 		this.elementId = elementId;
+		this.domainId = domainId;
 		this.likes = likes;
 		this.replies = replies;
 	}
@@ -85,6 +87,14 @@ public class Post {
 
 	public void setElementId(String elementId) {
 		this.elementId = elementId;
+	}
+
+	public String getDomainId() {
+		return domainId;
+	}
+
+	public void setDomainId(String domainId) {
+		this.domainId = domainId;
 	}
 
 	public String getPostLocation() {

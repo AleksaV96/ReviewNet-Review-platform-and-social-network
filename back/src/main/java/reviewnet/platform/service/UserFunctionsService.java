@@ -112,15 +112,15 @@ public class UserFunctionsService {
 		switch(option) {
 			case "subscriber":
 				permissionService.addSubscriberPermission(user.get().getPermission());
-				userAccService.updateUser(id, user.get());
+				userFunctionsRepository.save(user.get());
 				return user;
 			case "moderator":
 				permissionService.addModeratorPermission(user.get().getPermission());
-				userAccService.updateUser(id, user.get());
+				userFunctionsRepository.save(user.get());
 				return user;
 			case "admin":
 				permissionService.addAdminPermission(user.get().getPermission());
-				userAccService.updateUser(id, user.get());
+				userFunctionsRepository.save(user.get());
 				return user;
 			default:
 				return Optional.empty();

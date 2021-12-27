@@ -33,7 +33,6 @@ function ReviewElementAddPage() {
      return(
         <MainLayout>
           <section>
-            <h1>Create company</h1>
             <ReviewElementForm onReviewElementAdd={addReviewElementHandler} />
           </section>
         </MainLayout>

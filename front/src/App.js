@@ -23,7 +23,9 @@ import { useState, useEffect } from 'react';
 import ProfilePage from './pages/ProfilePage';
 import UserPage from './pages/UserPage';
 import SubscriptionsPage from './pages/SubscriptionsPage';
+import UserSubscriptionsPage from './pages/UserSubscriptionsPage';
 import FriendsPage from './pages/FriendsPage';
+import UserFriendsPage from './pages/UserFriendsPage';
 
 function App() {
 
@@ -94,7 +96,9 @@ function App() {
               <Route path='/profile/:username' element ={<ProfilePage />} />
               <Route path='/user/:username' element={<UserPage />} />
               <Route path='/subscriptions' element={<SubscriptionsPage />} />
+              <Route path='/user/:id/subscriptions' element={<UserSubscriptionsPage />} />
               <Route path='/friends' element={<FriendsPage />} />
+              <Route path='/user/:id/friends' element={<UserFriendsPage />} />
           </Route>
           <Route element={<AdminRoutes />}>
               <Route path='/dashboard' element={<Dashboard/>} />

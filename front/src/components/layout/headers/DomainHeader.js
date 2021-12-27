@@ -18,13 +18,11 @@ function DomainList(props) {
 
     return (
         <div className={classes.item}>
-          {props.domain.map((domain) => (
             <DomainHeaderItem
-              key={domain.id}
-              id={domain.id}
-              name={domain.name}
+              key={props.domain.id}
+              id={props.domain.id}
+              name={props.domain.name}
               />
-          ))}
           {elm}
         </div>
       );

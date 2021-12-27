@@ -1,10 +1,10 @@
 import React from 'react';
-import classes from "./PostCard.module.css";
+import { styled } from '@mui/material/styles';
 import { Link } from 'react-router-dom';
 
 import UserContext from '../../../store/user-context';
 import { useContext } from 'react';
-import { Button, Avatar, Card, CardActions, CardContent, CardHeader, Typography, IconButton } from '@mui/material';
+import { Button, Avatar, Card, CardActions, CardContent, CardHeader, Typography, IconButton, Badge } from '@mui/material';
 import ThumbUpAltIcon from '@mui/icons-material/ThumbUpAlt';
 import ThumbUpOffAltIcon from '@mui/icons-material/ThumbUpOffAlt';
 import ThumbDownAltIcon from '@mui/icons-material/ThumbDownAlt';
@@ -18,6 +18,13 @@ function ReplyCard(props) {
     var username = userCtx.content.username;
     var likeButton = <IconButton  onClick={likeHandler}><ThumbUpOffAltIcon/></IconButton>
     var dislikeButton = <IconButton onClick={dislikeHandler}><ThumbDownOffAltIcon/></IconButton>
+
+    const SmallAvatar = styled(Avatar)(({ theme }) => ({
+      width: 22,
+      height: 22,
+      border: `2px solid`,
+      borderColor: '#e6e6e6'
+    }));
 
     if(props.likes !== undefined){
         likes = props.likes;
@@ -117,7 +124,17 @@ function ReplyCard(props) {
     return(
         <Card sx={{marginBottom : "10px", bgcolor:"#e6e6e6", maxWidth:400}}>
         <CardHeader sx={{maxHeight:50}}
-          avatar = {<Avatar alt="user" src={props.user.imgUrl} component={Link} to={userLink}></Avatar>}
+          avatar = {
+            <Badge
+            overlap="circular"
+            anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
+            badgeContent={
+              <SmallAvatar alt="reply avatar" src={props.postUserImg} />
+            }
+            >
+            <Avatar alt="porst avatar" src={props.user.imgUrl} />
+          </Badge>
+          }
           title = {<Typography sx={{display:'inline'}} variant="h6">{props.name}</Typography>}
           subheader = {<Typography color="text.secondary" component={Link} to={userLink}>{props.user.name} {props.user.surname}  replies
           </Typography>}

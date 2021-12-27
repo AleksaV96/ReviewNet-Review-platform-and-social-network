@@ -23,21 +23,22 @@ import PeopleAltIcon from '@mui/icons-material/PeopleAlt';
 import SubscriptionsIcon from '@mui/icons-material/Subscriptions';
 import PreviewIcon from '@mui/icons-material/Preview';
 import FeedIcon from '@mui/icons-material/Feed';
+import AddModeratorIcon from '@mui/icons-material/AddModerator';
 import PageviewIcon from '@mui/icons-material/Pageview';
 
 
-function MainNavbar() {
+function ModeratorNavbar() {
   
     const userCtx = useContext(UserContext);
 
     return(
       <div>
       <CssBaseline />
-        <AppBar sx={{ zIndex: (theme) => theme.zIndex.drawer + 1}}>
+        <AppBar sx={{ zIndex: (theme) => theme.zIndex.drawer + 1, bgcolor:"#009688"}}>
           <Toolbar>
             <ConnectWithoutContactIcon />
             <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-              ReviewNet
+              ReviewNet Premium
             </Typography>
             <IconButton>
             <Avatar alt="loggedUser" src={userCtx.content.imgUrl} component={Link} to={'/main'} sx={{ width: 50, height: 50 }}/>
@@ -53,9 +54,9 @@ function MainNavbar() {
         <Drawer
         variant="permanent"
         sx={{
-          width: 180,
+          width: 200,
           flexShrink: 0,
-          [`& .MuiDrawer-paper`]: { width: 180, boxSizing: 'border-box' },
+          [`& .MuiDrawer-paper`]: { width: 200, boxSizing: 'border-box' },
         }}
       >
         <Toolbar />
@@ -94,38 +95,30 @@ function MainNavbar() {
             </ListItemButton>
           </ListItem>
         <Divider />
+        <ListItem disablePadding>
+            <ListItemButton component={Link} to="/reviewElements/create-company">
+              <ListItemIcon>
+                <AddModeratorIcon />
+              </ListItemIcon>
+              <ListItemText primary="Create element" />
+            </ListItemButton>
+        </ListItem>
+        <ListItem disablePadding>
+            <ListItemButton component={Link} to="/reviewElements">
+              <ListItemIcon>
+                <PreviewIcon />
+              </ListItemIcon>
+              <ListItemText primary="Moderated" />
+            </ListItemButton>
+        </ListItem>
         </List>
         </Box>
       </Drawer>
       </div>
-
-
-    /*
-    <header className={classes.header}>
-      <div className={classes.logo}>ReviewNet</div>
-      <nav>
-        <ul>
-          <li>
-            <Link to='/reviewElements'>Review</Link>
-          </li>
-          <li>
-            <Link to={'/profile/' + userCtx.content.username}>{userCtx.content.username}</Link>
-          </li>
-          <li>
-            <img src={userCtx.content.imgUrl} alt=""/>
-          </li>
-          <li>
-            <Link to='/' onClick={logout}>Logout</Link>
-          </li>
-        </ul>
-      </nav>
-    </header>
-    */
-
     );
 
 
 
 }
 
-export default MainNavbar;
+export default ModeratorNavbar;

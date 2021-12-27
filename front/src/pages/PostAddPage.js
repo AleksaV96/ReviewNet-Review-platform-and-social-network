@@ -14,15 +14,14 @@ function PostAddPage(props) {
     let domainType;
     let domainName;
     let elementId;
+    let domainId;
 
     
-
-    props.domain.map((domain) => (
-        domainType = domain.type,
-        domainName = domain.name,
-        elementId = domain.parentId,
-        address = 'http://localhost:8080/posts/' + domain.type + 'Id/' + domain.id + '/addpost'
-    ))
+    domainType = props.domain.type;
+    domainName = props.domain.name;
+    elementId = props.domain.parentId;
+    domainId = props.domain.id;
+    address = 'http://localhost:8080/posts/' + domainType + 'Id/' + props.domain.id + '/addpost';
     
     if(userCtx.selectedPost !== "") {
         address2 = 'http://localhost:8080/posts/postId/' + userCtx.selectedPost + '/addReply';
@@ -36,14 +35,7 @@ function PostAddPage(props) {
         address,
         {
          method: 'POST',
-         body: JSON.stringify( {
-             name : postData.name,
-             content : postData.content,
-             authorUsername : postData.authorUsername,
-             elementId : elementId,
-             postLocation : domainName
-         }
-         ),
+         body: JSON.stringify(postData),
          headers: {
              'Content-Type': 'application/json',
         },
@@ -69,7 +61,6 @@ function PostAddPage(props) {
             },
             credentials: 'include'
             },
-            window.location.reload(),
             )
         }
 
@@ -78,11 +69,11 @@ function PostAddPage(props) {
     if(!(userCtx.restrictions.includes("COMMENT"))) {
         if(domainType!=="reviewSpace") {
             return(
-                <PostForm onPostAdd={addPostHandler} />
+                <PostForm onPostAdd={addPostHandler} postLocation={domainName} elementId={elementId} domainId={domainId}/>
                 );
             }
             return(
-                <ReviewPostForm onPostAdd={addPostHandler} />
+                <ReviewPostForm onPostAdd={addPostHandler} postLocation={domainName} elementId={elementId} domainId={domainId}/>
             );
     }
     return(
