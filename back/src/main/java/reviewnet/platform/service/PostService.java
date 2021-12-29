@@ -9,9 +9,11 @@ import org.springframework.stereotype.Service;
 
 import reviewnet.platform.domain.post.Post;
 import reviewnet.platform.domain.space.AbstractPostSpace;
+import reviewnet.platform.domain.space.Theme;
 import reviewnet.platform.domain.user.User;
 import reviewnet.platform.repository.post.type.PostRepository;
 import reviewnet.platform.repository.space.AbstractPostSpaceRepository;
+import reviewnet.platform.repository.space.ThemeRepository;
 
 @Service
 public class PostService {
@@ -27,7 +29,12 @@ public class PostService {
 	
 	@Autowired
 	UserAccService userService;
-
+	
+	@Autowired
+	ThemeService themeService;
+	
+	@Autowired
+	ThemeRepository themeRepository;
 	
 	public Iterable<Post> getAll() {
 		return postRepository.findAll();
@@ -47,6 +54,18 @@ public class PostService {
 		selectedPostSpace.get().getPostCollection().add(post.getId());
 		abstractPostSpaceService.updateAbstractPostSpace(id, selectedPostSpace.get());
         return selectedPostSpace;
+	}
+	
+	public Optional<Theme> addThemePost(String id, Post post) {
+		Optional<User> author = userService.findByUsername(post.getAuthorUsername());
+		post.setAuthor(author.get());
+		postRepository.save(post);
+		author.get().getProfile().addPostedId(post.getId());
+		userService.addUser(author.get());
+		Optional<Theme> selectedTheme = themeService.getById(id);
+		selectedTheme.get().getPostCollection().add(post.getId());
+		themeRepository.save(selectedTheme.get());
+        return selectedTheme;
 	}
 	
 	public void removePost(String id) {

@@ -47,7 +47,7 @@ function ProfilePage() {
         </Button>
     }
     else if(role==="ROLE_MODERATOR"){
-        premiumButton = <Button variant="contained" color='secondary' sx={{marginLeft:"4.6cm", backgroundColor:"#a31545"}}  onClick={cancelPremiumHandler}>
+        premiumButton = <Button variant="contained" color='error' sx={{marginLeft:"4.6cm", backgroundColor:"#a31545"}}  onClick={cancelPremiumHandler}>
         <CancelIcon/>
         CANCEL PREMIUM
         </Button>

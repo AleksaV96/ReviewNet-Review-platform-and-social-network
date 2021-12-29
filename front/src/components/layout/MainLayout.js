@@ -14,7 +14,6 @@ function MainLayout(props) {
 
       if(token !== null){
         role = parseJwt(token).role[0].authority;
-        console.log(role)
       }
 
   if(role==="ROLE_SUBSCRIBER"){

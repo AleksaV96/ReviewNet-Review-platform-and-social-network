@@ -72,7 +72,7 @@ function SubscriptionCard(props) {
           alt="element pic"
           />
           <CardContent>
-            <Typography gutterBottom variant="h5" component="div" component={Link} to={'/reviewElements/'+ props.id}>
+            <Typography variant="h5" color="black" component="div" component={Link} to={'/reviewElements/'+ props.id}>
               {props.name}
             </Typography>
             <Typography variant="body2" color="text.secondary">
@@ -84,18 +84,6 @@ function SubscriptionCard(props) {
         </CardActions>
       </Card>
 
-
-      /*
-        <li key={props.id} id={props.id}>        
-            <div>
-              <img src={props.image} alt={props.title} />
-            </div>
-            <div >
-              <h3>{props.name}</h3>
-              <p>{props.description}</p>
-            </div>
-        </li>
-        */
       );
 
 }

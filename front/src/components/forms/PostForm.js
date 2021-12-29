@@ -30,13 +30,17 @@ function PostForm(props) {
 
     const userCtx = useContext(UserContext);
 
+    let buttonText = "Post";
     const nameInputRef = useRef();
     const contentInputRef = useRef();
     
     function submitHandler(event) {
         event.preventDefault();
 
-        const enteredName = nameInputRef.current.value;
+        var enteredName = "Reply to " + props.domainId;
+        if(userCtx.selectedPost === ""){
+        enteredName = nameInputRef.current.value;
+        }
         const enteredContent = contentInputRef.current.value;
         const authorUsername = userCtx.content.username;
 
@@ -50,6 +54,25 @@ function PostForm(props) {
     }
 
       props.onPostAdd(postData);
+    }
+
+    let title = <Grid item xs={12}>
+                  <TextField
+                    sx={{bgcolor:"white"}}
+                    autoComplete="title"
+                    name="title"
+                    fullWidth
+                    id="title"
+                    label="Title"
+                    autoFocus
+                    inputRef={nameInputRef}
+                  />
+                </Grid>
+
+    if(userCtx.selectedPost !== ""){
+      title = <Typography variant="h6" color="text.secondary" sx={{width: "100%", textAlign: "center"}}>
+        Replying to {userCtx.selectedPostAuthor}</Typography>
+      buttonText = "Reply";
     }
 
     const ExpandMore = styled((props) => {
@@ -88,25 +111,16 @@ function PostForm(props) {
         <Card sx={{bgcolor:"#f5f5f5", width:"14.6cm"}}>
         <Box
           sx={{
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'center',
+            paddingLeft:"1cm",
+            paddingRight:"1cm"
           }}
         >
           <Box component="form" noValidate onSubmit={submitHandler} sx={{ mt: 3 }}>
             <Grid container spacing={2}>
-              <Grid item xs={12}>
-                <TextField
-                  sx={{bgcolor:"white"}}
-                  autoComplete="title"
-                  name="title"
-                  fullWidth
-                  id="title"
-                  label="Title"
-                  autoFocus
-                  inputRef={nameInputRef}
-                />
-              </Grid>
+            <Grid item xs={12}>
+            {title}
+            </Grid>
+              
               <Grid item xs={12}>
                 <TextField
                   sx={{bgcolor:"white"}}
@@ -128,37 +142,13 @@ function PostForm(props) {
               variant="contained"
               sx={{ mt: 3, mb: 2 }}
             >
-              Post
+              {buttonText}
             </Button>
           </Box>       
         </Box>
         </Card>
         </Collapse>
       </Container>
-
-
-        /*
-        <CardPost>
-            <form className={classes.form} onSubmit={submitHandler}>
-            <div className={classes.control}>
-                <label htmlFor='name'>Title</label>
-                <input type='text' required id='name' ref={nameInputRef} />
-            </div>
-            <div className={classes.control}>
-            <label htmlFor='content'>Content</label>
-            <textarea
-                id='content'
-                required
-                rows='3'
-                ref={contentInputRef}
-            ></textarea>
-            </div>
-            <div className={classes.actions}>
-                <button>Post</button>
-            </div>
-            </form>
-      </CardPost>
-        */
     )
 
 } 

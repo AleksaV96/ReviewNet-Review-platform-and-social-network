@@ -1,6 +1,3 @@
-import React from 'react';
-import classes from "./DomainCard.module.css";
-
 import { Button, Avatar, Card, CardActions, CardContent, CardHeader, Typography, IconButton, CardMedia } from '@mui/material';
 import ForumIcon from '@mui/icons-material/Forum';
 import ReviewsIcon from '@mui/icons-material/Reviews';

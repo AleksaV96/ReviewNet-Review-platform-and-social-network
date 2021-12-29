@@ -87,6 +87,7 @@ function PostCard(props) {
         }
       }
     }
+
     }
     if(props.grade != null) {
       var grade = <h2>{props.grade}</h2>;
@@ -161,12 +162,15 @@ function PostCard(props) {
           function replyHandler(){
             if(userCtx.selectedPost === "" ){
               userCtx.setSelectedPost(props.id);
+              userCtx.setSelectedPostAuthor(props.user.name + " " + props.user.surname);
             }
             else if(userCtx.selectedPost !== props.id){
               userCtx.setSelectedPost(props.id);
+              userCtx.setSelectedPostAuthor(props.user.name + " " + props.user.surname);
             }
             else{
               userCtx.setSelectedPost("");
+              userCtx.setSelectedPostAuthor("")
             }
           }
 
@@ -213,8 +217,12 @@ function PostCard(props) {
         let userLink = "/user/" + props.authorUsername;
 
         let postLocation;
+        let elementName;
+        let domainName;
         try{
         postLocation = props.postLocation.split(' ');
+          elementName = postLocation[0];
+          domainName = postLocation[1];
         }
         catch(e){
           console.log(e);
@@ -222,13 +230,13 @@ function PostCard(props) {
 
     return (
       <div>
-      <Card sx={{marginBottom : "10px"}}>
+      <Card sx={{marginTop : "5px"}}>
         <CardHeader 
           avatar = {<Avatar alt="user" src={props.user.imgUrl} component={Link} to={userLink}></Avatar>}
           title = {<div><Typography sx={{display:'inline', textTransform:"capitalize", color:"#3949ab"}} variant="h6">{props.name}</Typography>
           <Typography sx={{display:'inline'}} variant="h6"> in </Typography>
-          <Typography sx={{display:'inline', color:"#d81b60"}} variant="h6" component={Link} to={elementLink}>{postLocation[0]}</Typography>
-          <Typography sx={{display:'inline', color:"black"}} variant="h6" component={Link} to={domainLink}> {postLocation[1]}</Typography>
+          <Typography sx={{display:'inline', color:"#d81b60"}} variant="h6" component={Link} to={elementLink}>{elementName}</Typography>
+          <Typography sx={{display:'inline', color:"black"}} variant="h6" component={Link} to={domainLink}> {domainName}</Typography>
           <Typography sx={{display:'inline', position:"relative"}} variant="h4" color="#e91e63"> {props.grade}</Typography>
           </div>}
           subheader = {<Typography color="text.secondary" sx={{display:'inline'}} component={Link} to={userLink}>{props.user.name} {props.user.surname}
@@ -253,7 +261,7 @@ function PostCard(props) {
           <ExpandMoreIcon />
         </ExpandMore>
         </CardActions>
-      </Card>
+        </Card>
       <Collapse in={expanded} timeout="auto" unmountOnExit>
         {loadedPosts.map((post)=>
           <ReplyCard
@@ -263,36 +271,19 @@ function PostCard(props) {
             content={post.content}
             likes={post.likes}
             authorUsername={post.authorUsername}
+            replies={post.replies}
             user={post.author}
-            postUserImg={props.user.imgUrl}
+            postUserImg={props.user.imgUrl}  
+            postUserName={props.user.name} 
+            postUserSurname={props.user.surname}
+            postUserUsername={props.user.username}    
+            parent="post"
+            iteration="0"
           />
         )}
       </Collapse>
+      
       </div>
-
-
-
-
-
-
-      /*
-        <div className={classes.item} key={props.id} id={props.id}>
-          <Card>
-            <div className={classes.content}>
-              <div>
-              {grade}
-              </div>
-              <h3>{props.name}</h3>
-              <p>{props.content}</p>
-              <p>By: {props.authorUsername}</p>
-              <p>{props.user.name}</p>
-              {likeButton}
-              {dislikeButton}
-              <p>{likeScore}</p>
-            </div>
-          </Card>
-        </div>
-      */
       );
 
 }

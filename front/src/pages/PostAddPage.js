@@ -21,7 +21,15 @@ function PostAddPage(props) {
     domainName = props.domain.name;
     elementId = props.domain.parentId;
     domainId = props.domain.id;
+
+    
+
     address = 'http://localhost:8080/posts/' + domainType + 'Id/' + props.domain.id + '/addpost';
+
+    if(domainType !== "forum" && domainType !== "complainSpace" && domainType !== "reviewSpace" 
+    && domainType !== "roadMap" && domainType !== undefined){
+        address = 'http://localhost:8080/posts/themeId/' + props.domain.id + '/addpost';
+    }
     
     if(userCtx.selectedPost !== "") {
         address2 = 'http://localhost:8080/posts/postId/' + userCtx.selectedPost + '/addReply';
@@ -52,6 +60,7 @@ function PostAddPage(props) {
             {
              method: 'POST',
              body: JSON.stringify( {
+                 name : postData.name,
                  content : postData.content,
                  authorUsername : postData.authorUsername,
              }
@@ -61,6 +70,7 @@ function PostAddPage(props) {
             },
             credentials: 'include'
             },
+            window.location.reload(),
             )
         }
 

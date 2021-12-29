@@ -80,6 +80,12 @@ public class PostController {
 			return new ResponseEntity<Post>(complainPost, HttpStatus.CREATED);
 	}
 	
+	@PostMapping(value="/themeId/{id}/addpost")
+	public ResponseEntity<Post> addThemePost(@PathVariable String id, @RequestBody ForumPost forumPost){
+		postService.addThemePost(id, forumPost);
+			return new ResponseEntity<Post>(forumPost, HttpStatus.CREATED);
+	}
+	
 	@PostMapping(value="/postId/{id}/addReply")
 	public ResponseEntity<Reply> addReply(@PathVariable String id, @RequestBody Reply reply){
 		replyService.addReply(id, reply);
@@ -87,8 +93,8 @@ public class PostController {
 	}
 	
 	@GetMapping(value = "/postId/{id}/replies")
-    public ResponseEntity<Iterable<Reply>> getPostReplies(@PathVariable String id) {
-        return new ResponseEntity<Iterable<Reply>>(replyService.getPostReplies(id), HttpStatus.OK);
+    public ResponseEntity<Iterable<Post>> getPostReplies(@PathVariable String id) {
+        return new ResponseEntity<Iterable<Post>>(replyService.getPostReplies(id), HttpStatus.OK);
     }
 	
 	@DeleteMapping(value="/postId/{id}/remove")

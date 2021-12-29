@@ -6,13 +6,15 @@ const UserContext = createContext({
     restrictions : [],
     openUser : (loggedUser) => {},
     setRestrictions : (userRestrictions) => {},
-    setSelectedPost : (selPost) => ""
+    setSelectedPost : (selPost) => "",
+    setSelectedPostAuthor : (selPostAut) => ""
 });
 
 export function UserContextProvider(props) {
     const [user, setUser] = useState({});
     const [restrictions, setRestrictionList] = useState([]);
     const [selectedPost, setSelectedPost] = useState("");
+    const [selectedPostAuthor, setSelectedPostAuthor] = useState("");
 
     function loggedUserHandler(loggedUser){
         setUser(loggedUser);
@@ -26,13 +28,19 @@ export function UserContextProvider(props) {
         setSelectedPost(selPost);
     }
 
+    function selectedPostAuthorHandler(selPostAut){
+        setSelectedPostAuthor(selPostAut);
+    }
+
     const openedUser = {
         content : user,
         restrictions : restrictions,
         selectedPost : selectedPost,
+        selectedPostAuthor : selectedPostAuthor,
         openUser : loggedUserHandler,
         setRestrictions : restrictionHandler,
-        setSelectedPost : selectedPostHandler
+        setSelectedPost : selectedPostHandler,
+        setSelectedPostAuthor : selectedPostAuthorHandler
     };
 
     return (

@@ -6,27 +6,22 @@ import PostList from '../components/layout/lists/PostList';
 import DomainHeader from '../components/layout/headers/DomainHeader';
 import PostAddPage from './PostAddPage';
 import ThemeList from '../components/layout/lists/ThemeList';
-import ThemeForm from '../components/forms/ThemeForm';
 
-function DomainPage() {
+function ThemePage() {
 
     const { id } = useParams();
     const [isLoading, setIsLoading] = useState(true);
-    const [isDomainLoaded, isDomainLoadedSet] = useState(false);
+    const [isThemeLoaded, setIsThemeLoaded] = useState(false);
     const [loadedPosts, setLoadedPosts] = useState([]);
-    const [loadedDomain, setLoadedDomain] = useState({});
-    const [loadedGrades, setLoadedGrades] = useState([]);
+    const [loadedTheme, setLoadedTheme] = useState({});
 
-    const address = 'http://localhost:8080/reviewElement/postSpace/' + id + '/feed';
-    const address2 = 'http://localhost:8080/reviewElement/postSpace/' + id;
-    let type;
-    let postAdd;
-    let list;
+    const address = 'http://localhost:8080/reviewElement/postSpace/theme/' + id;
+    const address2 = 'http://localhost:8080/reviewElement/postSpace/theme/' + id + '/feed';
 
     useEffect(() => {
         setIsLoading(true);
         fetch(
-            address,
+            address2,
             {
             headers: {
                 'Content-Type': 'application/json',
@@ -56,7 +51,7 @@ function DomainPage() {
     useEffect(() => {
         setIsLoading(true);
         fetch(
-            address2,
+            address,
             {
             headers: {
                 'Content-Type': 'application/json',
@@ -68,33 +63,22 @@ function DomainPage() {
             return response.json();
           })
           .then((data) => {
-            const domain = {
+            const theme = {
                 "id" : data.id,
                 "name" : data.name,
                 "type" : data.type,
                 "parentId" : data.parentId,
+                "elementId" : data.elementId,
                 "posts" : data.postCollection
             }
             setIsLoading(false);
-            setLoadedDomain(domain);
+            setLoadedTheme(theme);
         
-            isDomainLoadedSet(true);
+            setIsThemeLoaded(true);
           });
       }, [address2]);
     
-    useEffect(() => {
-        setIsLoading(true);
 
-        const grd = [];
-        for (var i = 0; i< loadedPosts.length; i++){
-            grd.push(loadedPosts[i].grade);
-        }
-        if(grd[0] !== undefined){
-            setLoadedGrades(grd);
-        }
-        setIsLoading(false);
-
-    },[loadedPosts]);
       
 
     if (isLoading) {
@@ -105,24 +89,12 @@ function DomainPage() {
         );
     }
 
-    if (isDomainLoaded === true) {
-        type = loadedDomain.type;
-        if(type === "forum") {
-            list = <ThemeList domainId={loadedDomain.id}/>
-            postAdd = <ThemeForm domain={loadedDomain}/>
-        }
-        else{
-            list = <PostList posts={loadedPosts} />
-            postAdd = <PostAddPage domain={loadedDomain}/>
-        }
-    }
-
     return (
         <MainLayout>
         <section>
-            {postAdd}
-            <DomainHeader domain={loadedDomain} grades={loadedGrades}/>
-            {list}
+            <PostAddPage domain={loadedTheme}/>
+            <DomainHeader domain={loadedTheme}/>
+            <PostList posts={loadedPosts} />
         </section>
         </MainLayout>
     );
@@ -131,4 +103,4 @@ function DomainPage() {
 
 }
 
-export default DomainPage;
+export default ThemePage;

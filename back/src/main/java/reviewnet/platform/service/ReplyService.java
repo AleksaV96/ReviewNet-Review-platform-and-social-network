@@ -28,18 +28,18 @@ public class ReplyService {
 	@Autowired
 	UserAccService userService;
 	
-	public Iterable<Reply> getAll() {
-		return replyRepository.findAll();
+	public Iterable<Post> getAll() {
+		return postRepository.findAll();
 	}
 	
-	public Optional<Reply> getById(String id){
-		return replyRepository.findById(id);
+	public Optional<Post> getById(String id){
+		return postRepository.findById(id);
 	}
 	
 	public Optional<Post> addReply(String id, Reply reply) {
 		Optional<User> author = userService.findByUsername(reply.getAuthorUsername());
 		reply.setAuthor(author.get());
-		replyRepository.save(reply);
+		postRepository.save(reply);
 		Optional<Post> selectedPost = postService.getById(id);
 		selectedPost.get().getReplies().add(reply.getId());
 		postService.updatePost(id, selectedPost.get());
@@ -47,14 +47,14 @@ public class ReplyService {
 	}
 	
 	public void removeReply(String id) {
-		Optional<Reply> post = replyRepository.findById(id);
-		replyRepository.delete(post.get());
+		Optional<Post> post = postRepository.findById(id);
+		postRepository.delete(post.get());
 	}
 	
-	public Iterable<Reply> getPostReplies(String id) {
+	public Iterable<Post> getPostReplies(String id) {
         List<String> replyIds;
-        List<Reply> repliesList = new ArrayList<Reply>();
-        Reply reply;
+        List<Post> repliesList = new ArrayList<Post>();
+        Post reply;
 
         Optional<Post> selectedPost = postRepository.findById(id);
         replyIds = selectedPost.get().getReplies();

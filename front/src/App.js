@@ -26,6 +26,7 @@ import SubscriptionsPage from './pages/SubscriptionsPage';
 import UserSubscriptionsPage from './pages/UserSubscriptionsPage';
 import FriendsPage from './pages/FriendsPage';
 import UserFriendsPage from './pages/UserFriendsPage';
+import ThemePage from './pages/ThemePage';
 
 function App() {
 
@@ -99,6 +100,7 @@ function App() {
               <Route path='/user/:id/subscriptions' element={<UserSubscriptionsPage />} />
               <Route path='/friends' element={<FriendsPage />} />
               <Route path='/user/:id/friends' element={<UserFriendsPage />} />
+              <Route path='/reviewElement/domain/theme/:id' element={<ThemePage />} />
           </Route>
           <Route element={<AdminRoutes />}>
               <Route path='/dashboard' element={<Dashboard/>} />

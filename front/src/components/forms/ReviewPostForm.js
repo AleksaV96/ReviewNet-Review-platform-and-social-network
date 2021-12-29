@@ -33,28 +33,42 @@ function ReviewPostForm(props) {
     const userCtx = useContext(UserContext);
     var [value, setValue] = useState(0);
     const [hover, setHover] = React.useState(-1);
+    let buttonText = "Post";
 
     const labels = {
+        0.5 : 'Catastrophic',
         1: 'Useless',
+        1.5: 'Useless',
         2: 'Useless+',
+        2.5: 'Useless+',
         3: 'Poor',
+        3.5: 'Poor',
         4: 'Poor+',
+        4.5: 'Poor+',
         5: 'Ok',
+        5.5: 'Ok',
         6: 'Ok+',
+        6.5: 'Ok+',
         7: 'Good',
+        7.5: 'Good',
         8: 'Good+',
+        8.5: 'Good+',
         9: 'Excellent',
+        9.5: 'Excellent',
         10: 'Excellent+',
       };
 
     const nameInputRef = useRef();
     const contentInputRef = useRef();
-    const ratingInputRef = useRef();
+
 
     function submitHandler(event) {
         event.preventDefault();
 
-        const enteredName = nameInputRef.current.value;
+        var enteredName = "Reply to " + props.domainId;
+        if(userCtx.selectedPost === ""){
+        enteredName = nameInputRef.current.value;
+        }
         const enteredContent = contentInputRef.current.value;
         const enteredRating = value;
         const authorUsername = userCtx.content.username;
@@ -70,6 +84,53 @@ function ReviewPostForm(props) {
     }
 
       props.onPostAdd(postData);
+    }
+
+    let title = <Grid item xs={12}>
+                  <TextField
+                    sx={{bgcolor:"white"}}
+                    autoComplete="title"
+                    name="title"
+                    fullWidth
+                    id="title"
+                    label="Title"
+                    autoFocus
+                    inputRef={nameInputRef}
+                  />
+                </Grid>
+
+    let rating = <Grid item xs={12}>
+                  <Box
+                  sx={{
+                  width: 200,
+                  display: 'flex',
+                  alignItems: 'center',
+                  }}
+                  >
+                  <Rating
+                      sx={{margin:"3mm"}}
+                      name="rating"
+                      value={value}
+                      max={10}
+                      size="large"
+                      precision={0.5}
+                      onChange={(event, newValue) => {
+                      setValue(newValue);         
+                      }}
+                      onChangeActive={(event, newHover) => {
+                      setHover(newHover);
+                      }}
+                      emptyIcon={<StarIcon style={{ opacity: 0.55 }} fontSize="inherit" />}
+                      />
+                  <Box sx={{ ml: 2 }}>{labels[hover !== -1 ? hover : value]}</Box>
+                  </Box>
+                </Grid>
+
+    if(userCtx.selectedPost !== ""){
+      rating = ""
+      title = <Typography variant="h6" color="text.secondary" sx={{width: "100%", textAlign: "center"}}>
+        Replying to {userCtx.selectedPostAuthor}</Typography>
+      buttonText = "Reply";
     }
 
     const ExpandMore = styled((props) => {
@@ -114,43 +175,8 @@ function ReviewPostForm(props) {
         >
           <Box component="form" noValidate onSubmit={submitHandler} sx={{ mt: 3 }}>
             <Grid container spacing={2}>
-            <Grid item xs={12}>
-            <Box
-                sx={{
-                    width: 200,
-                    display: 'flex',
-                    alignItems: 'center',
-                }}
-                >
-              <Rating
-                sx={{margin:"3mm"}}
-                name="rating"
-                value={value}
-                max={10}
-                size="large"
-                onChange={(event, newValue) => {
-                setValue(newValue);         
-                }}
-                onChangeActive={(event, newHover) => {
-                setHover(newHover);
-                }}
-                emptyIcon={<StarIcon style={{ opacity: 0.55 }} fontSize="inherit" />}
-                />
-                <Box sx={{ ml: 2 }}>{labels[hover !== -1 ? hover : value]}</Box>
-                </Box>
-              </Grid>
-              <Grid item xs={12}>
-                <TextField
-                  sx={{bgcolor:"white"}}
-                  autoComplete="title"
-                  name="title"
-                  fullWidth
-                  id="title"
-                  label="Title"
-                  autoFocus
-                  inputRef={nameInputRef}
-                />
-              </Grid>
+            {rating}
+            {title}
               <Grid item xs={12}>
                 <TextField
                   sx={{bgcolor:"white"}}
@@ -173,7 +199,7 @@ function ReviewPostForm(props) {
               variant="contained"
               sx={{ mt: 3, mb: 2 }}
             >
-              Post
+              {buttonText}
             </Button>
           </Box>       
         </Box>
