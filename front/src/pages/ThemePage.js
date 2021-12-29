@@ -2,7 +2,7 @@ import { React, useState, useEffect } from 'react';
 import { useParams } from "react-router";
 
 import MainLayout from '../components/layout/MainLayout'
-import PostList from '../components/layout/lists/PostList';
+import PostDomainList from '../components/layout/lists/PostDomainList';
 import DomainHeader from '../components/layout/headers/DomainHeader';
 import PostAddPage from './PostAddPage';
 import ThemeList from '../components/layout/lists/ThemeList';
@@ -94,7 +94,7 @@ function ThemePage() {
         <section>
             <PostAddPage domain={loadedTheme}/>
             <DomainHeader domain={loadedTheme}/>
-            <PostList posts={loadedPosts} />
+            <PostDomainList posts={loadedPosts} />
         </section>
         </MainLayout>
     );

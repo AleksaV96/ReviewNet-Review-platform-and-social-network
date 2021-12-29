@@ -5,16 +5,17 @@ import {Navigate } from 'react-router-dom';
 
 import {useState} from 'react';
 
+
 function ReviewElementAddPage() {
+    
     const [redirect, setRedirect] = useState(false);
 
     function addReviewElementHandler(reviewElementData) {
-
     fetch(
         'http://localhost:8080/reviewElements/createCompany',
        {
          method: 'POST',
-         body: JSON.stringify(reviewElementData),
+         body: JSON.stringify(reviewElementData, ),
          headers: {
              'Content-Type': 'application/json',
          },

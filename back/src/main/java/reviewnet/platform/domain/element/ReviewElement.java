@@ -1,5 +1,6 @@
 package reviewnet.platform.domain.element;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.data.mongodb.core.mapping.Document;
@@ -14,18 +15,20 @@ public class ReviewElement {
 	private String description;
 	private String imgUrl;
 	private double rating;
-	private List<String> moderators;
+	private String creatorId;
+	private List<String> moderators = new ArrayList<String>();
 	private List<AbstractPostSpace> domains;
 	
 	public ReviewElement() {}
 	
-	public ReviewElement(String id, String name, String description, String imgUrl, double rating, 
+	public ReviewElement(String id, String name, String description, String imgUrl, double rating, String creatorId,
 			List<String> moderators, List<AbstractPostSpace> domains) {
 		this.id = id;
 		this.name = name;
 		this.description = description;
 		this.imgUrl = imgUrl;
 		this.rating = rating;
+		this.creatorId = creatorId;
 		this.moderators = moderators;
 		this.domains = domains;
 	}
@@ -70,12 +73,24 @@ public class ReviewElement {
 		this.rating = rating;
 	}
 	
+	public String getCreatorId() {
+		return creatorId;
+	}
+
+	public void setCreatorId(String creatorId) {
+		this.creatorId = creatorId;
+	}
+
 	public List<String> getModerators() {
 		return moderators;
 	}
 
 	public void setModerators(List<String> moderators) {
 		this.moderators = moderators;
+	}
+	
+	public void addModerator(String moderatorId) {
+		this.moderators.add(moderatorId);
 	}
 
 	public List<AbstractPostSpace> getDomains() {

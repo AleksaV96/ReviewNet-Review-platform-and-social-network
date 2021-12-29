@@ -15,11 +15,13 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 
-
 import AddModeratorIcon from '@mui/icons-material/AddModerator';
 
-function ReviewElementForm(props) {
+import { useContext } from 'react';
+import UserContext from '../../store/user-context';
 
+function ReviewElementForm(props) {
+    const userCtx = useContext(UserContext);
     const nameInputRef = useRef();
     const descriptionInputRef = useRef();
     const imgUrlInputRef = useRef();
@@ -35,7 +37,8 @@ function ReviewElementForm(props) {
     const reviewElementData = {
         name : enteredName,
         description : enteredDescription,
-        imgUrl : enteredImgUrl
+        imgUrl : enteredImgUrl,
+        creatorId : userCtx.content.id
     }
         props.onReviewElementAdd(reviewElementData);
     }

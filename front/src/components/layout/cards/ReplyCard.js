@@ -213,7 +213,7 @@ function ReplyCard(props) {
 
     return(
       <div style={{position:"relative",borderLeft:"2px dotted #757575", left:position}}>
-        <Card sx={{marginTop : "3px", bgcolor:clr, maxWidth:400, position:"relative", right:"0px"}}>
+        <Card sx={{marginTop : "3px", bgcolor:clr, maxWidth:400, position:"relative", left:"2px"}}>
         <CardHeader sx={{maxHeight:50}}
           avatar = {
             <Badge

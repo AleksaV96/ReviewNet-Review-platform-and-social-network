@@ -2,7 +2,7 @@ import { React, useState, useEffect } from 'react';
 import { useParams } from "react-router";
 
 import MainLayout from '../components/layout/MainLayout'
-import PostList from '../components/layout/lists/PostList';
+import PostDomainList from '../components/layout/lists/PostDomainList';
 import DomainHeader from '../components/layout/headers/DomainHeader';
 import PostAddPage from './PostAddPage';
 import ThemeList from '../components/layout/lists/ThemeList';
@@ -112,7 +112,7 @@ function DomainPage() {
             postAdd = <ThemeForm domain={loadedDomain}/>
         }
         else{
-            list = <PostList posts={loadedPosts} />
+            list = <PostDomainList posts={loadedPosts} />
             postAdd = <PostAddPage domain={loadedDomain}/>
         }
     }

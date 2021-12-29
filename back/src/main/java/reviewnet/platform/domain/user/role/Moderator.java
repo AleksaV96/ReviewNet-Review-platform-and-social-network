@@ -24,4 +24,8 @@ public class Moderator extends UserRole {
 		this.moderated = moderated;
 	}
 	
+	public void addModerated(String moderated) {
+		this.moderated.add(moderated);
+	}
+	
 }

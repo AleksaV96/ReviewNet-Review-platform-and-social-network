@@ -18,7 +18,11 @@ import reviewnet.platform.domain.space.ComplainSpace;
 import reviewnet.platform.domain.space.Forum;
 import reviewnet.platform.domain.space.ReviewSpace;
 import reviewnet.platform.domain.space.RoadMapSpace;
+import reviewnet.platform.domain.user.User;
+import reviewnet.platform.domain.user.role.Moderator;
+import reviewnet.platform.repository.user.UserRepository;
 import reviewnet.platform.service.ReviewElementService;
+import reviewnet.platform.service.UserAccService;
 import reviewnet.platform.service.AbstractPostSpaceService;
 
 @Controller
@@ -30,6 +34,12 @@ public class ReviewElementController {
 	
 	@Autowired
 	AbstractPostSpaceService abstractPostSpaceService;
+	
+	@Autowired
+	UserAccService userService;
+	
+	@Autowired 
+	UserRepository userRepository;
 	
 	@GetMapping(value="/all")
 	public ResponseEntity<Iterable<ReviewElement>> getAllElements() {
@@ -48,21 +58,21 @@ public class ReviewElementController {
 	@PostMapping(value="/create")
 	public ResponseEntity<ReviewElement> addElement(@RequestBody ReviewElement element){
 		reviewElementService.addElement(element);
-		createDomains(element);
+		createDomains(element, element.getCreatorId());
 			return new ResponseEntity<ReviewElement>(element, HttpStatus.CREATED);
 	}
 	
 	@PostMapping(value="/createCompany")
 	public ResponseEntity<ReviewElement> addCompany(@RequestBody Company company){
 		reviewElementService.addElement(company);
-		createDomains(company);
+		createDomains(company, company.getCreatorId());
 			return new ResponseEntity<ReviewElement>(company, HttpStatus.CREATED);
 	}
 	
 	@PostMapping(value="/createProduct")
 	public ResponseEntity<ReviewElement> addProduct(@RequestBody Product product){
 		reviewElementService.addElement(product);
-		createDomains(product);
+		createDomains(product, product.getCreatorId());
 			return new ResponseEntity<ReviewElement>(product, HttpStatus.CREATED);
 	}
 	
@@ -76,10 +86,14 @@ public class ReviewElementController {
         return new ResponseEntity<ReviewElement>(HttpStatus.NO_CONTENT);
     }
 	
-	public void createDomains(ReviewElement element) {
+	public void createDomains(ReviewElement element, String userId) {
 		
+		System.out.println(element.getId());
 		Optional<ReviewElement> elementData = reviewElementService.findByName(element.getName());
+		Optional<User> userData = userService.getById(userId);
 		List<AbstractPostSpace> domains = new ArrayList<AbstractPostSpace>();
+		
+		elementData.get().addModerator(userId);
 		
 		String elementName = elementData.get().getName();
 		String elementId = elementData.get().getId();
@@ -115,6 +129,8 @@ public class ReviewElementController {
 		
 		elementData.get().setDomains(domains);
 		reviewElementService.addElement(elementData.get());
+		((Moderator) userData.get().getPermission().getRoleDetails()).addModerated(elementData.get().getId());
+		userRepository.save(userData.get());
 	}
 	
 	

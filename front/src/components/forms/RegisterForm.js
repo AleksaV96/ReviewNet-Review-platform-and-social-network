@@ -1,4 +1,4 @@
-import { useRef } from 'react';
+import { useRef, useState } from 'react';
 import React from 'react';
 
 import Avatar from '@mui/material/Avatar';
@@ -14,7 +14,13 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 
+import Snackbar from '@mui/material/Snackbar';
+import MuiAlert from '@mui/material/Alert';
+
 function RegisterForm(props) {
+
+    const [open, setOpen] = useState(false);
+    const [errorMessage, setErrorMessage] = useState("");
 
     const nameInputRef = useRef();
     const surnameInputRef = useRef();
@@ -36,7 +42,8 @@ function RegisterForm(props) {
         const enteredImgUrl = imgUrlInputRef.current.value;
 
         if(enteredPassword !== repeatedPassword){
-          return alert("PASSWORDS DONT MATACH!")
+          setOpen(true);
+          return setErrorMessage("Passwords dont match!");
         }
     
 
@@ -51,6 +58,18 @@ function RegisterForm(props) {
 
         props.onUserAdd(userData);
       }
+
+      const Alert = React.forwardRef(function Alert(props, ref) {
+        return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
+      });
+  
+      const handleClose = (event, reason) => {
+        if (reason === 'clickaway') {
+          return;
+        }
+    
+        setOpen(false);
+      };
 
     return (
       
@@ -143,7 +162,6 @@ function RegisterForm(props) {
               </Grid>
               <Grid item xs={12}>
                 <TextField
-                  required
                   fullWidth
                   name="imgUrl"
                   label="Profile Photo"
@@ -171,6 +189,13 @@ function RegisterForm(props) {
             </Grid>
           </Box>
         </Box>
+
+        <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
+          <Alert onClose={handleClose} severity="error" sx={{ width: '100%' }}>
+            {errorMessage}
+          </Alert>
+        </Snackbar>
+
       </Container>
 
 

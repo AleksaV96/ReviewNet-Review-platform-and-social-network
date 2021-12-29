@@ -21,11 +21,13 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 
+import Alert from '@mui/material/Alert';
 
 function ProfilePasswordChange(props){
 
     const loadedProfile = props.profile;
     const [changed, setChanged] = useState(false);
+    const [alertBox, setAlertBox] = useState();
 
     const oldPasswordInputRef = useRef();
     const newPasswordInputRef = useRef();
@@ -39,7 +41,9 @@ function ProfilePasswordChange(props){
         const enteredRepeatedPassword = repeatNewPasswordInputRef.current.value;
 
         if(enteredNewPassword !== enteredRepeatedPassword){
-            return alert("PASSWORDS DONT MATACH!")
+            return setAlertBox(<Alert variant="filled" severity="error">
+            "Passwords dont match!"
+          </Alert>)
         }
 
         const password = {
@@ -65,11 +69,14 @@ function ProfilePasswordChange(props){
              alert("Password changed!")
            }
            else if(response.status === 401) {
-            alert("Wrong password!")
+            setAlertBox(<Alert variant="filled" severity="error">
+            "Wrong password!"
+            </Alert>)
            }
            else{
-             console.log(response)
-             alert("Unknown error!")
+            setAlertBox(<Alert variant="filled" severity="error">
+            "Unknown error"
+            </Alert>)
            }
 
         })
@@ -135,10 +142,12 @@ function ProfilePasswordChange(props){
                 type="password"
                 id="password"
                 autoComplete="repeat-password"
+                sx={{marginBottom:"5mm"}}
                 inputRef={repeatNewPasswordInputRef}
               />
             </Grid>
           </Grid>
+          {alertBox}
           <Button
             type="submit"
             fullWidth
@@ -152,31 +161,6 @@ function ProfilePasswordChange(props){
     </Container>
     </Card>
 
-
-
-
-
-        /*
-        <Card>
-          <form className={classes.form} onSubmit={submitHandler}>
-            <div className={classes.control}>
-                <label htmlFor='password'>Old Password</label>
-                <input type='password' required id='password' ref={oldPasswordInputRef} />
-            </div>
-            <div className={classes.control}>
-             <label htmlFor='password'>New password</label>
-             <input type='password' required id='password' ref={newPasswordInputRef} />
-            </div>
-            <div className={classes.control}>
-             <label htmlFor='password'>Repeat new password</label>
-             <input type='password' required id='password' ref={repeatNewPasswordInputRef} />
-            </div>
-            <div className={classes.actions}>
-              <button>Change password</button>
-            </div>
-          </form>
-        </Card>
-        */
       );
 }
 
