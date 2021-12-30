@@ -10,6 +10,7 @@ import ThemeList from '../components/layout/lists/ThemeList';
 function ThemePage() {
 
     const { id } = useParams();
+    const { elementName } = useParams();
     const [isLoading, setIsLoading] = useState(true);
     const [isThemeLoaded, setIsThemeLoaded] = useState(false);
     const [loadedPosts, setLoadedPosts] = useState([]);

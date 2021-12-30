@@ -76,7 +76,7 @@ public class ReviewElementController {
 			return new ResponseEntity<ReviewElement>(product, HttpStatus.CREATED);
 	}
 	
-	@DeleteMapping(value="/reviewElementId/{id}/remove/")
+	@DeleteMapping(value="/reviewElementId/{id}/remove")
     public ResponseEntity<ReviewElement> removeElement(@PathVariable String id){
         try {
         	reviewElementService.removeElement(id);
@@ -88,7 +88,6 @@ public class ReviewElementController {
 	
 	public void createDomains(ReviewElement element, String userId) {
 		
-		System.out.println(element.getId());
 		Optional<ReviewElement> elementData = reviewElementService.findByName(element.getName());
 		Optional<User> userData = userService.getById(userId);
 		List<AbstractPostSpace> domains = new ArrayList<AbstractPostSpace>();

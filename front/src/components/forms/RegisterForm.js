@@ -163,6 +163,7 @@ function RegisterForm(props) {
               <Grid item xs={12}>
                 <TextField
                   fullWidth
+                  required
                   name="imgUrl"
                   label="Profile Photo"
                   type="url"

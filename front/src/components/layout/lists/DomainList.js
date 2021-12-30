@@ -6,11 +6,19 @@ import { Grid } from '@mui/material';
 
 function DomainList(props) {
 
+    let elementName;
+    try{
+      elementName = props.element[0].name
+    }
+    catch(e){
+      console.log(e);
+    }
+
     return (
       <Grid container spacing={2}>  
           {props.domains.map((domain) => (
             <Grid item xs={6} md={6}>
-            <Link to={'/reviewElement/domain/'+ domain.id}>
+            <Link to={'/reviewElement/'+ elementName +'/domain/'+ domain.id}>
             <DomainCard
               key={domain.id}
               id={domain.id}

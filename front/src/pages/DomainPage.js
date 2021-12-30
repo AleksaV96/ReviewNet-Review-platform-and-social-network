@@ -11,6 +11,7 @@ import ThemeForm from '../components/forms/ThemeForm';
 function DomainPage() {
 
     const { id } = useParams();
+    const { elementName } = useParams();
     const [isLoading, setIsLoading] = useState(true);
     const [isDomainLoaded, isDomainLoadedSet] = useState(false);
     const [loadedPosts, setLoadedPosts] = useState([]);
@@ -22,6 +23,8 @@ function DomainPage() {
     let type;
     let postAdd;
     let list;
+
+    console.log(elementName);
 
     useEffect(() => {
         setIsLoading(true);
@@ -108,7 +111,7 @@ function DomainPage() {
     if (isDomainLoaded === true) {
         type = loadedDomain.type;
         if(type === "forum") {
-            list = <ThemeList domainId={loadedDomain.id}/>
+            list = <ThemeList domainId={loadedDomain.id} elementName={elementName}/>
             postAdd = <ThemeForm domain={loadedDomain}/>
         }
         else{

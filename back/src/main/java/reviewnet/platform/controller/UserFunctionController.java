@@ -107,4 +107,9 @@ public class UserFunctionController {
 		return new ResponseEntity<Iterable<ReviewElement>>(userFuncService.getUserSubscriptions(id), HttpStatus.OK);
 	}
 	
+	@GetMapping(value="/userId/{id}/get-moderated")
+	public ResponseEntity<Iterable<ReviewElement>> getModeratorsModerated(@PathVariable String id){
+		return new ResponseEntity<Iterable<ReviewElement>>(userFuncService.getModerated(id), HttpStatus.OK);
+	}
+	
 }

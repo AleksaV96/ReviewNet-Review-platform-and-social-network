@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import reviewnet.platform.domain.element.ReviewElement;
 import reviewnet.platform.domain.post.Post;
 import reviewnet.platform.domain.user.User;
+import reviewnet.platform.domain.user.role.Moderator;
 import reviewnet.platform.domain.user.role.restriction.RestrictionType;
 import reviewnet.platform.repository.user.UserRepository;
 import reviewnet.platform.service.security.PermissionService;
@@ -180,6 +181,16 @@ public class UserFunctionsService {
 		List<ReviewElement> subscribed = new ArrayList<ReviewElement>();
 		for(String subId : subIds) {
 			subscribed.add(elementService.getById(subId).get());
+		}
+		return subscribed;
+	}
+	
+	public Iterable<ReviewElement> getModerated(String id){
+		Optional<User> selectedUser = userAccService.getById(id);
+		List<String> modIds = ((Moderator) selectedUser.get().getPermission().getRoleDetails()).getModerated();
+		List<ReviewElement> subscribed = new ArrayList<ReviewElement>();
+		for(String modId : modIds) {
+			subscribed.add(elementService.getById(modId).get());
 		}
 		return subscribed;
 	}

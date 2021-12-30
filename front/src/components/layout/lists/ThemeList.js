@@ -53,7 +53,7 @@ function ThemeList(props) {
       <Grid container spacing={0.3}>  
           {loadedThemes.map((theme) => (
             <Grid item xs={12} md={12}>
-            <Link to={'/reviewElement/domain/theme/'+ theme.id}>
+            <Link to={'/reviewElement/' + props.elementName + '/domain/theme/'+ theme.id}>
             <ThemeCard
               key={theme.id}
               id={theme.id}

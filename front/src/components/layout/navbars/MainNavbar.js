@@ -99,29 +99,6 @@ function MainNavbar() {
       </Drawer>
       </div>
 
-
-    /*
-    <header className={classes.header}>
-      <div className={classes.logo}>ReviewNet</div>
-      <nav>
-        <ul>
-          <li>
-            <Link to='/reviewElements'>Review</Link>
-          </li>
-          <li>
-            <Link to={'/profile/' + userCtx.content.username}>{userCtx.content.username}</Link>
-          </li>
-          <li>
-            <img src={userCtx.content.imgUrl} alt=""/>
-          </li>
-          <li>
-            <Link to='/' onClick={logout}>Logout</Link>
-          </li>
-        </ul>
-      </nav>
-    </header>
-    */
-
     );
 
 

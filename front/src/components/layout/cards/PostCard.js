@@ -212,10 +212,6 @@ function PostCard(props) {
             );
         }
 
-        let elementLink = "/reviewElements/" + props.elementId;
-        let domainLink = "/reviewElement/domain/" + props.domainId;
-        let userLink = "/user/" + props.authorUsername;
-
         let postLocation;
         let elementName;
         let domainName;
@@ -227,6 +223,10 @@ function PostCard(props) {
         catch(e){
           console.log(e);
         }
+
+        let elementLink = "/reviewElements/" + props.elementId;
+        let domainLink = "/reviewElement/"+ elementName +"/domain/" + props.domainId;
+        let userLink = "/user/" + props.authorUsername;
 
     return (
       <div>

@@ -85,7 +85,7 @@ function ReviewElementPage() {
     return(
         <MainLayout>
             <ReviewElementView element={loadedElement}/>
-            <DomainList domains={loadedDomains}/>
+            <DomainList domains={loadedDomains} element={loadedElement}/>
         </MainLayout>
     );
 

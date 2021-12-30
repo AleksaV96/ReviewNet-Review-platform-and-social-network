@@ -104,7 +104,7 @@ function ModeratorNavbar() {
             </ListItemButton>
         </ListItem>
         <ListItem disablePadding>
-            <ListItemButton component={Link} to="/reviewElements">
+            <ListItemButton component={Link} to="/reviewElements/moderated">
               <ListItemIcon>
                 <PreviewIcon />
               </ListItemIcon>

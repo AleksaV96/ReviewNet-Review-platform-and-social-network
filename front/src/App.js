@@ -27,6 +27,7 @@ import UserSubscriptionsPage from './pages/UserSubscriptionsPage';
 import FriendsPage from './pages/FriendsPage';
 import UserFriendsPage from './pages/UserFriendsPage';
 import ThemePage from './pages/ThemePage';
+import ModeratedPage from './pages/ModeratedPage';
 
 function App() {
 
@@ -92,7 +93,7 @@ function App() {
               <Route path='/main' element={<MainPage />} />
               <Route path='/reviewElements' element={<ReviewElementListPage />} />
               <Route path='/reviewElements/:id' element={<ReviewElementView />} />
-              <Route path='/reviewElement/domain/:id' element={<DomainPage />} />
+              <Route path='/reviewElement/:elementName/domain/:id' element={<DomainPage />} />
               <Route path='/reviewElements/create-company' element={<ReviewElementAddPage />} />
               <Route path='/profile/:username' element ={<ProfilePage />} />
               <Route path='/user/:username' element={<UserPage />} />
@@ -100,7 +101,8 @@ function App() {
               <Route path='/user/:id/subscriptions' element={<UserSubscriptionsPage />} />
               <Route path='/friends' element={<FriendsPage />} />
               <Route path='/user/:id/friends' element={<UserFriendsPage />} />
-              <Route path='/reviewElement/domain/theme/:id' element={<ThemePage />} />
+              <Route path='/reviewElement/:elementName/domain/theme/:id' element={<ThemePage />} />
+              <Route path='/reviewElements/moderated' element={<ModeratedPage />} />
           </Route>
           <Route element={<AdminRoutes />}>
               <Route path='/dashboard' element={<Dashboard/>} />
