@@ -95,7 +95,7 @@ function ThemePage() {
         <section>
             <PostAddPage domain={loadedTheme}/>
             <DomainHeader domain={loadedTheme}/>
-            <PostDomainList posts={loadedPosts} />
+            <PostDomainList posts={loadedPosts} domain={loadedTheme}/>
         </section>
         </MainLayout>
     );

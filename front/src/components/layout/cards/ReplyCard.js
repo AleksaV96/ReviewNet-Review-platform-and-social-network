@@ -211,6 +211,19 @@ function ReplyCard(props) {
               );
           }
 
+        var title = "";
+
+        try{
+          var moderated = props.user.permission.roleDetails.moderated;
+          if(moderated.includes(props.elementId) || moderated.includes(props.parentId)){
+            clr = "#f0f4c3";
+            title = <Typography color="red" sx={{display:'inline', fontWeight:'bolder'}}> MODERATOR</Typography>
+          }
+        }
+        catch(e){
+          console.log(e);
+        }
+
     return(
       <div style={{position:"relative",borderLeft:"2px dotted #757575", left:position}}>
         <Card sx={{marginTop : "3px", bgcolor:clr, maxWidth:400, position:"relative", left:"2px"}}>
@@ -226,8 +239,8 @@ function ReplyCard(props) {
             <Avatar alt="porst avatar" src={props.user.imgUrl} />
           </Badge>
           }
-          //title = {<Typography sx={{display:'inline'}} variant="h6">{props.name}</Typography>}
           subheader = {<div><Typography sx={{display:'inline', color:"#d81b60"}}  component={Link} to={userLink}>{props.user.name} {props.user.surname}</Typography>
+          {title}
           <Typography color="black" sx={{display:'inline'}}> replies to </Typography>
           <Typography color="text.secondary" sx={{display:'inline'}} component={Link} to={parentUserLink}>{props.postUserName} {props.postUserSurname}</Typography>
           </div>
@@ -269,6 +282,8 @@ function ReplyCard(props) {
             postUserSurname={props.postUserSurname}
             postUserUsername={props.postUserUsername}   
             iteration={replyIteration}
+            elementId={props.elementId}
+            parentId={props.parentId}
           />
         )}
       </Collapse>

@@ -17,12 +17,13 @@ public class ReviewElement {
 	private double rating;
 	private String creatorId;
 	private List<String> moderators = new ArrayList<String>();
+	private List<String> subscribers = new ArrayList<String>();
 	private List<AbstractPostSpace> domains;
 	
 	public ReviewElement() {}
 	
 	public ReviewElement(String id, String name, String description, String imgUrl, double rating, String creatorId,
-			List<String> moderators, List<AbstractPostSpace> domains) {
+			List<String> moderators, List<String> subscribers, List<AbstractPostSpace> domains) {
 		this.id = id;
 		this.name = name;
 		this.description = description;
@@ -30,6 +31,7 @@ public class ReviewElement {
 		this.rating = rating;
 		this.creatorId = creatorId;
 		this.moderators = moderators;
+		this.subscribers = subscribers;
 		this.domains = domains;
 	}
 
@@ -91,6 +93,14 @@ public class ReviewElement {
 	
 	public void addModerator(String moderatorId) {
 		this.moderators.add(moderatorId);
+	}
+
+	public List<String> getSubscribers() {
+		return subscribers;
+	}
+
+	public void setSubscribers(List<String> subscribers) {
+		this.subscribers = subscribers;
 	}
 
 	public List<AbstractPostSpace> getDomains() {

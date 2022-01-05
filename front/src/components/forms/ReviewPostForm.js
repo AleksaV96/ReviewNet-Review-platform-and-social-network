@@ -173,7 +173,7 @@ function ReviewPostForm(props) {
             alignItems: 'center',
           }}
         >
-          <Box component="form" noValidate onSubmit={submitHandler} sx={{ mt: 3 }}>
+          <Box component="form" onSubmit={submitHandler} sx={{ mt: 3 }}>
             <Grid container spacing={2}>
             {rating}
             {title}

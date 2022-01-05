@@ -24,8 +24,6 @@ function DomainPage() {
     let postAdd;
     let list;
 
-    console.log(elementName);
-
     useEffect(() => {
         setIsLoading(true);
         fetch(
@@ -115,7 +113,7 @@ function DomainPage() {
             postAdd = <ThemeForm domain={loadedDomain}/>
         }
         else{
-            list = <PostDomainList posts={loadedPosts} />
+            list = <PostDomainList posts={loadedPosts} domain={loadedDomain}/>
             postAdd = <PostAddPage domain={loadedDomain}/>
         }
     }

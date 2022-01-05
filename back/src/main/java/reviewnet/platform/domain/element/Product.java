@@ -15,9 +15,10 @@ public class Product extends ReviewElement {
 		super();
 	}
 
+		
 	public Product(String id, String name, String description, String imgUrl, double rating, String creatorId,
-			List<String> moderators, List<AbstractPostSpace> domains, String companyId) {
-		super(id, name, description, imgUrl, rating, creatorId, moderators, domains);
+			List<String> moderators, List<String> subscribers, List<AbstractPostSpace> domains, String companyId) {
+		super(id, name, description, imgUrl, rating, creatorId, moderators, subscribers, domains);
 		this.companyId = companyId;
 	}
 

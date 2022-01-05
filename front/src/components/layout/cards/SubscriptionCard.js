@@ -72,7 +72,7 @@ function SubscriptionCard(props) {
           alt="element pic"
           />
           <CardContent>
-            <Typography variant="h5" color="black" component="div" component={Link} to={'/reviewElements/'+ props.id}>
+            <Typography variant="h5" color="black" component="div" component={Link} to={'/reviewElement/'+ props.id}>
               {props.name}
             </Typography>
             <Typography variant="body2" color="text.secondary">

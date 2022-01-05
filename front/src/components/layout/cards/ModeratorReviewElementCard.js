@@ -2,17 +2,14 @@ import UserContext from '../../../store/user-context';
 import { useContext } from 'react';
 import { Link } from 'react-router-dom';
 
-import parseJwt from '../../../logic/JWTutil'
-
 import { Button, Avatar, Card, CardActions, CardContent, CardHeader, Typography, IconButton, CardMedia } from '@mui/material';
-import AddCircleIcon from '@mui/icons-material/AddCircle';
-import RemoveCircleIcon from '@mui/icons-material/RemoveCircle';
+import DeleteIcon from '@mui/icons-material/Delete';
 
 function ModeratorReviewElementCard(props) {
 
       const userCtx = useContext(UserContext); 
 
-      var deleteButton = <Button onClick={deleteHandler} variant="contained">Delete<AddCircleIcon/></Button>
+      var deleteButton = <Button onClick={deleteHandler} color="error" variant="contained">Delete<DeleteIcon/></Button>
 
       var address = 'http://localhost:8080/reviewElements/reviewElementId/' + props.id + '/remove';
 
@@ -30,7 +27,7 @@ function ModeratorReviewElementCard(props) {
           credentials: 'include'
           }
         ).then((response) => {
-          //window.location.reload();
+          window.location.reload();
         }
         )};
 
@@ -45,7 +42,7 @@ function ModeratorReviewElementCard(props) {
         alt="element pic"
         />
         <CardContent >
-          <Typography  variant="h5" sx={{color:"black"}} component={Link} to={'/reviewElements/'+ props.id}>
+          <Typography  variant="h5" sx={{color:"black"}} component={Link} to={'/moderatedReviewElement/'+ props.id}>
             {props.name}
           </Typography>
           <Typography variant="body2" color="text.secondary">

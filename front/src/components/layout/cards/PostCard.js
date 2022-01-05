@@ -224,7 +224,7 @@ function PostCard(props) {
           console.log(e);
         }
 
-        let elementLink = "/reviewElements/" + props.elementId;
+        let elementLink = "/reviewElement/" + props.elementId;
         let domainLink = "/reviewElement/"+ elementName +"/domain/" + props.domainId;
         let userLink = "/user/" + props.authorUsername;
 

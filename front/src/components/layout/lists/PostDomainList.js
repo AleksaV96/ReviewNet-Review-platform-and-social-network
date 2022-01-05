@@ -4,6 +4,7 @@ import classes from "./PostList.module.css";
 import { Link } from 'react-router-dom';
 
 function PostDomainList(props) {
+    
     return (
         <ul className={classes.list}>
           {props.posts.map((post) => (
@@ -19,6 +20,7 @@ function PostDomainList(props) {
               grade={post.grade}
               elementId={post.elementId}
               domainId={post.domainId}
+              parentId={props.domain.elementId}
               postLocation={post.postLocation}
               user={post.author}
             />

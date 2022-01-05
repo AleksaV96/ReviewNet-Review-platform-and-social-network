@@ -7,6 +7,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 public class Theme extends AbstractPostSpace {
 	
 	private String elementId;
+	private String authorUsername;
 	
 	public Theme() {}
 
@@ -21,6 +22,16 @@ public class Theme extends AbstractPostSpace {
 	public void setElementId(String elementId) {
 		this.elementId = elementId;
 	}
+
+	public String getAuthorUsername() {
+		return authorUsername;
+	}
+
+	public void setAuthorUsername(String authorUsername) {
+		this.authorUsername = authorUsername;
+	}
+	
+	
 	
 
 }

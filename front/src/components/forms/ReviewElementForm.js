@@ -62,7 +62,7 @@ function ReviewElementForm(props) {
           <Typography component="h1" variant="h5">
             Create element
           </Typography>
-          <Box component="form" noValidate onSubmit={submitHandler} sx={{ mt: 3 }}>
+          <Box component="form" onSubmit={submitHandler} sx={{ mt: 3 }}>
             <Grid container spacing={2}>
               <Grid item xs={12}>
                 <TextField

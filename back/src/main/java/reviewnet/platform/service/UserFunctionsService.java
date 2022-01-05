@@ -50,15 +50,21 @@ public class UserFunctionsService {
 	
 	public Optional<User> subscribe (String id, String elementId){
 		Optional<User> selectedUser = userAccService.getById(id);
+		Optional<ReviewElement> selectedElement = elementService.getById(elementId);
 		selectedUser.get().getSubscribed().add(elementId);
+		selectedElement.get().getSubscribers().add(id);
 		userFunctionsRepository.save(selectedUser.get());
+		elementService.addElement(selectedElement.get());
 		return selectedUser;
 	}
 	
 	public Optional<User> unsubscribe (String id, String elementId){
 		Optional<User> selectedUser = userAccService.getById(id);
+		Optional<ReviewElement> selectedElement = elementService.getById(elementId);
 		selectedUser.get().getSubscribed().remove(elementId);
+		selectedElement.get().getSubscribers().remove(id);
 		userFunctionsRepository.save(selectedUser.get());
+		elementService.addElement(selectedElement.get());
 		return selectedUser;
 	}
 	

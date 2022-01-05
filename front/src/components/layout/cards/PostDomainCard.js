@@ -41,7 +41,6 @@ function PostDomainCard(props) {
     var likeIdDsl = props.id + "likeDsl";
     var dislikeIdDsl = props.id + "dislikeDsl";
 
-    let initialIteration = 0
 
     const address =  'http://localhost:8080/posts/postId/' + props.id + '/replies'
 
@@ -214,6 +213,20 @@ function PostDomainCard(props) {
             );
         }
 
+        var bcolor = "#FFFFFF"
+        var title = "";
+
+        try{
+          var moderated = props.user.permission.roleDetails.moderated;
+          if(moderated.includes(props.elementId) || moderated.includes(props.parentId)){
+            bcolor = "#f0f4c3";
+            title = <Typography color="red" sx={{display:'inline', fontWeight:'bolder'}}> MODERATOR</Typography>
+          }
+        }
+        catch(e){
+          console.log(e);
+        }
+
         let elementLink = "/reviewElements/" + props.elementId;
         let domainLink = "/reviewElement/domain/" + props.domainId;
         let userLink = "/user/" + props.authorUsername;
@@ -221,6 +234,7 @@ function PostDomainCard(props) {
         let postLocation;
         let elementName;
         let domainName;
+
         try{
         postLocation = props.postLocation.split(' ');
           elementName = postLocation[0];
@@ -232,14 +246,16 @@ function PostDomainCard(props) {
 
     return (
       <div>
-      <Card sx={{marginTop : "5px"}}>
+      <Card sx={{marginTop : "5px", bgcolor:bcolor}}>
         <CardHeader 
           avatar = {<Avatar alt="user" src={props.user.imgUrl} component={Link} to={userLink}></Avatar>}
           title = {<div><Typography sx={{display:'inline', textTransform:"capitalize", color:"#3949ab"}} variant="h6">{props.name}</Typography>
           <Typography sx={{display:'inline', position:"relative"}} variant="h4" color="#e91e63"> {props.grade}</Typography>
           </div>}
-          subheader = {<Typography color="text.secondary" sx={{display:'inline'}} component={Link} to={userLink}>{props.user.name} {props.user.surname}
-          </Typography>}
+          subheader =  {<div><Typography color="text.secondary" sx={{display:'inline'}} component={Link} to={userLink}>{props.user.name} {props.user.surname}
+          </Typography>
+          {title}
+          </div>}
           />
         <CardContent>
           <Typography sx={{display:"inline"}} variant="body1" color="text.secondary">{props.content}</Typography>
@@ -275,7 +291,10 @@ function PostDomainCard(props) {
             postUserImg={props.user.imgUrl}  
             postUserName={props.user.name} 
             postUserSurname={props.user.surname}
-            postUserUsername={props.user.username}    
+            postUserUsername={props.user.username}
+            moderated={props.user.permission.roleDetails.moderated}
+            elementId={props.elementId}
+            parentId={props.parentId}
             parent="post"
             iteration="0"
           />

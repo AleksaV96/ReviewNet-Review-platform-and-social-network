@@ -10,6 +10,8 @@ import org.springframework.stereotype.Service;
 import reviewnet.platform.domain.element.ReviewElement;
 import reviewnet.platform.domain.post.Post;
 import reviewnet.platform.domain.space.AbstractPostSpace;
+import reviewnet.platform.domain.user.User;
+import reviewnet.platform.domain.user.role.Moderator;
 import reviewnet.platform.repository.element.ReviewElementRepository;
 
 @Service
@@ -17,6 +19,9 @@ public class ReviewElementService {
 	
 	@Autowired
 	ReviewElementRepository reviewElementRepository;
+	
+	@Autowired
+	UserAccService userService;
 	
 	@Autowired
 	PostService postService;
@@ -39,6 +44,10 @@ public class ReviewElementService {
 	
 	public void removeElement(String id) {
 		Optional<ReviewElement> element = reviewElementRepository.findById(id);
+		String creatorId = element.get().getCreatorId();
+		Optional<User> creator = userService.getById(creatorId);
+		((Moderator) creator.get().getPermission().getRoleDetails()).getModerated().remove(id);
+		userService.addUser(creator.get());
 		reviewElementRepository.delete(element.get());
 	}
 	

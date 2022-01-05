@@ -4,11 +4,11 @@ import { Link } from 'react-router-dom';
 
 import parseJwt from '../../../logic/JWTutil'
 
-import { Button, Avatar, Card, CardActions, CardContent, CardHeader, Typography, IconButton, CardMedia } from '@mui/material';
+import { Grid, Button, Avatar, Card, CardActions, CardContent, CardHeader, Typography, IconButton, CardMedia } from '@mui/material';
 import AddCircleIcon from '@mui/icons-material/AddCircle';
 import RemoveCircleIcon from '@mui/icons-material/RemoveCircle';
 
-function ReviewElementCard(props) {
+function ModeratedReviewElementViewCard(props) {
 
       const userCtx = useContext(UserContext); 
       var subscriptions = [];
@@ -63,31 +63,36 @@ function ReviewElementCard(props) {
         window.location.reload();
         }
       )};
-    
 
     return (
-      <Card>
-        <CardMedia 
-        component="img"
-        height="140"
-        image={props.image}
-        alt="element pic"
-        />
-        <CardContent >
-          <Typography  variant="h5" sx={{color:"black"}} component={Link} to={'/reviewElement/'+ props.id}>
-            {props.name}
-          </Typography>
-          <Typography variant="body2" color="text.secondary">
-            {props.description}
-          </Typography>
-      </CardContent>
+      <Grid container>
+        <Grid item lg={12} md={12}>
+        <Card sx={{bgcolor:"#fafafa", marginBottom:"5mm"}}>
+          <CardMedia 
+          component="img"
+          image={props.image}
+          alt="element pic"
+          />
+          <CardHeader
+          title= {<Typography gutterBottom variant="h3" component="div">
+          {props.name}
+          </Typography>}
+          />
+          <CardContent >
+            <Typography variant="body1" color="text.secondary">
+              {props.description}
+            </Typography>
+        </CardContent>
       <CardActions>
-          {subscribeButton}
+        {subscribeButton}
       </CardActions>
       </Card>
+      </Grid>
+    </Grid>
 
       );
 
 }
 
-export default ReviewElementCard;
+
+export default ModeratedReviewElementViewCard;
