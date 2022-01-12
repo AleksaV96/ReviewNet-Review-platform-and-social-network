@@ -22,8 +22,6 @@ function PostAddPage(props) {
     elementId = props.domain.parentId;
     domainId = props.domain.id;
 
-    
-
     address = 'http://localhost:8080/posts/' + domainType + 'Id/' + props.domain.id + '/addpost';
 
     if(domainType !== "forum" && domainType !== "complainSpace" && domainType !== "reviewSpace" 

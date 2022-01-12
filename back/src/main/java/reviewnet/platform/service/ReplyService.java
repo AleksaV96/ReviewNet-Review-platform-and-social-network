@@ -52,12 +52,15 @@ public class ReplyService {
 	}
 	
 	public Iterable<Post> getPostReplies(String id) {
-        List<String> replyIds;
+        List<String> replyIds = new ArrayList<String>();
         List<Post> repliesList = new ArrayList<Post>();
         Post reply;
 
         Optional<Post> selectedPost = postRepository.findById(id);
+        try {
         replyIds = selectedPost.get().getReplies();
+        }
+        catch(Exception e) {}
         for (String rplId : replyIds) {
         	try {
         	reply = getById(rplId).get();

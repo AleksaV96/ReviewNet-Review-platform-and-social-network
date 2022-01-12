@@ -74,7 +74,7 @@ function AdminNavbar() {
             </ListItemButton>
           </ListItem>
           <ListItem disablePadding>
-            <ListItemButton component={Link} to="/reviewElements">
+            <ListItemButton component={Link} to="/adminReviewElements">
               <ListItemIcon>
                 <PageviewIcon />
               </ListItemIcon>

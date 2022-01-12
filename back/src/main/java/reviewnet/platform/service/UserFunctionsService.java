@@ -83,14 +83,14 @@ public class UserFunctionsService {
 			if(restrictions.contains(RestrictionType.ADD_NEW_ELEMENT))
 				break;
 			user.get().getPermission().getRoleDetails().getRestrictions().add(RestrictionType.ADD_NEW_ELEMENT);
-			userAccService.updateUser(id, user.get());
+			userAccService.addUser(user.get());
 			return user;
 			
 		case 2:
 			if(restrictions.contains(RestrictionType.COMMENT)) 
 				break;
 			user.get().getPermission().getRoleDetails().getRestrictions().add(RestrictionType.COMMENT);
-			userAccService.updateUser(id, user.get());
+			userAccService.addUser(user.get());
 			return user;
 			
 		default:
@@ -106,11 +106,11 @@ public class UserFunctionsService {
 		switch(option) {
 		case 1:
 			user.get().getPermission().getRoleDetails().getRestrictions().remove(RestrictionType.ADD_NEW_ELEMENT);
-			userAccService.updateUser(id, user.get());
+			userAccService.addUser(user.get());
 			return user;
 		case 2:
 			user.get().getPermission().getRoleDetails().getRestrictions().remove(RestrictionType.COMMENT);
-			userAccService.updateUser(id, user.get());
+			userAccService.addUser(user.get());
 			return user;
 		default:
 			return Optional.empty();  
@@ -145,39 +145,44 @@ public class UserFunctionsService {
 	
 	public Iterable<Post> getUserFeed(String id){
 		
-		List<String> friendList;
-		List<String> subsList;
+		List<String> friendList = new ArrayList<String>();
+		List<String> subsList = new ArrayList<String>();
+		
 		
 		List<Post> feedPostsList = new ArrayList<Post>();
+		
 		Optional<User> selectedUser = userAccService.getById(id);
+
 		
 		friendList = selectedUser.get().getFriends();
 		subsList = selectedUser.get().getSubscribed();
 		
 		for(String friendId : friendList) {
-			List<Post> friendPosts = (List<Post>) postService.getUserPosts(friendId);
-			for(Post post : friendPosts) {
-				feedPostsList.add(post);
+			try {
+				List<Post> friendPosts = (List<Post>) postService.getUserPosts(friendId);
+				for(Post post : friendPosts) {
+					feedPostsList.add(post);
+				}
 			}
+			catch(Exception e) {}
 		}
-		
 		for(String friendId : friendList) {
-			List<Post> friendPosts = (List<Post>) postService.getUserPosted(friendId);
-			for(Post post : friendPosts) {
-				feedPostsList.add(post);
+			try {
+				List<Post> friendPosts = (List<Post>) postService.getUserPosted(friendId);
+				for(Post post : friendPosts) {
+					feedPostsList.add(post);
+				}
 			}
+			catch(Exception e) {}
 		}
-		
 		for(String subId : subsList) {
 			try {
-				
-			List<Post> subPosts = (List<Post>) elementService.getReviewElementPosts(subId);
+				List<Post> subPosts = (List<Post>) elementService.getReviewElementPosts(subId);
 				for(Post post : subPosts) {
 					feedPostsList.add(post);
 				}
 			}
 			catch(Exception  e) {}
-			
 		}
 		return feedPostsList;
 	}
@@ -187,7 +192,10 @@ public class UserFunctionsService {
 		List<String> friendIds = selectedUser.get().getFriends();
 		List<User> friends = new ArrayList<User>();
 		for(String friendId : friendIds) {
+			try {
 			friends.add(userAccService.getById(friendId).get());
+			}
+			catch(Exception e) {}
 		}
 		return friends;
 	}
@@ -209,16 +217,13 @@ public class UserFunctionsService {
 	public Iterable<ReviewElement> getModerated(String id){
 		Optional<User> selectedUser = userAccService.getById(id);
 		List<String> modIds = ((Moderator) selectedUser.get().getPermission().getRoleDetails()).getModerated();
-		List<ReviewElement> subscribed = new ArrayList<ReviewElement>();
-			
+		List<ReviewElement> subscribed = new ArrayList<ReviewElement>();	
 		for(String modId : modIds) {
 			try {
 			subscribed.add(elementService.getById(modId).get());
 			}
 			catch(Exception e) {}
 		}
-	
-		
 		return subscribed;
 	}
 

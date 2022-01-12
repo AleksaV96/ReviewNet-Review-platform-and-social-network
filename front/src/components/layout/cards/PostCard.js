@@ -220,14 +220,12 @@ function PostCard(props) {
           elementName = postLocation[0];
           domainName = postLocation[1];
         }
-        catch(e){
-          console.log(e);
-        }
+        catch(e){}
 
         let elementLink = "/reviewElement/" + props.elementId;
         let domainLink = "/reviewElement/"+ elementName +"/domain/" + props.domainId;
         let userLink = "/user/" + props.authorUsername;
-
+    try{
     return (
       <div>
       <Card sx={{marginTop : "5px"}}>
@@ -250,8 +248,7 @@ function PostCard(props) {
           {likeButton}
           {likeScore}
           {dislikeButton}
-          {replyButton}
-          <Typography sx={{position:"relative", right:"-9.2cm"}} variant="body1" noWrap color="text.secondary">Replies: {props.replies.length}</Typography>
+          <Typography sx={{position:"relative", right:"-11.2cm"}} variant="body1" noWrap color="text.secondary">Replies: {props.replies.length}</Typography>
           <ExpandMore
           expand={expanded}
           onClick={handleExpandClick}
@@ -285,6 +282,10 @@ function PostCard(props) {
       
       </div>
       );
+      }
+      catch(e){
+        return "";
+      }
 
 }
 

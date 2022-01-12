@@ -70,7 +70,7 @@ function ReviewPostForm(props) {
         enteredName = nameInputRef.current.value;
         }
         const enteredContent = contentInputRef.current.value;
-        const enteredRating = value;
+        let enteredRating = value;
         const authorUsername = userCtx.content.username;
 
     const postData = {

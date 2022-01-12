@@ -15,6 +15,8 @@ import ThumbDownAltIcon from '@mui/icons-material/ThumbDownAlt';
 import ThumbDownOffAltIcon from '@mui/icons-material/ThumbDownOffAlt';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import DeleteIcon from '@mui/icons-material/Delete';
+import SecurityIcon from '@mui/icons-material/Security';
+import LocalPoliceIcon from '@mui/icons-material/LocalPolice';
 
 import { useState, useEffect } from 'react';
 import ReplyCard from './ReplyCard';
@@ -47,6 +49,7 @@ function PostDomainCard(props) {
     let token = localStorage.getItem('Bearer');
     if(token !== null){
       var userId = parseJwt(token).sub;
+      var role = parseJwt(token).uniq;
     }
 
 
@@ -240,15 +243,24 @@ function PostDomainCard(props) {
 
         var bcolor = "#FFFFFF"
         var title = "";
-
         try{
           var moderated = props.user.permission.roleDetails.moderated;
           if(moderated.includes(props.elementId) || moderated.includes(props.parentId)){
-            bcolor = "#f0f4c3";
-            title = <Typography color="red" sx={{display:'inline', fontWeight:'bolder'}}> MODERATOR</Typography>
+            bcolor = "#fffde7";
+            title = <Typography color="#c2185b" sx={{display:'inline', fontWeight:'bolder'}}> MODERATOR<LocalPoliceIcon fontSize="inherit"/></Typography>
           }
         }
         catch(e){}
+
+        try{
+          var userRole = props.user.permission.authority;
+          if(userRole === "ROLE_ADMIN"){
+            bcolor = "#bbdefb";
+            title = <Typography color="#3d5afe" sx={{display:'inline', fontWeight:'bolder'}}> ADMIN<SecurityIcon fontSize="inherit"/></Typography>
+          }
+        }
+        catch(e){}
+
 
         let elementLink = "/reviewElements/" + props.elementId;
         let domainLink = "/reviewElement/domain/" + props.domainId;
@@ -266,9 +278,9 @@ function PostDomainCard(props) {
         catch(e){}
     
     var repPosition = "-9.2cm"
-    if(props.moderators.includes(userId)) {
+    if(props.moderators.includes(userId) || role==="admin") {
       repPosition = "-7.8cm";
-      deleteButton = <Button sx={{display:"inline"}} variant="contained" color="warning" onClick={removeHandler}>X</Button>
+      deleteButton = <Button sx={{display:"inline"}} variant="contained" color="warning" size="small" onClick={removeHandler}>X</Button>
     }
 
     return (

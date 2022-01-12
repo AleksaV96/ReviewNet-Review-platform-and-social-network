@@ -14,6 +14,7 @@ function ThemeCard(props) {
     let token = localStorage.getItem('Bearer');
     if(token !== null){
       var userId = parseJwt(token).sub;
+      var role = parseJwt(token).uniq;
     }
 
     function removeHandler() {
@@ -31,8 +32,9 @@ function ThemeCard(props) {
       }
       )};  
 
-      if(props.moderators.includes(userId)) {
-        deleteButton = <Button sx={{display:"inline", position:"relative", right:"-11.5cm"}} variant="contained" color="warning" onClick={removeHandler}>X</Button>
+      if(props.moderators.includes(userId) || role==="admin") {
+        deleteButton = <Button sx={{display:"inline", position:"relative", right:"-11.5cm"}} 
+        variant="contained" color="warning" size="small" onClick={removeHandler}>X</Button>
       }
 
     return (

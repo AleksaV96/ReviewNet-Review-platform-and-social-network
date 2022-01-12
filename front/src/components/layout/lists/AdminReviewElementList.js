@@ -1,15 +1,15 @@
 import React from 'react';
-import ReviewElementCard from "../cards/ReviewElementCard";
+import ModeratorReviewElementCard from "../cards/ModeratorReviewElementCard";
 import { Grid } from '@mui/material';
 
-function ReviewElementList(props) {
+function AdminReviewElementList(props) {
 
     return (
       <div>
         <Grid container spacing={1}>  
           {props.elements.map((element) => (
             <Grid item xs={6} md={6}>
-            <ReviewElementCard
+            <ModeratorReviewElementCard
               key={element.id}
               id={element.id}
               name={element.name}
@@ -23,4 +23,4 @@ function ReviewElementList(props) {
       );
 }
 
-export default ReviewElementList;
+export default AdminReviewElementList;

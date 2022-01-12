@@ -102,12 +102,15 @@ public class PostService {
 	}
 	
 	public Iterable<Post> getUserPosts(String id) {
-		List<String> postIds;
+		List<String> postIds = null;
         List<Post> posts = new ArrayList<Post>();
         Post post;
-
+        
+        try {
         Optional<User> selectedUser = userService.getById(id);
         postIds = selectedUser.get().getProfile().getProfilePostIds();
+        }
+        catch(Exception e) {}
         for (String postId : postIds) {
         	try {
             post = getById(postId).get();
@@ -119,12 +122,15 @@ public class PostService {
 	}
 	
 	public Iterable<Post> getUserPosted(String id) {
-		List<String> postIds;
+		List<String> postIds = null;
         List<Post> posts = new ArrayList<Post>();
         Post post;
-
+        
+        try {
         Optional<User> selectedUser = userService.getById(id);
         postIds = selectedUser.get().getProfile().getPosted();
+        }
+        catch(Exception e) {}
         for (String postId : postIds) {
         	try {
             post = getById(postId).get();

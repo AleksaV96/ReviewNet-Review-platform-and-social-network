@@ -12,6 +12,8 @@ import ThumbUpOffAltIcon from '@mui/icons-material/ThumbUpOffAlt';
 import ThumbDownAltIcon from '@mui/icons-material/ThumbDownAlt';
 import ThumbDownOffAltIcon from '@mui/icons-material/ThumbDownOffAlt';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import SecurityIcon from '@mui/icons-material/Security';
+import LocalPoliceIcon from '@mui/icons-material/LocalPolice';
 
 function ReplyCard(props) {
 
@@ -21,6 +23,7 @@ function ReplyCard(props) {
     let token = localStorage.getItem('Bearer');
     if(token !== null){
       var userId = parseJwt(token).sub;
+      var role = parseJwt(token).uniq;
     }
 
     const userCtx = useContext(UserContext);
@@ -238,17 +241,29 @@ function ReplyCard(props) {
         try{
           var moderated = props.user.permission.roleDetails.moderated;
           if(moderated.includes(props.elementId) || moderated.includes(props.parentId)){
-            clr = "#f0f4c3";
-            title = <Typography color="red" sx={{display:'inline', fontWeight:'bolder'}}> MODERATOR</Typography>
+            clr = "#fffde7";
+            title = <Typography color="#c2185b" sx={{display:'inline', fontWeight:'bolder'}}> MODERATOR<LocalPoliceIcon fontSize="inherit"/></Typography>
+          }
+        }
+        catch(e){}
+
+        try{
+          var userRole = props.user.permission.authority;
+          if(userRole === "ROLE_ADMIN"){
+            clr = "#bbdefb";
+            title = <Typography color="#3d5afe" sx={{display:'inline', fontWeight:'bolder'}}> ADMIN<SecurityIcon fontSize="inherit"/></Typography>
           }
         }
         catch(e){}
         
         var repPosition = "-3cm";
-        if(props.moderators.includes(userId)) {
-          repPosition = "-1.4cm";
-          deleteButton = <Button variant="contained" color="warning" onClick={removeHandler}>X</Button>
+        try{
+          if(props.moderators.includes(userId) || role==="admin") {
+            repPosition = "-1.4cm";
+            deleteButton = <Button variant="contained" color="warning" size="small" onClick={removeHandler}>X</Button>
+          }
         }
+        catch(e){}
 
     return(
       <div style={{position:"relative",borderLeft:"2px dotted #757575", left:position}}>

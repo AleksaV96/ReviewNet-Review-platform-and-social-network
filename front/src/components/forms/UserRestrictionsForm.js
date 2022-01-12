@@ -24,6 +24,7 @@ function UserRestrictionsForm(props) {
              credentials: 'include'
          }
          ).then((response) => {
+            console.log(response);
              window.location.reload();
          })
     };
@@ -42,6 +43,7 @@ function UserRestrictionsForm(props) {
              credentials: 'include'
          }
          ).then((response) => {
+             console.log(response);
              window.location.reload();
          })
     };

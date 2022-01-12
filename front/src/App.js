@@ -6,6 +6,7 @@ import MainPage from './pages/MainPage';
 import Register from './pages/Register';
 import Login from './pages/Login';
 import ReviewElementListPage from './pages/ReviewElementListPage';
+import AdminReviewElementListPage from './pages/AdminReviewElementListPage';
 import ReviewElementView from './pages/ReviewElementPage';
 import DomainPage from './pages/DomainPage';
 import ReviewElementAddPage from './pages/ReviewElementAddPage';
@@ -94,6 +95,7 @@ function App() {
           <Route element={<ProtectedRoutes />}>
               <Route path='/main' element={<MainPage />} />
               <Route path='/reviewElements' element={<ReviewElementListPage />} />
+              <Route path='/adminReviewElements' element={<AdminReviewElementListPage />} />
               <Route path='/reviewElement/:id' element={<ReviewElementView />} />
               <Route path='/reviewElement/:elementName/domain/:id' element={<DomainPage />} />
               <Route path='/reviewElements/create-company' element={<ReviewElementAddPage />} />

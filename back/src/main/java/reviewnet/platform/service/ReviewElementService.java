@@ -74,7 +74,10 @@ public class ReviewElementService {
 		List<String> modIds = selectedElement.get().getModerators();
 		List<User> moderators = new ArrayList<User>();
 		for(String modId : modIds) {
+			try {
 			moderators.add(userService.getById(modId).get());
+			}
+			catch(Exception e) {}
 		}
 		return moderators;
 	}
