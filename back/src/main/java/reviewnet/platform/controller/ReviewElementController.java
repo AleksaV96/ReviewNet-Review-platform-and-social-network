@@ -55,6 +55,15 @@ public class ReviewElementController {
 			return new ResponseEntity<ReviewElement>(HttpStatus.NOT_FOUND);
 	}
 	
+	@GetMapping(value="/reviewElementName/{name}")
+	public ResponseEntity<ReviewElement> getElementByName(@PathVariable String name) {
+		Optional<ReviewElement> elementData = reviewElementService.findByName(name);
+			if(elementData.isPresent()) {
+				return new ResponseEntity<ReviewElement>(elementData.get(), HttpStatus.OK);
+	}
+			return new ResponseEntity<ReviewElement>(HttpStatus.NOT_FOUND);
+	}
+	
 	@PostMapping(value="/create")
 	public ResponseEntity<ReviewElement> addElement(@RequestBody ReviewElement element){
 		reviewElementService.addElement(element);
@@ -74,6 +83,21 @@ public class ReviewElementController {
 		reviewElementService.addElement(product);
 		createDomains(product, product.getCreatorId());
 			return new ResponseEntity<ReviewElement>(product, HttpStatus.CREATED);
+	}
+	
+	@PostMapping(value="/userId/{id}/addModerator/{elementId}")
+	public void addModerator(@PathVariable String id, @PathVariable String elementId){
+		reviewElementService.addModerator(id, elementId);
+	}
+	
+	@PostMapping(value="/userId/{id}/removeModerator/{elementId}")
+	public void removeModerator(@PathVariable String id, @PathVariable String elementId){
+		reviewElementService.removeModerator(id, elementId);
+	}
+	
+	@GetMapping(value="/elementId/{id}/get-moderators")
+	public ResponseEntity<Iterable<User>> getModerators(@PathVariable String id){
+		return new ResponseEntity<Iterable<User>>(reviewElementService.getModerators(id), HttpStatus.OK);
 	}
 	
 	@DeleteMapping(value="/reviewElementId/{id}/remove")

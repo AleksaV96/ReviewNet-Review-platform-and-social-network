@@ -28,6 +28,7 @@ import FriendsPage from './pages/FriendsPage';
 import UserFriendsPage from './pages/UserFriendsPage';
 import ThemePage from './pages/ThemePage';
 import ModeratedPage from './pages/ModeratedPage';
+import ModeratorsPage from './pages/ModeratorsPage';
 import ModeratedReviewElementPage from './pages/ModeratedReviewElementPage';
 
 function App() {
@@ -105,6 +106,7 @@ function App() {
               <Route path='/reviewElement/:elementName/domain/theme/:id' element={<ThemePage />} />
               <Route path='/reviewElements/moderated' element={<ModeratedPage />} />
               <Route path='/moderatedReviewElement/:id' element={<ModeratedReviewElementPage />} />
+              <Route path='/reviewElement/:elementName/moderators/:id' element={<ModeratorsPage />} />
           </Route>
           <Route element={<AdminRoutes />}>
               <Route path='/dashboard' element={<Dashboard/>} />

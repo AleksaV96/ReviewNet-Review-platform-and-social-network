@@ -18,9 +18,7 @@ function DomainList(props) {
         var elm = "Rating: " + sum
       }
     }
-    catch(e){
-      console.log(e);
-    }
+    catch(e){}
 
     let icon;
     let type;

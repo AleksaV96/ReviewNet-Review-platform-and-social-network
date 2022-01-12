@@ -42,17 +42,6 @@ function DomainCard(props) {
         />
       </Card>
 
-
-
-      /*
-        <div className={classes.item} key={props.id} id={props.id}>
-          <Card>
-            <div className={classes.content}>
-              <h3>{props.name}</h3>
-            </div>
-          </Card>
-        </div>
-      */
       );
 
 }

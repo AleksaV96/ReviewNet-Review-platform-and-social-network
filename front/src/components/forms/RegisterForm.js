@@ -163,7 +163,6 @@ function RegisterForm(props) {
               <Grid item xs={12}>
                 <TextField
                   fullWidth
-                  required
                   name="imgUrl"
                   label="Profile Photo"
                   type="url"
@@ -200,47 +199,6 @@ function RegisterForm(props) {
       </Container>
 
 
-
-
-
-
-        /*
-        <Card>
-          <form className={classes.form} onSubmit={submitHandler}>
-            <div className={classes.control}>
-              <label htmlFor='name'>Name</label>
-              <input type='text' required id='name' ref={nameInputRef} />
-            </div>
-            <div className={classes.control}>
-              <label htmlFor='surname'>Surname</label>
-              <input type='text' required id='surname' ref={surnameInputRef} />
-            </div>
-            <div className={classes.control}>
-              <label htmlFor='username'>Username</label>
-              <input type='text' required id='username' ref={usernameInputRef} />
-            </div>
-            <div className={classes.control}>
-             <label htmlFor='password'>Password</label>
-             <input type='password' required id='password' ref={passwordInputRef} />
-            </div>
-            <div className={classes.control}>
-             <label htmlFor='password'>Repeat password</label>
-             <input type='password' required id='password' ref={repeatPasswordInputRef} />
-            </div>
-            <div className={classes.control}>
-             <label htmlFor='email'>Email</label>
-             <input type='text' required id='email' ref={emailInputRef} />
-            </div>
-            <div className={classes.control}>
-             <label htmlFor='imgUrl'>Profile photo link</label>
-             <input type='url' required id='imgUrl' ref={imgUrlInputRef} />
-            </div>
-            <div className={classes.actions}>
-              <button>Register</button>
-            </div>
-          </form>
-        </Card>
-        */
       );
 
 }

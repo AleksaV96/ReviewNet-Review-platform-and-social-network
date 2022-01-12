@@ -7,12 +7,13 @@ function ModeratedReviewElementView(props) {
     <div className={classes.list}>
       {props.element.map((element) => (
         <div>
-        < ModeratedReviewElementViewCard
+        <ModeratedReviewElementViewCard
           key={element.id}
           id={element.id}
           name={element.name}
           description={element.description}
           image={element.imgUrl}
+          moderators={element.moderators}
         />
         </div>
       ))}

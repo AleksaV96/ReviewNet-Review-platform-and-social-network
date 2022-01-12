@@ -37,7 +37,6 @@ function ProfilePage() {
     if(token !== null){
         userId = parseJwt(token).sub;
         role = parseJwt(token).role[0].authority;
-        console.log(role)
     }
 
     if(role==="ROLE_SUBSCRIBER"){

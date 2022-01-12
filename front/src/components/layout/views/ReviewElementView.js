@@ -13,6 +13,7 @@ function ReviewElementView(props) {
           name={element.name}
           description={element.description}
           image={element.imgUrl}
+          subscribers={element.subscribers}
         />
         </div>
       ))}

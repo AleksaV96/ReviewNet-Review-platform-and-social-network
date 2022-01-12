@@ -36,7 +36,8 @@ function ReviewElementPage() {
                 "id" : data.id,
                 "name" : data.name,
                 "description" : data.description,
-                "imgUrl" : data.imgUrl
+                "imgUrl" : data.imgUrl,
+                "subscribers" : data.subscribers
             }
 
             elm.push(element);

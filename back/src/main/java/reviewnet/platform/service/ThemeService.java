@@ -60,8 +60,11 @@ public class ThemeService {
         Optional<AbstractPostSpace> selectedForum = abstractPostSpaceService.getById(id);
         themeIds = ((Forum) selectedForum.get()).getThemeIds();
         for (String themeId : themeIds) {
+        	try {
         	theme = getById(themeId).get();
         	themes.add(theme);
+        	}
+        	catch(Exception e) {}
         }
         return themes;
 	}
@@ -74,8 +77,11 @@ public class ThemeService {
         Optional<Theme> selectedTheme = getById(id);
         postIds = selectedTheme.get().getPostCollection();
         for (String postId : postIds) {
+        	try {
             post = postService.getById(postId).get();
             posts.add(post);
+        	}
+        	catch(Exception e) {}
         }
         return posts;
 	}

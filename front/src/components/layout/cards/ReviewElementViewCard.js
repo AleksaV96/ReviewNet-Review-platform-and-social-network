@@ -7,11 +7,20 @@ import parseJwt from '../../../logic/JWTutil'
 import { Grid, Button, Avatar, Card, CardActions, CardContent, CardHeader, Typography, IconButton, CardMedia } from '@mui/material';
 import AddCircleIcon from '@mui/icons-material/AddCircle';
 import RemoveCircleIcon from '@mui/icons-material/RemoveCircle';
+import PersonOutlineIcon from '@mui/icons-material/PersonOutline';
 
 function ReviewElementViewCard(props) {
 
       const userCtx = useContext(UserContext); 
       var subscriptions = [];
+      var subscribersNumb = 0;
+
+      try{
+        subscribersNumb = props.subscribers.length;
+      }
+      catch(e){
+        console.log(e);
+      }
 
       var subscribeButton = <Button onClick={subscribeHandler} variant="contained">Subscribe<AddCircleIcon/></Button>
 
@@ -85,6 +94,7 @@ function ReviewElementViewCard(props) {
         </CardContent>
       <CardActions>
         {subscribeButton}
+        <Button><PersonOutlineIcon/>subscribers: {subscribersNumb}</Button>
       </CardActions>
       </Card>
       </Grid>

@@ -16,7 +16,7 @@ function Register() {
   function addUserHandler(userData) {
 
     fetch(
-       'http://localhost:8080/users/register/moderator',
+       'http://localhost:8080/users/register/subscriber',
       {
         method: 'POST',
         body: JSON.stringify(userData),

@@ -36,15 +36,21 @@ public class UserFunctionsService {
 	
 	public Optional<User> addFriend (String id, String friendId){
 		Optional<User> selectedUser = userAccService.getById(id);
+		Optional<User> selectedFriend = userAccService.getById(friendId);
 		selectedUser.get().getFriends().add(friendId);
+		selectedFriend.get().getFriends().add(id);
 		userFunctionsRepository.save(selectedUser.get());
+		userFunctionsRepository.save(selectedFriend.get());
 		return selectedUser;
 	}
 	
 	public Optional<User> removeFriend (String id, String friendId){
 		Optional<User> selectedUser = userAccService.getById(id);
+		Optional<User> selectedFriend = userAccService.getById(friendId);
 		selectedUser.get().getFriends().remove(friendId);
+		selectedFriend.get().getFriends().remove(id);
 		userFunctionsRepository.save(selectedUser.get());
+		userFunctionsRepository.save(selectedFriend.get());
 		return selectedUser;
 	}
 	
@@ -163,10 +169,15 @@ public class UserFunctionsService {
 		}
 		
 		for(String subId : subsList) {
+			try {
+				
 			List<Post> subPosts = (List<Post>) elementService.getReviewElementPosts(subId);
-			for(Post post : subPosts) {
-				feedPostsList.add(post);
+				for(Post post : subPosts) {
+					feedPostsList.add(post);
+				}
 			}
+			catch(Exception  e) {}
+			
 		}
 		return feedPostsList;
 	}
@@ -186,8 +197,12 @@ public class UserFunctionsService {
 		List<String> subIds = selectedUser.get().getSubscribed();
 		List<ReviewElement> subscribed = new ArrayList<ReviewElement>();
 		for(String subId : subIds) {
+			try {
 			subscribed.add(elementService.getById(subId).get());
 		}
+			catch(Exception e) {}
+		}
+		
 		return subscribed;
 	}
 	
@@ -195,9 +210,15 @@ public class UserFunctionsService {
 		Optional<User> selectedUser = userAccService.getById(id);
 		List<String> modIds = ((Moderator) selectedUser.get().getPermission().getRoleDetails()).getModerated();
 		List<ReviewElement> subscribed = new ArrayList<ReviewElement>();
+			
 		for(String modId : modIds) {
+			try {
 			subscribed.add(elementService.getById(modId).get());
+			}
+			catch(Exception e) {}
 		}
+	
+		
 		return subscribed;
 	}
 

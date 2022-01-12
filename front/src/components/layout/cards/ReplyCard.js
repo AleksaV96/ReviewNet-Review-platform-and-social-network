@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 
 import UserContext from '../../../store/user-context';
+import parseJwt from '../../../logic/JWTutil'
 import { useContext } from 'react';
 import { Collapse, Button, Avatar, Card, CardActions, CardContent, CardHeader, Typography, IconButton, Badge } from '@mui/material';
 import ThumbUpAltIcon from '@mui/icons-material/ThumbUpAlt';
@@ -17,6 +18,11 @@ function ReplyCard(props) {
     var replyIteration = parseInt(props.iteration, 10) + 0.85;
     var position = replyIteration + "cm"
 
+    let token = localStorage.getItem('Bearer');
+    if(token !== null){
+      var userId = parseJwt(token).sub;
+    }
+
     const userCtx = useContext(UserContext);
     var likes = [];
     var likeScore = 0;
@@ -26,6 +32,7 @@ function ReplyCard(props) {
     var likeButton = <IconButton  onClick={likeHandler}><ThumbUpOffAltIcon/></IconButton>
     var dislikeButton = <IconButton onClick={dislikeHandler}><ThumbDownOffAltIcon/></IconButton>
     var replyButton = <Button sx={{maxWidth:10}} onClick={replyHandler}>Reply</Button>
+    var deleteButton = ""
 
     if(userCtx.selectedPost === props.id){
       replyButton = <Button sx={{maxWidth:10}} onClick={replyHandler}>Replying</Button>
@@ -202,6 +209,21 @@ function ReplyCard(props) {
                   
               });
           }, [address]);
+
+          function removeHandler() {
+            fetch(
+              'http://localhost:8080/posts/postId/' + props.id + '/remove',
+            {
+              method: 'DELETE',
+              headers: {
+                  'Content-Type': 'application/json',
+              },
+              credentials: 'include'
+              }
+            ).then((response) => {
+              window.location.reload()
+            }
+            )};  
       
           if (isLoading) {
               return (
@@ -220,8 +242,12 @@ function ReplyCard(props) {
             title = <Typography color="red" sx={{display:'inline', fontWeight:'bolder'}}> MODERATOR</Typography>
           }
         }
-        catch(e){
-          console.log(e);
+        catch(e){}
+        
+        var repPosition = "-3cm";
+        if(props.moderators.includes(userId)) {
+          repPosition = "-1.4cm";
+          deleteButton = <Button variant="contained" color="warning" onClick={removeHandler}>X</Button>
         }
 
     return(
@@ -254,7 +280,7 @@ function ReplyCard(props) {
                 {likeScore}
                 {dislikeButton}
                 {replyButton}
-                <Typography sx={{position:"relative", right:"-3cm"}} variant="body1" noWrap color="text.secondary">Replies: {props.replies.length}</Typography>
+                <Typography sx={{position:"relative", right:repPosition}} variant="body1" noWrap color="text.secondary">Replies: {props.replies.length}</Typography>
                 <ExpandMore
                 expand={expanded}
                 onClick={handleExpandClick}
@@ -263,6 +289,7 @@ function ReplyCard(props) {
                 >
                 <ExpandMoreIcon />
             </ExpandMore>
+            {deleteButton}
             </CardActions>
         </Card>
       <Collapse in={expanded} timeout="auto" unmountOnExit>
@@ -284,6 +311,7 @@ function ReplyCard(props) {
             iteration={replyIteration}
             elementId={props.elementId}
             parentId={props.parentId}
+            moderators={props.moderators}
           />
         )}
       </Collapse>

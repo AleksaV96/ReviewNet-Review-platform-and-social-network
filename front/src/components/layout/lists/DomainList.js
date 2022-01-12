@@ -10,9 +10,7 @@ function DomainList(props) {
     try{
       elementName = props.element[0].name
     }
-    catch(e){
-      console.log(e);
-    }
+    catch(e){}
 
     return (
       <Grid container spacing={2}>  

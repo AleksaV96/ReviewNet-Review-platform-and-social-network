@@ -59,8 +59,11 @@ public class ReplyService {
         Optional<Post> selectedPost = postRepository.findById(id);
         replyIds = selectedPost.get().getReplies();
         for (String rplId : replyIds) {
+        	try {
         	reply = getById(rplId).get();
         	repliesList.add(reply);
+        	}
+        	catch(Exception e) {}
         }
         return repliesList;
 	}

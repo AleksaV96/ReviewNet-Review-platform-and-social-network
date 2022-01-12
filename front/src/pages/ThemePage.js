@@ -5,7 +5,6 @@ import MainLayout from '../components/layout/MainLayout'
 import PostDomainList from '../components/layout/lists/PostDomainList';
 import DomainHeader from '../components/layout/headers/DomainHeader';
 import PostAddPage from './PostAddPage';
-import ThemeList from '../components/layout/lists/ThemeList';
 
 function ThemePage() {
 
@@ -47,7 +46,7 @@ function ThemePage() {
             setLoadedPosts(posts);
             
         });
-    }, [address]);
+    }, [address2]);
 
     useEffect(() => {
         setIsLoading(true);
@@ -74,13 +73,10 @@ function ThemePage() {
             }
             setIsLoading(false);
             setLoadedTheme(theme);
-        
             setIsThemeLoaded(true);
           });
-      }, [address2]);
+      }, [address]);
     
-
-      
 
     if (isLoading) {
         return (
@@ -89,7 +85,8 @@ function ThemePage() {
         </section>
         );
     }
-
+    
+    if(isThemeLoaded) {
     return (
         <MainLayout>
         <section>
@@ -99,7 +96,10 @@ function ThemePage() {
         </section>
         </MainLayout>
     );
-
+    }
+    else{
+        return "";
+    }
 
 
 }

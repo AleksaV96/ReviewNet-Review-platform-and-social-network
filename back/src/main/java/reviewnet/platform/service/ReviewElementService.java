@@ -51,6 +51,34 @@ public class ReviewElementService {
 		reviewElementRepository.delete(element.get());
 	}
 	
+	public void addModerator(String modId, String elementId) {
+		Optional<User> selectedUser = userService.getById(modId);
+		Optional<ReviewElement> selectedElement = getById(elementId);
+		((Moderator) selectedUser.get().getPermission().getRoleDetails()).getModerated().add(elementId);
+		selectedElement.get().getModerators().add(modId);
+		userService.addUser(selectedUser.get());
+		reviewElementRepository.save(selectedElement.get());
+	}
+	
+	public void removeModerator(String modId, String elementId) {
+		Optional<User> selectedUser = userService.getById(modId);
+		Optional<ReviewElement> selectedElement = getById(elementId);
+		((Moderator) selectedUser.get().getPermission().getRoleDetails()).getModerated().remove(elementId);
+		selectedElement.get().getModerators().remove(modId);
+		userService.addUser(selectedUser.get());
+		reviewElementRepository.save(selectedElement.get());
+	}
+	
+	public Iterable<User> getModerators(String id) {
+		Optional<ReviewElement> selectedElement = getById(id);
+		List<String> modIds = selectedElement.get().getModerators();
+		List<User> moderators = new ArrayList<User>();
+		for(String modId : modIds) {
+			moderators.add(userService.getById(modId).get());
+		}
+		return moderators;
+	}
+	
 	public Iterable<Post> getReviewElementPosts(String id) {
 		List<AbstractPostSpace> postSpaceList;
         List<Post> reviewElementPosts = new ArrayList<Post>();

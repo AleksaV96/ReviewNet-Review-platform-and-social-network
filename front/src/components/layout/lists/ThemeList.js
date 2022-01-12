@@ -8,7 +8,10 @@ function ThemeList(props) {
 
     const [isLoading, setIsLoading] = useState(true);
     const [loadedThemes, setLoadedThemes] = useState([]);
+    const [loadedElement, setLoadedElement] = useState({});
+    const [isElementLoaded, setIsElementLoaded] = useState(false);
     const address = "http://localhost:8080/reviewElement/postSpace/" + props.domainId + "/themes"
+    const address2 = 'http://localhost:8080/reviewElements/reviewElementName/' + props.elementName;
     
 
     useEffect(() => {
@@ -41,6 +44,30 @@ function ThemeList(props) {
         });
     }, [address]);
 
+    useEffect(() => {
+        fetch(
+            address2,
+            {
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            credentials: 'include'
+            }
+        )
+          .then((response) => {
+            return response.json();
+          })
+          .then((data) => {
+            const element = {
+                "id" : data.id,
+                "name" : data.name,
+                "moderators" : data.moderators
+            }
+            setLoadedElement(element);
+            setIsElementLoaded(true);
+          });
+      }, [address2]);
+
     if (isLoading) {
         return (
         <section>
@@ -49,23 +76,29 @@ function ThemeList(props) {
         );
     }
 
+    if(isElementLoaded) {
     return (
       <Grid container spacing={0.3}>  
           {loadedThemes.map((theme) => (
             <Grid item xs={12} md={12}>
-            <Link to={'/reviewElement/' + props.elementName + '/domain/theme/'+ theme.id}>
             <ThemeCard
               key={theme.id}
               id={theme.id}
               name={theme.name}
               type={theme.type}
               posts={theme.postCollection}
+              elementName={props.elementName}
+              moderators={loadedElement.moderators}
               />
-            </Link>
             </Grid>
           ))}
        </Grid>
       );
+    }
+    
+    else{
+        return "";
+    }
 
 
 }

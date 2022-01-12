@@ -7,25 +7,13 @@ function FriendCard(props){
     return (
       <Card>
         <CardHeader 
-        avatar = {<Avatar alt="firend" src={props.image} component={Link} to={userLink}></Avatar>}
+        avatar = {<Avatar alt="friend" src={props.image} component={Link} to={userLink}></Avatar>}
         title = {<Typography  variant="h6">{props.username}</Typography>}
         subheader = {<Typography color="text.secondary" component={Link} to={userLink}>{props.name} {props.surname}
           </Typography>}
         />
       </Card>
 
-      /*
-        <li key={props.id} id={props.id}>        
-            <div>
-              <img src={props.image} alt={props.title} />
-            </div>
-            <div >
-              <p>{props.name}</p>
-              <p>{props.surname}</p>
-              <p>{props.username}</p>
-            </div>
-        </li>
-      */
       );
 }
 

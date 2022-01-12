@@ -5,15 +5,16 @@ import { Link } from 'react-router-dom';
 import parseJwt from '../../../logic/JWTutil'
 
 import { Grid, Button, Avatar, Card, CardActions, CardContent, CardHeader, Typography, IconButton, CardMedia } from '@mui/material';
-import AddCircleIcon from '@mui/icons-material/AddCircle';
-import RemoveCircleIcon from '@mui/icons-material/RemoveCircle';
+import VisibilityIcon from '@mui/icons-material/Visibility';
+import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
+import AdminPanelSettingsIcon from '@mui/icons-material/AdminPanelSettings';
 
 function ModeratedReviewElementViewCard(props) {
 
       const userCtx = useContext(UserContext); 
       var subscriptions = [];
 
-      var subscribeButton = <Button onClick={subscribeHandler} variant="contained">Subscribe<AddCircleIcon/></Button>
+      var subscribeButton = <Button onClick={subscribeHandler} variant="contained">Track<VisibilityIcon/></Button>
 
       let token = localStorage.getItem('Bearer');
 
@@ -29,7 +30,7 @@ function ModeratedReviewElementViewCard(props) {
 
       for(let i=0; i<subscriptions.length; i++){
         if(subscriptions[i] === props.id){
-          subscribeButton = <Button onClick={unsubscribeHandler} variant="outlined">Unsubscribe<RemoveCircleIcon/></Button>
+          subscribeButton = <Button onClick={unsubscribeHandler} variant="outlined">Untrack<VisibilityOffIcon/></Button>
             break;
         }
       }
@@ -85,6 +86,8 @@ function ModeratedReviewElementViewCard(props) {
         </CardContent>
       <CardActions>
         {subscribeButton}
+        <Button sx={{marginLeft:"3px"}} variant="contained" color="success" 
+        component={Link} to={"/reviewElement/"+props.name+"/moderators/"+props.id}>Moderators<AdminPanelSettingsIcon/>: {props.moderators.length}</Button>
       </CardActions>
       </Card>
       </Grid>

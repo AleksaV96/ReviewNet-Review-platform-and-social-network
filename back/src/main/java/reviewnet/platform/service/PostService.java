@@ -91,8 +91,12 @@ public class PostService {
         Optional<AbstractPostSpace> selectedPostSpace = abstractPostSpaceRepository.findById(id);
         postIds = selectedPostSpace.get().getPostCollection();
         for (String postId : postIds) {
+        	try {
             post = getById(postId).get();
             posts.add(post);
+        	}
+        	catch(Exception e) {
+        	}
         }
         return posts;
 	}
@@ -105,8 +109,11 @@ public class PostService {
         Optional<User> selectedUser = userService.getById(id);
         postIds = selectedUser.get().getProfile().getProfilePostIds();
         for (String postId : postIds) {
+        	try {
             post = getById(postId).get();
             posts.add(post);
+        	}
+        	catch(Exception e) {}
         }
         return posts;
 	}
@@ -119,8 +126,11 @@ public class PostService {
         Optional<User> selectedUser = userService.getById(id);
         postIds = selectedUser.get().getProfile().getPosted();
         for (String postId : postIds) {
+        	try {
             post = getById(postId).get();
             posts.add(post);
+        	}
+        	catch(Exception e) {}
         }
         return posts;
 	}

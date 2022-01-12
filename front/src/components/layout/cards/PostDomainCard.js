@@ -4,6 +4,7 @@ import { render } from "react-dom";
 import classes from "./PostCard.module.css";
 import { styled } from '@mui/material/styles';
 import { Link } from 'react-router-dom';
+import parseJwt from '../../../logic/JWTutil'
 
 import UserContext from '../../../store/user-context';
 import { useContext } from 'react';
@@ -13,6 +14,7 @@ import ThumbUpOffAltIcon from '@mui/icons-material/ThumbUpOffAlt';
 import ThumbDownAltIcon from '@mui/icons-material/ThumbDownAlt';
 import ThumbDownOffAltIcon from '@mui/icons-material/ThumbDownOffAlt';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import DeleteIcon from '@mui/icons-material/Delete';
 
 import { useState, useEffect } from 'react';
 import ReplyCard from './ReplyCard';
@@ -31,6 +33,7 @@ const ExpandMore = styled((props) => {
 function PostDomainCard(props) {
 
     const userCtx = useContext(UserContext);
+    var grade = "";
     var likes = [];
     var likeScore = 0;
     var username = userCtx.content.username;
@@ -40,6 +43,11 @@ function PostDomainCard(props) {
     var dislikeIdClc = props.id + "dislikeClc";
     var likeIdDsl = props.id + "likeDsl";
     var dislikeIdDsl = props.id + "dislikeDsl";
+
+    let token = localStorage.getItem('Bearer');
+    if(token !== null){
+      var userId = parseJwt(token).sub;
+    }
 
 
     const address =  'http://localhost:8080/posts/postId/' + props.id + '/replies'
@@ -61,6 +69,8 @@ function PostDomainCard(props) {
     var dislikeButtonDisabled = <IconButton id={dislikeIdDsl} disabled><ThumbDownOffAltIcon/></IconButton>;
     
     var replyButton = <Button sx={{maxWidth:10}} onClick={replyHandler}>Reply</Button>
+
+    var deleteButton = ""
 
     if(userCtx.selectedPost === props.id){
       replyButton = <Button sx={{maxWidth:10}} onClick={replyHandler}>Replying</Button>
@@ -91,7 +101,7 @@ function PostDomainCard(props) {
 
     }
     if(props.grade != null) {
-      var grade = <h2>{props.grade}</h2>;
+      grade = <h2>{props.grade}</h2>;
     }
 
     function likeHandler() {
@@ -204,6 +214,21 @@ function PostDomainCard(props) {
                 
             });
         }, [address]);
+
+        function removeHandler() {
+          fetch(
+            'http://localhost:8080/posts/postId/' + props.id + '/remove',
+          {
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            credentials: 'include'
+            }
+          ).then((response) => {
+            window.location.reload()
+          }
+          )};  
     
         if (isLoading) {
             return (
@@ -223,9 +248,7 @@ function PostDomainCard(props) {
             title = <Typography color="red" sx={{display:'inline', fontWeight:'bolder'}}> MODERATOR</Typography>
           }
         }
-        catch(e){
-          console.log(e);
-        }
+        catch(e){}
 
         let elementLink = "/reviewElements/" + props.elementId;
         let domainLink = "/reviewElement/domain/" + props.domainId;
@@ -240,9 +263,13 @@ function PostDomainCard(props) {
           elementName = postLocation[0];
           domainName = postLocation[1];
         }
-        catch(e){
-          console.log(e);
-        }
+        catch(e){}
+    
+    var repPosition = "-9.2cm"
+    if(props.moderators.includes(userId)) {
+      repPosition = "-7.8cm";
+      deleteButton = <Button sx={{display:"inline"}} variant="contained" color="warning" onClick={removeHandler}>X</Button>
+    }
 
     return (
       <div>
@@ -266,7 +293,7 @@ function PostDomainCard(props) {
           {likeScore}
           {dislikeButton}
           {replyButton}
-          <Typography sx={{position:"relative", right:"-9.2cm"}} variant="body1" noWrap color="text.secondary">Replies: {props.replies.length}</Typography>
+          <Typography sx={{position:"relative", right:repPosition}} variant="body1" noWrap color="text.secondary">Replies: {props.replies.length}</Typography>
           <ExpandMore
           expand={expanded}
           onClick={handleExpandClick}
@@ -275,8 +302,10 @@ function PostDomainCard(props) {
           >
           <ExpandMoreIcon />
         </ExpandMore>
+        {deleteButton}
         </CardActions>
         </Card>
+        
       <Collapse in={expanded} timeout="auto" unmountOnExit>
         {loadedPosts.map((post)=>
           <ReplyCard
@@ -293,6 +322,7 @@ function PostDomainCard(props) {
             postUserSurname={props.user.surname}
             postUserUsername={props.user.username}
             moderated={props.user.permission.roleDetails.moderated}
+            moderators={props.moderators}
             elementId={props.elementId}
             parentId={props.parentId}
             parent="post"
@@ -300,6 +330,7 @@ function PostDomainCard(props) {
           />
         )}
       </Collapse>
+      
       
       </div>
       );
