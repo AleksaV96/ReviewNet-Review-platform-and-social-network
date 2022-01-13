@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 
 import parseJwt from '../../../logic/JWTutil'
 
-import { Button, Avatar, Card, CardActions, CardContent, CardHeader, Typography, IconButton, CardMedia } from '@mui/material';
+import { Button, Card, CardActions, CardContent, Typography, CardMedia } from '@mui/material';
 import AddCircleIcon from '@mui/icons-material/AddCircle';
 import RemoveCircleIcon from '@mui/icons-material/RemoveCircle';
 
@@ -72,7 +72,7 @@ function SubscriptionCard(props) {
           alt="element pic"
           />
           <CardContent>
-            <Typography variant="h5" color="black" component="div" component={Link} to={'/reviewElement/'+ props.id}>
+            <Typography sx={{textDecoration:"none"}} variant="h5" color="black" component={Link} to={'/reviewElement/'+ props.id}>
               {props.name}
             </Typography>
             <Typography variant="body2" color="text.secondary">

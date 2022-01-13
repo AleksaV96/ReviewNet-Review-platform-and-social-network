@@ -1,4 +1,3 @@
-import { Link } from 'react-router-dom';
 import SubscriptionCard from "../cards/SubscriptionCard";
 import { Grid } from '@mui/material';
 

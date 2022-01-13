@@ -1,4 +1,4 @@
-import { Button, Avatar, Card, CardActions, CardContent, CardHeader, Typography, IconButton, CardMedia } from '@mui/material';
+import { Card, Typography } from '@mui/material';
 import ForumIcon from '@mui/icons-material/Forum';
 import ReviewsIcon from '@mui/icons-material/Reviews';
 import SentimentVeryDissatisfiedIcon from '@mui/icons-material/SentimentVeryDissatisfied';
@@ -21,7 +21,7 @@ function DomainList(props) {
     catch(e){}
 
     let icon;
-    let type;
+    //let type;
     let bcolor;
     switch(props.domain.type){
       default:
@@ -29,22 +29,22 @@ function DomainList(props) {
         break;
       case "forum":
         icon = <ForumIcon fontSize="medium"/>;
-        type = "Forum";
+        //type = "Forum";
         bcolor = "#1e88e5";
         break;
       case "reviewSpace":
         icon = <ReviewsIcon fontSize="medium"/>;
-        type = "Reviews";
+        //type = "Reviews";
         bcolor = "#009688";
         break;
       case "complainSpace":
         icon = <SentimentVeryDissatisfiedIcon fontSize="medium"/>;
-        type = "Complains";
+        //type = "Complains";
         bcolor = "#d81b60";
         break;
       case "roadMap":
         icon = <MapIcon fontSize="medium"/>;
-        type = "RoadMap";
+        //type = "RoadMap";
         bcolor = "#8e24aa";
         break;
     }

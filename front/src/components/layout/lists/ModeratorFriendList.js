@@ -1,5 +1,4 @@
-import { Link } from 'react-router-dom';
-import { Avatar, Card, CardActions, CardContent, CardHeader, Typography, IconButton, Button } from '@mui/material';
+import { Typography } from '@mui/material';
 import ModeratorFriendCard from '../cards/ModeratorFriendCard';
 
 function ModeratorFriendList(props){

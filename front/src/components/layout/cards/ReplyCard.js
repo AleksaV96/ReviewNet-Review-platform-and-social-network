@@ -280,10 +280,10 @@ function ReplyCard(props) {
             <Avatar alt="porst avatar" src={props.user.imgUrl} />
           </Badge>
           }
-          subheader = {<div><Typography sx={{display:'inline', color:"#d81b60"}}  component={Link} to={userLink}>{props.user.name} {props.user.surname}</Typography>
+          subheader = {<div><Typography sx={{display:'inline', color:"#d81b60", textDecoration:"none"}}  component={Link} to={userLink}>{props.user.name} {props.user.surname}</Typography>
           {title}
           <Typography color="black" sx={{display:'inline'}}> replies to </Typography>
-          <Typography color="text.secondary" sx={{display:'inline'}} component={Link} to={parentUserLink}>{props.postUserName} {props.postUserSurname}</Typography>
+          <Typography color="text.secondary" sx={{display:'inline', textDecoration:"none"}} component={Link} to={parentUserLink}>{props.postUserName} {props.postUserSurname}</Typography>
           </div>
           }
           />
@@ -319,7 +319,7 @@ function ReplyCard(props) {
             user={post.author}
             postUserImg={props.user.imgUrl}
             replies={post.replies}
-            postUserImg={props.postUserImg}  
+            //postUserImg={props.postUserImg}  
             postUserName={props.postUserName} 
             postUserSurname={props.postUserSurname}
             postUserUsername={props.postUserUsername}   

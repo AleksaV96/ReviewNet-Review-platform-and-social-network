@@ -1,8 +1,5 @@
-import { Button, Avatar, Card, CardActions, CardContent, CardHeader, Typography, IconButton, CardMedia } from '@mui/material';
+import { Button, Avatar, Card, CardHeader, Typography } from '@mui/material';
 import ForumIcon from '@mui/icons-material/Forum';
-import ReviewsIcon from '@mui/icons-material/Reviews';
-import SentimentVeryDissatisfiedIcon from '@mui/icons-material/SentimentVeryDissatisfied';
-import MapIcon from '@mui/icons-material/Map';
 import { Link } from 'react-router-dom';
 import parseJwt from '../../../logic/JWTutil'
 
@@ -40,7 +37,7 @@ function ThemeCard(props) {
     return (
         <Card sx={{bgcolor:bcolor}}>
           <CardHeader 
-            title={<Typography sx={{color:"black"}} variant="h5" component={Link}
+            title={<Typography sx={{color:"black", textDecoration:"none"}} variant="h5" component={Link}
             to={'/reviewElement/' + props.elementName + '/domain/theme/'+ props.id}>{props.name}</Typography>}
             subheader={<Typography color="text.secondary" component="div">Posts: {props.posts.length} {deleteButton}</Typography>}
             avatar={<Avatar sx={{bgcolor:"black"}}>{icon}</Avatar>}

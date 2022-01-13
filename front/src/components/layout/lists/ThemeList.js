@@ -1,6 +1,4 @@
 import { React, useState, useEffect } from 'react';
-import classes from "./DomainList.module.css";
-import { Link } from 'react-router-dom';
 import { Grid } from '@mui/material';
 import ThemeCard from '../cards/ThemeCard';
 

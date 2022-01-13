@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 
 import parseJwt from '../../../logic/JWTutil'
 
-import { Grid, Button, Avatar, Card, CardActions, CardContent, CardHeader, Typography, IconButton, CardMedia } from '@mui/material';
+import { Grid, Button, Card, CardActions, CardContent, CardHeader, Typography, CardMedia } from '@mui/material';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 import AdminPanelSettingsIcon from '@mui/icons-material/AdminPanelSettings';

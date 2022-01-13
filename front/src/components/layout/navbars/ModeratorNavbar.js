@@ -1,5 +1,4 @@
 import React from 'react';
-import classes from './MainNavbar.module.css'
 
 import { Link } from 'react-router-dom';
 
@@ -7,7 +6,7 @@ import { useContext } from 'react';
 import UserContext from '../../../store/user-context';
 
 import logout from '../../../logic/Logout'
-import { AppBar, CssBaseline, Toolbar, Typography, Button, IconButton, Avatar, Drawer, Container } from '@mui/material';
+import { AppBar, CssBaseline, Toolbar, Typography, Button, IconButton, Avatar, Drawer } from '@mui/material';
 import ConnectWithoutContactIcon from '@mui/icons-material/ConnectWithoutContact';
 import LogoutIcon from '@mui/icons-material/Logout';
 

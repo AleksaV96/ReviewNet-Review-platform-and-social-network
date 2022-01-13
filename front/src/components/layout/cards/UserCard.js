@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Avatar, Card, CardActions, CardContent, CardHeader, Typography, Button } from '@mui/material';
+import { Avatar, Card, CardActions, CardHeader, Typography, Button } from '@mui/material';
 
 function UserCard(props) {
 

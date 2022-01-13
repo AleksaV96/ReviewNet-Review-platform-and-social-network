@@ -3,14 +3,10 @@ import { useState, useEffect } from 'react';
 import MainLayout from '../components/layout/MainLayout'
 
 import parseJwt from '../logic/JWTutil'
-
-import { useContext } from 'react';
-import UserContext from '../store/user-context';
 import ModeratorReviewElementList from '../components/layout/lists/ModeratorReviewElementList';
 
 function ModeratedPage() {
 
-    const userCtx = useContext(UserContext);
     const [isLoading, setIsLoading] = useState(true);
     const [loadedElements, setLoadedElements] = useState([]);
 
@@ -52,7 +48,7 @@ function ModeratedPage() {
           setIsLoading(false);
           setLoadedElements(elements);
         });
-    }, []);
+    }, [address]);
 
     if (isLoading) {
       return (

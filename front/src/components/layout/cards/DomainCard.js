@@ -1,4 +1,4 @@
-import { Button, Avatar, Card, CardActions, CardContent, CardHeader, Typography, IconButton, CardMedia } from '@mui/material';
+import { Avatar, Card, CardHeader, Typography } from '@mui/material';
 import ForumIcon from '@mui/icons-material/Forum';
 import ReviewsIcon from '@mui/icons-material/Reviews';
 import SentimentVeryDissatisfiedIcon from '@mui/icons-material/SentimentVeryDissatisfied';
@@ -30,6 +30,11 @@ function DomainCard(props) {
         icon = <MapIcon/>;
         type = "RoadMap";
         bcolor = "#8e24aa";
+        break;
+      default:
+        icon = "";
+        type = "";
+        bcolor = "";
         break;
     }
 

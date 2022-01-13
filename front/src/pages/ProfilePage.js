@@ -5,8 +5,6 @@ import ProfileEdit from '../components/layout/views/ProfileEdit';
 import UserContext from '../store/user-context';
 import { useContext } from 'react';
 
-import useStyles from './pages.style';
-
 import Button from '@mui/material/Button';
 import ButtonGroup from '@mui/material/ButtonGroup';
 import DiamondIcon from '@mui/icons-material/Diamond';
@@ -22,7 +20,6 @@ import parseJwt from '../logic/JWTutil'
 import logout from '../logic/Logout'
 
 function ProfilePage() {
-    const classes = useStyles();
     const userCtx = useContext(UserContext); 
     const [loadedUser, setLoadedUser] = useState({});
     const [editProfileMode, setEditProfileMode] = useState(false);

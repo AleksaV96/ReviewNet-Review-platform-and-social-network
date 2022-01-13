@@ -5,12 +5,8 @@ import FriendList from "../components/layout/lists/FriendList"
 
 import parseJwt from '../logic/JWTutil'
 
-import { useContext } from 'react';
-import UserContext from '../store/user-context';
-
 function FriendsPage(){
 
-    const userCtx = useContext(UserContext);
     const [isLoading, setIsLoading] = useState(true);
     const [loadedFriends, setLoadedFriends] = useState([]);
 
@@ -51,7 +47,7 @@ function FriendsPage(){
           setIsLoading(false);
           setLoadedFriends(friends);
         });
-    }, []);
+    }, [address]);
 
     if (isLoading) {
       return (

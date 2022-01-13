@@ -1,7 +1,5 @@
 import React from 'react';
 import ModeratorReviewElementCard from "../cards/ModeratorReviewElementCard";
-import classes from "./ReviewElementList.module.css"
-import { Link } from 'react-router-dom';
 import { Grid } from '@mui/material';
 
 function ModeratorReviewElementList(props) {

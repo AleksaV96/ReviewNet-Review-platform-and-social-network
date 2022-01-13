@@ -5,12 +5,9 @@ import SubscriptionList from "../components/layout/lists/SubscriptionList"
 
 import parseJwt from '../logic/JWTutil'
 
-import { useContext } from 'react';
-import UserContext from '../store/user-context';
 
 function SubscriptionsPage() {
 
-    const userCtx = useContext(UserContext);
     const [isLoading, setIsLoading] = useState(true);
     const [loadedElements, setLoadedElements] = useState([]);
 
@@ -52,7 +49,7 @@ function SubscriptionsPage() {
           setIsLoading(false);
           setLoadedElements(elements);
         });
-    }, []);
+    }, [address]);
 
     if (isLoading) {
       return (

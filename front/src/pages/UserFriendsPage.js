@@ -43,7 +43,7 @@ function UserFriendsPage(){
           setIsLoading(false);
           setLoadedFriends(friends);
         });
-    }, []);
+    }, [address]);
 
     if (isLoading) {
       return (

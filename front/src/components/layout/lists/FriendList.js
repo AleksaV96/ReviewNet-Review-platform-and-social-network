@@ -6,7 +6,7 @@ function FriendList(props){
         <div>
           <ul>
             {props.friends.map((friend) => (
-              <Link to={'/user/'+ friend.username}>
+              <Link style={{ textDecoration: 'none' }} to={'/user/'+ friend.username}>
               <FriendCard
                 key={friend.id}
                 id={friend.id}

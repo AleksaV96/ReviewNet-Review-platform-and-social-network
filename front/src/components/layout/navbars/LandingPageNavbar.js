@@ -3,7 +3,6 @@ import ConnectWithoutContactIcon from '@mui/icons-material/ConnectWithoutContact
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-import classes from './LandingPageNavbar.module.css'
 
 function LandingPageNavbar() {
 
@@ -20,21 +19,6 @@ function LandingPageNavbar() {
       </AppBar>
       </div>
 
-    /*
-    <header className={classes.header}>
-      <div className={classes.logo}>ReviewNet</div>
-      <nav>
-        <ul>
-          <li>
-            <Link to='/register'>Register</Link>
-          </li>
-          <li>
-            <Link to='/login'>Login</Link>
-          </li>
-        </ul>
-      </nav>
-    </header>
-    */
     );
 
 

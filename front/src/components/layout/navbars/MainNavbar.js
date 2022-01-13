@@ -1,5 +1,4 @@
 import React from 'react';
-import classes from './MainNavbar.module.css'
 
 import { Link } from 'react-router-dom';
 
@@ -7,7 +6,7 @@ import { useContext } from 'react';
 import UserContext from '../../../store/user-context';
 
 import logout from '../../../logic/Logout'
-import { AppBar, CssBaseline, Toolbar, Typography, Button, IconButton, Avatar, Drawer, Container } from '@mui/material';
+import { AppBar, CssBaseline, Toolbar, Typography, Button, IconButton, Avatar, Drawer } from '@mui/material';
 import ConnectWithoutContactIcon from '@mui/icons-material/ConnectWithoutContact';
 import LogoutIcon from '@mui/icons-material/Logout';
 
@@ -21,7 +20,6 @@ import ListItemButton from '@mui/material/ListItemButton';
 
 import PeopleAltIcon from '@mui/icons-material/PeopleAlt';
 import SubscriptionsIcon from '@mui/icons-material/Subscriptions';
-import PreviewIcon from '@mui/icons-material/Preview';
 import FeedIcon from '@mui/icons-material/Feed';
 import PageviewIcon from '@mui/icons-material/Pageview';
 

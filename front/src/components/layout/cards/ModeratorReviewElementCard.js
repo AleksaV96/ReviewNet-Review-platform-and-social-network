@@ -1,13 +1,10 @@
-import UserContext from '../../../store/user-context';
-import { useContext } from 'react';
 import { Link } from 'react-router-dom';
 
-import { Button, Avatar, Card, CardActions, CardContent, CardHeader, Typography, IconButton, CardMedia } from '@mui/material';
+import { Button, Card, CardActions, CardContent, Typography, CardMedia } from '@mui/material';
 import DeleteIcon from '@mui/icons-material/Delete';
 
 function ModeratorReviewElementCard(props) {
 
-      const userCtx = useContext(UserContext); 
 
       var deleteButton = <Button onClick={deleteHandler} color="error" variant="contained">Delete<DeleteIcon/></Button>
 
@@ -42,7 +39,7 @@ function ModeratorReviewElementCard(props) {
         alt="element pic"
         />
         <CardContent >
-          <Typography  variant="h5" sx={{color:"black"}} component={Link} to={'/moderatedReviewElement/'+ props.id}>
+          <Typography  variant="h5" sx={{color:"black", textDecoration:"none"}} component={Link} to={'/moderatedReviewElement/'+ props.id}>
             {props.name}
           </Typography>
           <Typography variant="body2" color="text.secondary">

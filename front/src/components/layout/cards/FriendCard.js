@@ -1,4 +1,4 @@
-import { Avatar, Card, CardActions, CardContent, CardHeader, Typography, IconButton } from '@mui/material';
+import { Avatar, Card, CardHeader, Typography } from '@mui/material';
 import { Link } from 'react-router-dom';
 
 function FriendCard(props){
@@ -8,8 +8,8 @@ function FriendCard(props){
       <Card>
         <CardHeader 
         avatar = {<Avatar alt="friend" src={props.image} component={Link} to={userLink}></Avatar>}
-        title = {<Typography  variant="h6">{props.username}</Typography>}
-        subheader = {<Typography color="text.secondary" component={Link} to={userLink}>{props.name} {props.surname}
+        title = {<Typography variant="h6">{props.username}</Typography>}
+        subheader = {<Typography sx={{ textDecoration: 'none' }} color="text.secondary" component={Link} to={userLink}>{props.name} {props.surname}
           </Typography>}
         />
       </Card>

@@ -1,7 +1,4 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
-import { render } from "react-dom";
-import classes from "./PostCard.module.css";
 import { styled } from '@mui/material/styles';
 import { Link } from 'react-router-dom';
 import parseJwt from '../../../logic/JWTutil'
@@ -14,7 +11,6 @@ import ThumbUpOffAltIcon from '@mui/icons-material/ThumbUpOffAlt';
 import ThumbDownAltIcon from '@mui/icons-material/ThumbDownAlt';
 import ThumbDownOffAltIcon from '@mui/icons-material/ThumbDownOffAlt';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import DeleteIcon from '@mui/icons-material/Delete';
 import SecurityIcon from '@mui/icons-material/Security';
 import LocalPoliceIcon from '@mui/icons-material/LocalPolice';
 
@@ -35,7 +31,6 @@ const ExpandMore = styled((props) => {
 function PostDomainCard(props) {
 
     const userCtx = useContext(UserContext);
-    var grade = "";
     var likes = [];
     var likeScore = 0;
     var username = userCtx.content.username;
@@ -102,9 +97,6 @@ function PostDomainCard(props) {
       }
     }
 
-    }
-    if(props.grade != null) {
-      grade = <h2>{props.grade}</h2>;
     }
 
     function likeHandler() {
@@ -261,22 +253,8 @@ function PostDomainCard(props) {
         }
         catch(e){}
 
-
-        let elementLink = "/reviewElements/" + props.elementId;
-        let domainLink = "/reviewElement/domain/" + props.domainId;
         let userLink = "/user/" + props.authorUsername;
 
-        let postLocation;
-        let elementName;
-        let domainName;
-
-        try{
-        postLocation = props.postLocation.split(' ');
-          elementName = postLocation[0];
-          domainName = postLocation[1];
-        }
-        catch(e){}
-    
     var repPosition = "-9.2cm"
     if(props.moderators.includes(userId) || role==="admin") {
       repPosition = "-7.8cm";
@@ -291,7 +269,7 @@ function PostDomainCard(props) {
           title = {<div><Typography sx={{display:'inline', textTransform:"capitalize", color:"#3949ab"}} variant="h6">{props.name}</Typography>
           <Typography sx={{display:'inline', position:"relative"}} variant="h4" color="#e91e63"> {props.grade}</Typography>
           </div>}
-          subheader =  {<div><Typography color="text.secondary" sx={{display:'inline'}} component={Link} to={userLink}>{props.user.name} {props.user.surname}
+          subheader =  {<div><Typography color="text.secondary" sx={{display:'inline', textDecoration:"none"}} component={Link} to={userLink}>{props.user.name} {props.user.surname}
           </Typography>
           {title}
           </div>}

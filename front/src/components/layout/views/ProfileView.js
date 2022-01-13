@@ -15,7 +15,7 @@ function ProfileView(props) {
         subscriptionsCount = loadedProfile.subscribed.length;
     }
     
-
+    /*
     function upgradeToPremiumHandler() {
         fetch(
 
@@ -47,6 +47,7 @@ function ProfileView(props) {
                 window.location.reload();
             }
     )};  
+    */
 
     return(
         <Card sx={{marginBottom:"5mm"}}>

@@ -44,7 +44,7 @@ function SubscriptionsPage() {
           setIsLoading(false);
           setLoadedElements(elements);
         });
-    }, []);
+    }, [address]);
 
     if (isLoading) {
       return (

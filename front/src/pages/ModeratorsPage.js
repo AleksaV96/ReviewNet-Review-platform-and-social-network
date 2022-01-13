@@ -1,4 +1,4 @@
-import { useState, useEffect, useContext } from 'react';
+import { useState, useEffect } from 'react';
 import { useParams } from "react-router";
 
 import MainLayout from '../components/layout/MainLayout'
@@ -6,15 +6,13 @@ import MainLayout from '../components/layout/MainLayout'
 import ModeratorFriendList from '../components/layout/lists/ModeratorFriendList';
 import ModeratorList from "../components/layout/lists/ModeratorList" 
 
-
 import parseJwt from '../logic/JWTutil'
-import UserContext from '../store/user-context';
+
 
 
 function ModeratorsPage(){
     
     const { id } = useParams();
-    const userCtx = useContext(UserContext);
     const [isLoading, setIsLoading] = useState(true);
     const [loadedFriends, setLoadedFriends] = useState([]);
     const [loadedModerators, setLoadedModerators] = useState([]);
@@ -61,7 +59,7 @@ function ModeratorsPage(){
             setLoadedModerators(moderators);
             setModeratorsIds(moderatorsIds)
           });
-      }, []);
+      }, [address2]);
 
     useEffect(() => {
       setIsLoading(true);
@@ -93,7 +91,7 @@ function ModeratorsPage(){
           setIsLoading(false);
           setLoadedFriends(friends);
         });
-    }, []);
+    }, [address, loadedModerators]);
 
     
 

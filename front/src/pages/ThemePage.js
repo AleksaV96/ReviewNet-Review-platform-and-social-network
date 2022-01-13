@@ -9,7 +9,6 @@ import PostAddPage from './PostAddPage';
 function ThemePage() {
 
     const { id } = useParams();
-    const { elementName } = useParams();
     const [isLoading, setIsLoading] = useState(true);
     const [isThemeLoaded, setIsThemeLoaded] = useState(false);
     const [loadedPosts, setLoadedPosts] = useState([]);

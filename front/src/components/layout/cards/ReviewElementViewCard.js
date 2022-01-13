@@ -1,10 +1,9 @@
 import UserContext from '../../../store/user-context';
 import { useContext } from 'react';
-import { Link } from 'react-router-dom';
 
 import parseJwt from '../../../logic/JWTutil'
 
-import { Grid, Button, Avatar, Card, CardActions, CardContent, CardHeader, Typography, IconButton, CardMedia } from '@mui/material';
+import { Grid, Button, Card, CardActions, CardContent, CardHeader, Typography, CardMedia } from '@mui/material';
 import AddCircleIcon from '@mui/icons-material/AddCircle';
 import RemoveCircleIcon from '@mui/icons-material/RemoveCircle';
 import PersonOutlineIcon from '@mui/icons-material/PersonOutline';

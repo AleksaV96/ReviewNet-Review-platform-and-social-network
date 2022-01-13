@@ -6,26 +6,20 @@ import { styled } from '@mui/material/styles';
 import { useContext } from 'react';
 import UserContext from '../../store/user-context';
 
-import Avatar from '@mui/material/Avatar';
+
 import Card from '@mui/material/Card';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import Checkbox from '@mui/material/Checkbox';
-import Link from '@mui/material/Link';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
-import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
-
 import Collapse from '@mui/material/Collapse';
-import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import ExpandLessIcon from '@mui/icons-material/ExpandLess';
 import IconButton from '@mui/material/IconButton';
 import Rating from '@mui/material/Rating';
-import { CardActions } from '@mui/material';
+
 import StarIcon from '@mui/icons-material/Star';
 
 function ReviewPostForm(props) {
@@ -187,7 +181,6 @@ function ReviewPostForm(props) {
                   name="Content"
                   autoComplete="content"
                   multiline={true}
-                  multiline
                   rows={3}
                   inputRef={contentInputRef}
                 />
@@ -206,38 +199,6 @@ function ReviewPostForm(props) {
         </Card>
         </Collapse>
       </Container>
-
-
-
-
-
-
-        /*
-        <Card>
-            <form className={classes.form} onSubmit={submitHandler}>
-            <div className={classes.control}>
-                <label htmlFor='name'>Title</label>
-                <input type='text' required id='name' ref={nameInputRef} />
-            </div>
-            <div className={classes.control}>
-            <label htmlFor='content'>Content</label>
-            <textarea
-                id='content'
-                required
-                rows='5'
-                ref={contentInputRef}
-            ></textarea>
-            </div>
-            <div className={classes.control}>
-                <label htmlFor="rating">Rate:</label>
-                <input type="number" id="rating" name="rating" min="1" max="10" ref={ratingInputRef}/>
-            </div>
-            <div className={classes.actions}>
-                <button>Create</button>
-            </div>
-            </form>
-      </Card>
-      */
 
     )
 

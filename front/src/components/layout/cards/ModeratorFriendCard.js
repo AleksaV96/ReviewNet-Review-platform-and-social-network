@@ -1,4 +1,4 @@
-import { Avatar, Card, CardActions, CardContent, CardHeader, Typography, IconButton, Button } from '@mui/material';
+import { Avatar, Card, CardHeader, Typography, Button } from '@mui/material';
 import AddModeratorIcon from '@mui/icons-material/AddModerator';
 import { Link } from 'react-router-dom';
 
@@ -30,7 +30,7 @@ function ModeratorFriendCard(props){
         <CardHeader 
         avatar = {<Avatar alt="friend" src={props.imgUrl} component={Link} to={"/user/" + props.username}></Avatar>}
         title = {<Typography  variant="h6">{props.username}</Typography>}
-        subheader = {<Typography color="text.secondary" component={Link} to={"/user/" + props.username}>{props.name} {props.surname}
+        subheader = {<Typography sx={{ textDecoration: 'none' }} color="text.secondary" component={Link} to={"/user/" + props.username}>{props.name} {props.surname}
         </Typography>}
         />
         <Button variant="contained" color="primary" onClick={moderatorAddHandler}>ADD<AddModeratorIcon/></Button>

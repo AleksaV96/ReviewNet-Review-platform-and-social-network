@@ -1,13 +1,10 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
-import { render } from "react-dom";
-import classes from "./PostCard.module.css";
 import { styled } from '@mui/material/styles';
 import { Link } from 'react-router-dom';
 
 import UserContext from '../../../store/user-context';
 import { useContext } from 'react';
-import { Collapse, Button, Avatar, Card, CardActions, CardContent, CardHeader, Typography, IconButton } from '@mui/material';
+import { Collapse, Avatar, Card, CardActions, CardContent, CardHeader, Typography, IconButton } from '@mui/material';
 import ThumbUpAltIcon from '@mui/icons-material/ThumbUpAlt';
 import ThumbUpOffAltIcon from '@mui/icons-material/ThumbUpOffAlt';
 import ThumbDownAltIcon from '@mui/icons-material/ThumbDownAlt';
@@ -58,12 +55,7 @@ function PostCard(props) {
     var dislikeButtonClicked = <IconButton id={dislikeIdClc} onClick={unDislikeHandler}><ThumbDownAltIcon color="error"/></IconButton>;
     var likeButtonDisabled = <IconButton id={likeIdDsl} disabled><ThumbUpOffAltIcon/></IconButton>;
     var dislikeButtonDisabled = <IconButton id={dislikeIdDsl} disabled><ThumbDownOffAltIcon/></IconButton>;
-    
-    var replyButton = <Button sx={{maxWidth:10}} onClick={replyHandler}>Reply</Button>
 
-    if(userCtx.selectedPost === props.id){
-      replyButton = <Button sx={{maxWidth:10}} onClick={replyHandler}>Replying</Button>
-    }
 
     if(props.likes !== undefined){
       likes = props.likes;
@@ -89,9 +81,12 @@ function PostCard(props) {
     }
 
     }
+
+    /*
     if(props.grade != null) {
       var grade = <h2>{props.grade}</h2>;
     }
+    */
 
     function likeHandler() {
       fetch(
@@ -157,22 +152,7 @@ function PostCard(props) {
           ).then((response) => {
             window.location.reload()
           }
-          )};
-
-          function replyHandler(){
-            if(userCtx.selectedPost === "" ){
-              userCtx.setSelectedPost(props.id);
-              userCtx.setSelectedPostAuthor(props.user.name + " " + props.user.surname);
-            }
-            else if(userCtx.selectedPost !== props.id){
-              userCtx.setSelectedPost(props.id);
-              userCtx.setSelectedPostAuthor(props.user.name + " " + props.user.surname);
-            }
-            else{
-              userCtx.setSelectedPost("");
-              userCtx.setSelectedPostAuthor("")
-            }
-          }
+          )}
 
           useEffect(() => {
             setIsLoading(true);
@@ -233,11 +213,11 @@ function PostCard(props) {
           avatar = {<Avatar alt="user" src={props.user.imgUrl} component={Link} to={userLink}></Avatar>}
           title = {<div><Typography sx={{display:'inline', textTransform:"capitalize", color:"#3949ab"}} variant="h6">{props.name}</Typography>
           <Typography sx={{display:'inline'}} variant="h6"> in </Typography>
-          <Typography sx={{display:'inline', color:"#d81b60"}} variant="h6" component={Link} to={elementLink}>{elementName}</Typography>
-          <Typography sx={{display:'inline', color:"black"}} variant="h6" component={Link} to={domainLink}> {domainName}</Typography>
+          <Typography sx={{display:'inline', color:"#d81b60", textDecoration:"none"}} variant="h6" component={Link} to={elementLink}>{elementName}</Typography>
+          <Typography sx={{display:'inline', color:"black", textDecoration:"none"}} variant="h6" component={Link} to={domainLink}> {domainName}</Typography>
           <Typography sx={{display:'inline', position:"relative"}} variant="h4" color="#e91e63"> {props.grade}</Typography>
           </div>}
-          subheader = {<Typography color="text.secondary" sx={{display:'inline'}} component={Link} to={userLink}>{props.user.name} {props.user.surname}
+          subheader = {<Typography color="text.secondary" sx={{display:'inline', textDecoration:"none"}} component={Link} to={userLink}>{props.user.name} {props.user.surname}
           </Typography>}
           />
         <CardContent>

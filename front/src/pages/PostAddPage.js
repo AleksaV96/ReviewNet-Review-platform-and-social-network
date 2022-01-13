@@ -1,7 +1,6 @@
 import React from 'react';
 import PostForm from "../components/forms/PostForm";
 import ReviewPostForm from "../components/forms/ReviewPostForm";
-import { selectedPost } from '../components/layout/cards/PostCard';
 
 import { useContext } from 'react';
 import UserContext from '../store/user-context';
