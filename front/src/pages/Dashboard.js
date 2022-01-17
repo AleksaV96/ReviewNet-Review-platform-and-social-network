@@ -1,8 +1,11 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
+
 import { useState, useEffect } from 'react';
 import UserList from "../components/layout/lists/UserList";
 import MainLayout from "../components/layout/MainLayout";
-
+import Button from '@mui/material/Button';
+import PersonSearchIcon from '@mui/icons-material/PersonSearch';
 
 function Dashboard() {
 
@@ -51,7 +54,11 @@ function Dashboard() {
 
     return(
         <MainLayout>
+            <Button sx={{position:"relative", left:"6.5cm", marginBottom:"1cm"}} variant="contained" component={Link} to={'/adminUserSearch'}>
+                Search users<PersonSearchIcon/></Button>
+            <section>
             <UserList users={loadedUsers} />
+            </section>
         </MainLayout>
     );
 

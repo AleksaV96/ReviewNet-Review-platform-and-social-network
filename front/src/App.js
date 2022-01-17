@@ -32,6 +32,10 @@ import ModeratedPage from './pages/ModeratedPage';
 import ModeratorsPage from './pages/ModeratorsPage';
 import ModeratedReviewElementPage from './pages/ModeratedReviewElementPage';
 import ProfileSettingsPage from './pages/ProfileSettingsPage';
+import UserSearchPage from './pages/UserSearchPage';
+import ElementSearchPage from './pages/ElementSearchPage';
+import AdminUserSearchPage from './pages/AdminUserSearchPage';
+import AdminElementSearchPage from './pages/AdminElementSearchPage';
 
 function App() {
 
@@ -96,7 +100,6 @@ function App() {
           <Route element={<ProtectedRoutes />}>
               <Route path='/main' element={<MainPage />} />
               <Route path='/reviewElements' element={<ReviewElementListPage />} />
-              <Route path='/adminReviewElements' element={<AdminReviewElementListPage />} />
               <Route path='/reviewElement/:id' element={<ReviewElementView />} />
               <Route path='/reviewElement/:elementName/domain/:id' element={<DomainPage />} />
               <Route path='/reviewElements/create-company' element={<ReviewElementAddPage />} />
@@ -111,10 +114,15 @@ function App() {
               <Route path='/moderatedReviewElement/:id' element={<ModeratedReviewElementPage />} />
               <Route path='/reviewElement/:elementName/moderators/:id' element={<ModeratorsPage />} />
               <Route path='/profileSettings' element={<ProfileSettingsPage />} />
+              <Route path='/userSearch' element={<UserSearchPage/>} />
+              <Route path='/elementSearch' element={<ElementSearchPage/>} />
           </Route>
           <Route element={<AdminRoutes />}>
               <Route path='/dashboard' element={<Dashboard/>} />
               <Route path='/dashboard/user/:id' element={<ProfileAdminEdit/>} />
+              <Route path='/adminUserSearch' element={<AdminUserSearchPage/>} />
+              <Route path='/adminReviewElements' element={<AdminReviewElementListPage />} />
+              <Route path='/adminElementSearch' element={<AdminElementSearchPage/>} />
           </Route>
       </Routes>
     </div>

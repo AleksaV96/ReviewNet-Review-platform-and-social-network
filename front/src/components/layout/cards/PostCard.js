@@ -12,7 +12,7 @@ import ThumbDownOffAltIcon from '@mui/icons-material/ThumbDownOffAlt';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 
 import { useState, useEffect } from 'react';
-import ReplyCard from './ReplyCard';
+import MainPageReplyCard from './MainPageReplyCard';
 
 const ExpandMore = styled((props) => {
   const { expand, ...other } = props;
@@ -210,7 +210,7 @@ function PostCard(props) {
       <div>
       <Card sx={{marginTop : "5px"}}>
         <CardHeader 
-          avatar = {<Avatar alt="user" src={props.user.imgUrl} component={Link} to={userLink}></Avatar>}
+          avatar = {<Avatar alt="user" sx={{height:"60px", width:"60px"}} src={props.user.imgUrl} component={Link} to={userLink}></Avatar>}
           title = {<div><Typography sx={{display:'inline', textTransform:"capitalize", color:"#3949ab"}} variant="h6">{props.name}</Typography>
           <Typography sx={{display:'inline'}} variant="h6"> in </Typography>
           <Typography sx={{display:'inline', color:"#d81b60", textDecoration:"none"}} variant="h6" component={Link} to={elementLink}>{elementName}</Typography>
@@ -241,7 +241,7 @@ function PostCard(props) {
         </Card>
       <Collapse in={expanded} timeout="auto" unmountOnExit>
         {loadedPosts.map((post)=>
-          <ReplyCard
+          <MainPageReplyCard
             key={post.id}
             id={post.id}
             name={post.name}

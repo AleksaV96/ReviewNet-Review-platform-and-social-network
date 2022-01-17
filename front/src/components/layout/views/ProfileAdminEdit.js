@@ -1,17 +1,22 @@
 import React from 'react';
 import { useParams } from "react-router";
 import { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 
 import MainLayout from "../../layout/MainLayout";
 import UserRestrictionsForm from "../../forms/UserRestrictionsForm";
 import { Button, Card, Typography, Avatar, CardHeader } from '@mui/material';
 import { ButtonGroup } from '@mui/material';
+import ProfileSettingsForm from '../../forms/ProfileSettingsForm';
+import UserRoleForm from '../../forms/UserRoleForm';
+import AccountBoxIcon from '@mui/icons-material/AccountBox';
 
 function ProfileAdminEdit(props) {
     const { id } = useParams();
     const [isLoading, setIsLoading] = useState(true);
     const [loadedUser, setLoadedUser] = useState({});
     const [activeStatus, setActiveStatus] = useState("");
+    const [loadedProfile, setLoadedProfile] = useState({});
     
     let activeStat = "";
     let clr = "";
@@ -39,6 +44,8 @@ function ProfileAdminEdit(props) {
 
     const address = 'http://localhost:8080/users/admin/userId/' + id;
     const address2 = 'http://localhost:8080/users/userId/' + id + '/set-active-status';
+    const address3 = 'http://localhost:8080/users/userId/' + id + '/update-profile-settings';
+
 
     useEffect(() => {
         setIsLoading(true);
@@ -74,11 +81,33 @@ function ProfileAdminEdit(props) {
                 "imgUrl" : data.imgUrl,
                 "role" : data.permission.authority
             }
-            console.log(data.permission);
+            const profile = {
+              "addFriend" : data.profile.profileSettings.addFriend,
+              "showFriends" : data.profile.profileSettings.showFriends,
+              "showSubscriptions" : data.profile.profileSettings.showSubscriptions,
+            }
+            setLoadedProfile(profile);
+
             setLoadedUser(user);
             setIsLoading(false);
           });
       }, [address]);
+
+      function profileSettingsHandler(profileSettings) {
+        fetch(
+            address3,
+            {
+             method: 'PUT',
+             body: JSON.stringify(profileSettings),
+             headers: {
+                 'Content-Type': 'application/json',
+            },
+            credentials: 'include'
+            },
+         
+            window.location.reload(),
+            )
+        }
 
       function activeStatusHandler(event) {
         fetch(
@@ -105,7 +134,7 @@ function ProfileAdminEdit(props) {
         );
       }
 
-      
+      let userLink = "/user/" + loadedUser.username;
 
       return(
           <MainLayout>
@@ -118,11 +147,14 @@ function ProfileAdminEdit(props) {
             <Typography  variant="h5"><span style={{color:"black"}}>email:</span> {loadedUser.email}</Typography></div>}
             />
               <ButtonGroup sx={{margin:"15px"}} variant="contained">
-                <Button color="success" onClick={activeStatusHandler} value={false}>ACTIVE</Button>
+                <Button color="primary" onClick={activeStatusHandler} value={false}>ACTIVE</Button>
                 <Button color="error" onClick={activeStatusHandler} value={true}>INACTIVE</Button>
               </ButtonGroup>
-              </Card>
+              <Button variant="contained" color="primary" sx={{marginLeft:"9.3cm"}} component={Link} to={userLink}><AccountBoxIcon/></Button>
+            </Card>
+              <UserRoleForm user={loadedUser} />
               <UserRestrictionsForm user={loadedUser}/>
+              <ProfileSettingsForm onSettingsChange={profileSettingsHandler} loadedProfile={loadedProfile} />
             
           </MainLayout>
       )

@@ -4,6 +4,10 @@ import React from 'react';
 import MainLayout from '../components/layout/MainLayout'
 import AdminReviewElementList from "../components/layout/lists/AdminReviewElementList" 
 
+import { Link } from 'react-router-dom';
+import Button from '@mui/material/Button';
+import TravelExploreIcon from '@mui/icons-material/TravelExplore';
+
 function AdminReviewElementListPage() {
     const [isLoading, setIsLoading] = useState(true);
     const [loadedElements, setLoadedElements] = useState([]);
@@ -49,6 +53,8 @@ function AdminReviewElementListPage() {
 
     return (
       <MainLayout>
+        <Button sx={{position:"relative", left:"6.5cm", marginBottom:"1cm"}} color="secondary" variant="contained" component={Link} to={'/adminElementSearch'}>
+          Find elements<TravelExploreIcon/></Button>
         <section>
           <AdminReviewElementList elements={loadedElements} />
         </section>

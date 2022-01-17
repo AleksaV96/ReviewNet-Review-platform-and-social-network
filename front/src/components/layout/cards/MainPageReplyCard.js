@@ -15,7 +15,7 @@ import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import SecurityIcon from '@mui/icons-material/Security';
 import LocalPoliceIcon from '@mui/icons-material/LocalPolice';
 
-function ReplyCard(props) {
+function MainPageReplyCard(props) {
 
     var replyIteration = parseInt(props.iteration, 10) + 0.85;
     var position = replyIteration + "cm"
@@ -34,12 +34,9 @@ function ReplyCard(props) {
     const [isLoading, setIsLoading] = useState(true);
     var likeButton = <IconButton  onClick={likeHandler}><ThumbUpOffAltIcon/></IconButton>
     var dislikeButton = <IconButton onClick={dislikeHandler}><ThumbDownOffAltIcon/></IconButton>
-    var replyButton = <Button sx={{maxWidth:10}} onClick={replyHandler}>Reply</Button>
     var deleteButton = ""
 
-    if(userCtx.selectedPost === props.id){
-      replyButton = <Button sx={{maxWidth:10}} onClick={replyHandler}>Replying</Button>
-    }
+
 
     let clr = '#e6e6e6';
     if(props.parent==='post'){
@@ -168,21 +165,6 @@ function ReplyCard(props) {
             }
             )};
 
-            function replyHandler(){
-              if(userCtx.selectedPost === "" ){
-                userCtx.setSelectedPost(props.id);
-                userCtx.setSelectedPostAuthor(props.user.name + " " + props.user.surname);
-              }
-              else if(userCtx.selectedPost !== props.id){
-                userCtx.setSelectedPost(props.id);
-                userCtx.setSelectedPostAuthor(props.user.name + " " + props.user.surname);
-              }
-              else{
-                userCtx.setSelectedPost("");
-                userCtx.setSelectedPostAuthor("");
-              }
-            }
-
             useEffect(() => {
               setIsLoading(true);
               fetch(
@@ -256,7 +238,7 @@ function ReplyCard(props) {
         }
         catch(e){}
         
-        var repPosition = "-3cm";
+        var repPosition = "-4.8cm";
         try{
           if(props.moderators.includes(userId) || role==="admin") {
             repPosition = "-1.4cm";
@@ -294,7 +276,6 @@ function ReplyCard(props) {
                 {likeButton}
                 {likeScore}
                 {dislikeButton}
-                {replyButton}
                 <Typography sx={{position:"relative", right:repPosition}} variant="body1" noWrap color="text.secondary">Replies: {props.replies.length}</Typography>
                 <ExpandMore
                 expand={expanded}
@@ -309,7 +290,7 @@ function ReplyCard(props) {
         </Card>
       <Collapse in={expanded} timeout="auto" unmountOnExit>
         {loadedPosts.map((post)=>
-          <ReplyCard
+          <MainPageReplyCard
             key={post.id}
             id={post.id}
             name={post.name}
@@ -334,4 +315,4 @@ function ReplyCard(props) {
     );
 
 }
-export default ReplyCard;
+export default MainPageReplyCard;

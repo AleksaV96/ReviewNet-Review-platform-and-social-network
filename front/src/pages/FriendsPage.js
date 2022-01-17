@@ -1,8 +1,12 @@
 import { useState, useEffect } from 'react';
 
+import { Link } from 'react-router-dom';
+
 import MainLayout from '../components/layout/MainLayout'
 import FriendList from "../components/layout/lists/FriendList" 
 
+import Button from '@mui/material/Button';
+import PersonSearchIcon from '@mui/icons-material/PersonSearch';
 import parseJwt from '../logic/JWTutil'
 
 function FriendsPage(){
@@ -59,6 +63,7 @@ function FriendsPage(){
 
     return (
         <MainLayout>
+          <Button sx={{position:"relative", left:"6.5cm"}} variant="contained" component={Link} to={'/userSearch'}>Find friends<PersonSearchIcon/></Button>
           <section>
             <FriendList friends={loadedFriends}/>
           </section>

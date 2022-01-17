@@ -9,7 +9,7 @@ import { UserContextProvider } from './store/user-context'
 ReactDOM.render(
     <UserContextProvider>
       <BrowserRouter>
-        <App />
+        <App/>
       </BrowserRouter>
       </UserContextProvider>,
     document.getElementById('root')

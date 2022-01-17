@@ -1,4 +1,3 @@
-import { Link } from 'react-router-dom';
 import FriendCard from "../cards/FriendCard";
 
 function FriendList(props){
@@ -6,7 +5,6 @@ function FriendList(props){
         <div>
           <ul>
             {props.friends.map((friend) => (
-              <Link style={{ textDecoration: 'none' }} to={'/user/'+ friend.username}>
               <FriendCard
                 key={friend.id}
                 id={friend.id}
@@ -14,8 +12,8 @@ function FriendList(props){
                 name={friend.name}
                 surname={friend.surname}
                 image={friend.imgUrl}
+                settings={friend.profile.profileSettings}
               />
-              </Link>
             ))}
           </ul>
           </div>

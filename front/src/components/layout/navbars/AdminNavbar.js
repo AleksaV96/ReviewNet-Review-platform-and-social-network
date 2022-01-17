@@ -23,6 +23,7 @@ import DashboardIcon from '@mui/icons-material/Dashboard';
 import AnalyticsIcon from '@mui/icons-material/Analytics';
 
 import SettingsIcon from '@mui/icons-material/Settings';
+import VisibilityIcon from '@mui/icons-material/Visibility';
 
 
 function AdminNavbar() {
@@ -77,6 +78,14 @@ function AdminNavbar() {
                 <PageviewIcon />
               </ListItemIcon>
               <ListItemText primary="Elements" />
+            </ListItemButton>
+          </ListItem>
+          <ListItem disablePadding>
+            <ListItemButton component={Link} to="/main">
+              <ListItemIcon>
+                <VisibilityIcon />
+              </ListItemIcon>
+              <ListItemText primary="Tracked" />
             </ListItemButton>
           </ListItem>
           <ListItem disablePadding>

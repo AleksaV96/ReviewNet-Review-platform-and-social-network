@@ -265,7 +265,7 @@ function PostDomainCard(props) {
       <div>
       <Card sx={{marginTop : "5px", bgcolor:bcolor}}>
         <CardHeader 
-          avatar = {<Avatar alt="user" src={props.user.imgUrl} component={Link} to={userLink}></Avatar>}
+          avatar = {<Avatar alt="user" sx={{height:"60px", width:"60px"}} src={props.user.imgUrl} component={Link} to={userLink}></Avatar>}
           title = {<div><Typography sx={{display:'inline', textTransform:"capitalize", color:"#3949ab"}} variant="h6">{props.name}</Typography>
           <Typography sx={{display:'inline', position:"relative"}} variant="h4" color="#e91e63"> {props.grade}</Typography>
           </div>}

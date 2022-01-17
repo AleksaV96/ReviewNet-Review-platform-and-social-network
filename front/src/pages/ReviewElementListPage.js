@@ -1,6 +1,10 @@
 import { useState, useEffect } from 'react';
 import React from 'react';
 
+import { Link } from 'react-router-dom';
+import Button from '@mui/material/Button';
+import TravelExploreIcon from '@mui/icons-material/TravelExplore';
+
 import MainLayout from '../components/layout/MainLayout'
 import ReviewElementList from "../components/layout/lists/ReviewElementList" 
 
@@ -49,6 +53,8 @@ function ReviewElements() {
 
     return (
       <MainLayout>
+        <Button sx={{position:"relative", left:"6.5cm", marginBottom:"1cm"}} color="secondary" variant="contained" component={Link} to={'/elementSearch'}>
+          Find elements<TravelExploreIcon/></Button>
         <section>
           <ReviewElementList elements={loadedElements} />
         </section>

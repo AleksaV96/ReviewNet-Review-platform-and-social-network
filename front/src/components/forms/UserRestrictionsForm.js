@@ -9,7 +9,7 @@ function UserRestrictionsForm(props) {
     var user = props.user;
     const restrictions = props.user.permission.roleDetails.restrictions;
     const restList = restrictions.map((rest) => 
-    <ListItem sx={{bgcolor:"#eeeeee"}} disablePadding><ListItemButton>{rest}</ListItemButton></ListItem>);
+    <ListItem sx={{bgcolor:"#ffccbc"}} disablePadding><ListItemButton>{rest}</ListItemButton></ListItem>);
 
     function addRestrictionHandler(){
         
@@ -52,7 +52,7 @@ function UserRestrictionsForm(props) {
 
     return(
         
-        <Card sx={{padding:"5mm", marginTop:"3mm"}}>
+        <Card sx={{padding:"5mm", marginTop:"3mm", marginBottom:"5mm"}}>
             <Typography variant="h4">Restrict user funtions:</Typography>
             <FormControlLabel
             control={
