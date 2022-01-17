@@ -9,10 +9,25 @@ function UserView(props) {
     const loadedProfile = props.profile;
     let friendsCount;
     let subscriptionsCount;
+
     if(loadedProfile.friends && loadedProfile.friends !== undefined){
         friendsCount = loadedProfile.friends.length;
         subscriptionsCount = loadedProfile.subscribed.length;
     }
+
+    let friendsButton = <Button component={Link} to={'/user/'+loadedProfile.id+'/friends'}><PeopleIcon/>Friends {friendsCount}</Button>;
+    let subscriptionsButton = <Button component={Link} to={'/user/'+loadedProfile.id+'/subscriptions'}><SubscriptionsIcon/>Subscriptions {subscriptionsCount}</Button>
+
+    try{
+        if(loadedProfile.settings.showFriends === false){
+            friendsButton = <Button disabled><PeopleIcon/>Friends</Button>;
+        }
+
+        if(loadedProfile.settings.showSubscriptions === false){
+            subscriptionsButton = <Button disabled><SubscriptionsIcon/>Subscriptions</Button>
+        }
+    }
+    catch(e){}
 
     return(
         <Card sx={{marginBottom:"5mm"}}>
@@ -25,8 +40,8 @@ function UserView(props) {
          <Typography  variant="h5">email: {loadedProfile.email}</Typography>
          </CardContent>
         <CardActions disableSpacing>
-            <Button component={Link} to={'/user/'+loadedProfile.id+'/friends'}><PeopleIcon/>Friends {friendsCount}</Button>
-            <Button component={Link} to={'/user/'+loadedProfile.id+'/subscriptions'}><SubscriptionsIcon/>Subscriptions {subscriptionsCount}</Button>
+            {friendsButton}
+            {subscriptionsButton}
         </CardActions>
         </Card>
 

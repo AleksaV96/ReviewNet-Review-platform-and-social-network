@@ -23,6 +23,8 @@ import SubscriptionsIcon from '@mui/icons-material/Subscriptions';
 import FeedIcon from '@mui/icons-material/Feed';
 import PageviewIcon from '@mui/icons-material/Pageview';
 
+import SettingsIcon from '@mui/icons-material/Settings';
+
 
 function MainNavbar() {
   
@@ -43,6 +45,9 @@ function MainNavbar() {
             <Button color="inherit" component={Link} to={'/profile/' + userCtx.content.username} sx={{ textTransform : 'none' }}>
             {userCtx.content.username}
             </Button>
+            <IconButton color="inherit"  component={Link} to={'/profileSettings'}>
+              <SettingsIcon/>
+            </IconButton>
             <Button color="inherit" component={Link} to={'/login'} onClick={logout}>
               <LogoutIcon />
             </Button>

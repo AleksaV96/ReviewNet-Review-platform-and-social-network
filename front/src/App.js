@@ -31,6 +31,7 @@ import ThemePage from './pages/ThemePage';
 import ModeratedPage from './pages/ModeratedPage';
 import ModeratorsPage from './pages/ModeratorsPage';
 import ModeratedReviewElementPage from './pages/ModeratedReviewElementPage';
+import ProfileSettingsPage from './pages/ProfileSettingsPage';
 
 function App() {
 
@@ -109,6 +110,7 @@ function App() {
               <Route path='/reviewElements/moderated' element={<ModeratedPage />} />
               <Route path='/moderatedReviewElement/:id' element={<ModeratedReviewElementPage />} />
               <Route path='/reviewElement/:elementName/moderators/:id' element={<ModeratorsPage />} />
+              <Route path='/profileSettings' element={<ProfileSettingsPage />} />
           </Route>
           <Route element={<AdminRoutes />}>
               <Route path='/dashboard' element={<Dashboard/>} />

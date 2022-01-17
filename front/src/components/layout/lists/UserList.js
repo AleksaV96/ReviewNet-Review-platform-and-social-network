@@ -16,6 +16,8 @@ function UserList(props) {
               surname={user.surname}
               email={user.email}
               imgUrl={user.imgUrl}
+              role={user.permission.authority}
+              activeStatus={user.logicDelete}
             />
             </div>
           ))}

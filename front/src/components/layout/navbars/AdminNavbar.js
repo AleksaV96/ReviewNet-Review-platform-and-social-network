@@ -22,6 +22,8 @@ import PageviewIcon from '@mui/icons-material/Pageview';
 import DashboardIcon from '@mui/icons-material/Dashboard';
 import AnalyticsIcon from '@mui/icons-material/Analytics';
 
+import SettingsIcon from '@mui/icons-material/Settings';
+
 
 function AdminNavbar() {
   
@@ -42,6 +44,9 @@ function AdminNavbar() {
             <Button color="inherit" component={Link} to={'/profile/' + userCtx.content.username} sx={{ textTransform : 'none' }}>
             {userCtx.content.username}
             </Button>
+            <IconButton color="inherit"  component={Link} to={'/profileSettings'}>
+              <SettingsIcon/>
+            </IconButton>
             <Button color="inherit" component={Link} to={'/login'} onClick={logout}>
               <LogoutIcon />
             </Button>

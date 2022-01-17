@@ -62,6 +62,13 @@ function UserPage(){
     
     var addFriendButton = <Button onClick={addFriendHandler} variant="contained">Add friend<PersonAddIcon/></Button>
 
+    try{
+        if(loadedUser.settings.addFriend === false){
+            addFriendButton = <Button disabled variant="contained">Add friend<PersonAddIcon/></Button>
+        }
+    }
+    catch(e){};
+
     
     for(let i=0; i<friends.length; i++){
         if(friends[i] === loadedUser.id){
@@ -100,7 +107,8 @@ function UserPage(){
                 "email" : data.email,
                 "imgUrl" : data.imgUrl,
                 "friends" : data.friends,
-                "subscribed" : data.subscribed
+                "subscribed" : data.subscribed,
+                "settings" : data.profile.profileSettings
             }
             setLoadedUser(user);
             }

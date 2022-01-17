@@ -25,6 +25,8 @@ import FeedIcon from '@mui/icons-material/Feed';
 import AddModeratorIcon from '@mui/icons-material/AddModerator';
 import PageviewIcon from '@mui/icons-material/Pageview';
 
+import SettingsIcon from '@mui/icons-material/Settings';
+
 
 function ModeratorNavbar() {
   
@@ -45,6 +47,9 @@ function ModeratorNavbar() {
             <Button color="inherit" component={Link} to={'/profile/' + userCtx.content.username} sx={{ textTransform : 'none' }}>
             {userCtx.content.username}
             </Button>
+            <IconButton color="inherit"  component={Link} to={'/profileSettings'}>
+              <SettingsIcon/>
+            </IconButton>
             <Button color="inherit" component={Link} to={'/login'} onClick={logout}>
               <LogoutIcon />
             </Button>

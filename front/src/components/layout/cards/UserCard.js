@@ -9,6 +9,30 @@ function UserCard(props) {
 
     const link = '/dashboard/user/'+ props.id
 
+    let activeStat = "";
+    let clr = "";
+    let roleTxt = "";
+
+    if(props.activeStatus===true){
+      activeStat = <Typography  sx={{display:'inline', fontWeight:"bold"}} variant="h6" color="red"> INACTIVE</Typography>
+    }
+    else if(props.activeStatus===false){
+      activeStat = <Typography  sx={{display:'inline', fontWeight:"bold"}} variant="h6" color="green"> ACTIVE</Typography>
+    }
+
+    if(props.role === "ROLE_SUBSCRIBER"){
+      clr = "#f5f5f5";
+      roleTxt = "SUBSCRIBER";
+    }
+    else if(props.role === "ROLE_MODERATOR"){
+      clr = "#e0f2f1";
+      roleTxt = "MODERATOR";
+    }
+    else if(props.role === "ROLE_ADMIN"){
+      clr = "#c5cae9";
+      roleTxt = "ADMIN";
+    }
+
     function removeHandler() {
       fetch(
         'http://localhost:8080/users/userId/' + props.id + '/remove',
@@ -25,16 +49,15 @@ function UserCard(props) {
       )};  
     
     return (
-      <Card sx={{marginBottom:"3px"}}>
+      <Card sx={{marginBottom:"3px", bgcolor:clr}}>
         <CardHeader 
-        avatar = {<Avatar component={Link} to={link} alt="user" src={props.imgUrl}></Avatar>}
-        title = {<Typography component={Link} to={link}  variant="h6">{props.username}</Typography>}
-        subheader = {<div><Typography color="text.secondary" >{props.name} {props.surname}
-          </Typography>
-          <Typography color="text.secondary" >{props.email}
-          </Typography>
-          </div>}
-        />
+            avatar =  {<Avatar alt="user" component={Link} to={link} src={props.imgUrl}  sx={{ width: 75, height: 75 }} variant="square"></Avatar>}
+            title = {<div><Typography color="black" component={Link} to={link} 
+            sx={{display:'inline', fontWeight:'bolder', textDecoration:'none'}} variant="h5">{props.username}</Typography>{activeStat}
+            <Typography color="red" sx={{fontWeight:"bolder"}}>{roleTxt}</Typography></div>}
+            subheader = {<div><Typography >{props.name} {props.surname}</Typography>
+            <Typography  ><span style={{color:"black"}}>email:</span> {props.email}</Typography></div>}
+            />
         <CardActions>
         {deleteButton}
       </CardActions>

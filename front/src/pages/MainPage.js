@@ -8,6 +8,10 @@ import { useContext } from 'react';
 import UserContext from '../store/user-context';
 
 import parseJwt from '../logic/JWTutil'
+import logout from '../logic/Logout'
+
+import Backdrop from '@mui/material/Backdrop';
+import CircularProgress from '@mui/material/CircularProgress';
 
 function MainPage() {
 
@@ -23,6 +27,7 @@ function MainPage() {
         userId = parseJwt(token).sub;
         address = 'http://localhost:8080/users/userId/' + userId + '/getFeed';
     }
+    
 
 
     useEffect(() => {
@@ -79,6 +84,10 @@ function MainPage() {
           }
       )
       .then((response) => {
+          if(response.status === 404){
+            logout();
+            alert("USER INACTIVE!")
+          }
           return response.json();
       })
       .then((data) => {
@@ -92,15 +101,15 @@ function MainPage() {
               "email" : data.email,
               "imgUrl" : data.imgUrl,
               "friends" : data.friends,
-              "subscribed" : data.subscribed
+              "subscribed" : data.subscribed,
+              "logicDelete" : data.logicDelete
           }
+          
           userCtx.openUser(user);
           try{
             userCtx.setRestrictions(data.permission.roleDetails.restrictions);
             }
-            catch(error){
-              console.log(error);
-            }
+            catch(error){}
           setIsUserLogged(true);
           });
         }
@@ -109,9 +118,12 @@ function MainPage() {
 
     if (isLoading) {
         return (
-        <section>
-            <p>Loading...</p>
-        </section>
+            <Backdrop
+            sx={{ position:"fixed",color: '#fff'}}
+            open={true}
+            >
+            <CircularProgress color="inherit" />
+          </Backdrop>
         );
     }
 

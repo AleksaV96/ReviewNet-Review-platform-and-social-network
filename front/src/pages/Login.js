@@ -45,7 +45,6 @@ function Login() {
 
     return(
         <LandingPageLayout>
-
                 <LoginForm onLogin={loginHandler}/>
         </LandingPageLayout>
     );

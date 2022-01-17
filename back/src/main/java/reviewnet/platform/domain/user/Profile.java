@@ -5,13 +5,15 @@ import java.util.List;
 
 public class Profile {
 	
+	private ProfileSettings profileSettings = new ProfileSettings(true, true, true);
 	private List<String> profilePostIds = new ArrayList<String>();
 	private List<String> posted = new ArrayList<String>();
 	
 	public Profile() {}
 
-	public Profile(List<String> profilePostIds) {
+	public Profile(ProfileSettings profileSettings, List<String> profilePostIds) {
 		this.profilePostIds = profilePostIds;
+		this.profileSettings = profileSettings;
 	}
 
 	public List<String> getProfilePostIds() {
@@ -44,6 +46,14 @@ public class Profile {
 	
 	public void removePostedId(String id) {
 		this.posted.remove(id);
+	}
+
+	public ProfileSettings getProfileSettings() {
+		return profileSettings;
+	}
+
+	public void setProfileSettings(ProfileSettings profileSettings) {
+		this.profileSettings = profileSettings;
 	}
 	
 }

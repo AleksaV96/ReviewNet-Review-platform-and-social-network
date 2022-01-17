@@ -1,14 +1,15 @@
+import { Button, Card, FormControlLabel, List, ListItem, ListItemButton, Radio, Typography } from '@mui/material';
 import React from 'react';
 import { useState } from 'react';
 
-import Card from '../ui/Card';
-import classes from './Form.module.css';
+
 
 function UserRestrictionsForm(props) {
     const [restriction, setRestriction] = useState(0);
     var user = props.user;
     const restrictions = props.user.permission.roleDetails.restrictions;
-    const restList = restrictions.map((rest) => <li>{rest}</li>);
+    const restList = restrictions.map((rest) => 
+    <ListItem sx={{bgcolor:"#eeeeee"}} disablePadding><ListItemButton>{rest}</ListItemButton></ListItem>);
 
     function addRestrictionHandler(){
         
@@ -50,24 +51,38 @@ function UserRestrictionsForm(props) {
 
 
     return(
-        <div>
-        <Card>
-            <div className={classes.form}>
-              <div className={classes.control}>
-                <label htmlFor='comment'>Add new element</label>
-                <input type='radio' required id='comment'  checked={restriction===1} onChange={() => setRestriction(1)}/>
-                <label htmlFor='element'>Comment</label>
-                <input type='radio' required id='element' checked={restriction===2} onChange={() => setRestriction(2)}/>
-              <div className={classes.actions}>
-                  <button onClick={addRestrictionHandler}>ADD</button>
-                  <button onClick={removeRestrictionHandler}>REMOVE</button>
-              </div>
-              </div>
-            </div>
+        
+        <Card sx={{padding:"5mm", marginTop:"3mm"}}>
+            <Typography variant="h4">Restrict user funtions:</Typography>
+            <FormControlLabel
+            control={
+            <Radio
+            checked={restriction===1}
+            onChange={() => setRestriction(1)}
+            />
+            }
+            label="Add new element"
+            />
+            <FormControlLabel
+            control={
+            <Radio
+            checked={restriction===2}
+            onChange={() => setRestriction(2)}
+            />
+            }
+            label="Comment"
+            />
+            <div>
+                <Button sx={{marginRight:"3px"}} variant="contained" color="primary" onClick={addRestrictionHandler}>ADD</Button>
+                <Button variant="contained" color="error" onClick={removeRestrictionHandler}>REMOVE</Button>
+            </div>           
+            <Typography sx={{marginTop:"5mm"}} variant="h6">{user.username} restrictions:</Typography>
+            <List sx={{ width: '100%', maxWidth: 360, bgcolor: 'background.paper' }}
+                aria-label="contacts">
+            {restList}
+            </List>       
         </Card>
-            <p>{user.username} restrictions:</p>
-            <ul>{restList}</ul>
-        </div>
+
     )
 }
 

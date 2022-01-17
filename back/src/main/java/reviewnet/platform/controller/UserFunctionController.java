@@ -10,10 +10,12 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import reviewnet.platform.domain.element.ReviewElement;
 import reviewnet.platform.domain.post.Post;
+import reviewnet.platform.domain.user.ProfileSettings;
 import reviewnet.platform.domain.user.User;
 import reviewnet.platform.service.UserAccService;
 import reviewnet.platform.service.UserFunctionsService;
@@ -110,6 +112,12 @@ public class UserFunctionController {
 	@GetMapping(value="/userId/{id}/get-moderated")
 	public ResponseEntity<Iterable<ReviewElement>> getModeratorsModerated(@PathVariable String id){
 		return new ResponseEntity<Iterable<ReviewElement>>(userFuncService.getModerated(id), HttpStatus.OK);
+	}
+	
+	@PutMapping(value="/userId/{id}/update-profile-settings")
+	public ResponseEntity<User> updateProfileSettings(@PathVariable String id, @RequestBody ProfileSettings newProfileSettings){
+		userFuncService.updateProfileSettings(id, newProfileSettings);
+		return new ResponseEntity<User>(HttpStatus.OK);
 	}
 	
 }

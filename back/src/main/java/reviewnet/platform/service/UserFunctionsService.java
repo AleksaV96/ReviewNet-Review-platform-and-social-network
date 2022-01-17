@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 
 import reviewnet.platform.domain.element.ReviewElement;
 import reviewnet.platform.domain.post.Post;
+import reviewnet.platform.domain.user.ProfileSettings;
 import reviewnet.platform.domain.user.User;
 import reviewnet.platform.domain.user.role.Moderator;
 import reviewnet.platform.domain.user.role.restriction.RestrictionType;
@@ -225,6 +226,13 @@ public class UserFunctionsService {
 			catch(Exception e) {}
 		}
 		return subscribed;
+	}
+	
+	public Optional<User> updateProfileSettings(String id, ProfileSettings newProfileSettings){
+		Optional<User> selectedUser = userAccService.getById(id);
+		selectedUser.get().getProfile().setProfileSettings(newProfileSettings);
+		userAccService.addUser(selectedUser.get());
+		return selectedUser;
 	}
 
 }
