@@ -17,8 +17,12 @@ function ElementSearchPage(){
     const [open, setOpen] = useState(false);
     const [errorMessage, setErrorMessage] = useState("");
 
+    function capitalizeFirstLetter(string) {
+        return string.charAt(0).toUpperCase() + string.slice(1);
+    }
+
     function elementSearchHandler(name){
-        setAddress('http://localhost:8080/reviewElements/reviewElementName/' + name);
+        setAddress('http://localhost:8080/reviewElements/reviewElementName/' + capitalizeFirstLetter(name));
     }
 
     

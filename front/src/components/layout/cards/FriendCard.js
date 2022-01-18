@@ -82,9 +82,7 @@ function FriendCard(props){
 
     
     return (
-      <div>
-      <Card sx={{bgcolor:clr, padding:"3mm"}}>
-
+      <Card sx={{bgcolor:clr, padding:"3mm", marginBottom:"5px"}}>
         <Avatar sx={{height:"65px", width:"65px", marginRight:"5mm", float:"left"}} alt="friend" src={props.image} component={Link} to={userLink}></Avatar>
         <Typography sx={{textDecoration: 'none', color:"black"}} component={Link} to={userLink} variant="h5">{props.username}</Typography>
         <br/>
@@ -92,7 +90,6 @@ function FriendCard(props){
         </Typography>
         {addFriendButton}
       </Card>
-      </div>
     );
 
 }

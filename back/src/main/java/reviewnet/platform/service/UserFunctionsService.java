@@ -1,6 +1,7 @@
 package reviewnet.platform.service;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
@@ -158,6 +159,15 @@ public class UserFunctionsService {
 		friendList = selectedUser.get().getFriends();
 		subsList = selectedUser.get().getSubscribed();
 		
+		for(String subId : subsList) {
+			try {
+				List<Post> subPosts = (List<Post>) elementService.getReviewElementPosts(subId);
+				for(Post post : subPosts) {
+					feedPostsList.add(post);
+				}
+			}
+			catch(Exception  e) {}
+		}	
 		for(String friendId : friendList) {
 			try {
 				List<Post> friendPosts = (List<Post>) postService.getUserPosts(friendId);
@@ -176,16 +186,7 @@ public class UserFunctionsService {
 			}
 			catch(Exception e) {}
 		}
-		for(String subId : subsList) {
-			try {
-				List<Post> subPosts = (List<Post>) elementService.getReviewElementPosts(subId);
-				for(Post post : subPosts) {
-					feedPostsList.add(post);
-				}
-			}
-			catch(Exception  e) {}
-		}
-		return feedPostsList;
+        return feedPostsList;
 	}
 	
 	public Iterable<User> getUserFriends(String id){
@@ -198,7 +199,9 @@ public class UserFunctionsService {
 			}
 			catch(Exception e) {}
 		}
-		return friends;
+		List<User> friendsInOrder = friends.subList(0, friends.size());
+        Collections.reverse(friendsInOrder);
+        return friendsInOrder;
 	}
 
 	public Iterable<ReviewElement> getUserSubscriptions(String id){
@@ -212,7 +215,9 @@ public class UserFunctionsService {
 			catch(Exception e) {}
 		}
 		
-		return subscribed;
+		List<ReviewElement> subscribedInOrder = subscribed.subList(0, subscribed.size());
+        Collections.reverse(subscribedInOrder);
+        return subscribedInOrder;
 	}
 	
 	public Iterable<ReviewElement> getModerated(String id){
@@ -225,7 +230,9 @@ public class UserFunctionsService {
 			}
 			catch(Exception e) {}
 		}
-		return subscribed;
+		List<ReviewElement> subscribedInOrder = subscribed.subList(0, subscribed.size());
+        Collections.reverse(subscribedInOrder);
+        return subscribedInOrder;
 	}
 	
 	public Optional<User> updateProfileSettings(String id, ProfileSettings newProfileSettings){

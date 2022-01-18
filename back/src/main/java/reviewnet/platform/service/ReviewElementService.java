@@ -1,6 +1,7 @@
 package reviewnet.platform.service;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
@@ -27,7 +28,10 @@ public class ReviewElementService {
 	PostService postService;
 	
 	public Iterable<ReviewElement> getAll() {
-		return reviewElementRepository.findAll();
+		List<ReviewElement> elements = reviewElementRepository.findAll();
+		List<ReviewElement> elementsInOrder = elements.subList(0, elements.size());
+        Collections.reverse(elementsInOrder);
+        return elementsInOrder;
 	}
 	
 	public Optional<ReviewElement> getById(String id){

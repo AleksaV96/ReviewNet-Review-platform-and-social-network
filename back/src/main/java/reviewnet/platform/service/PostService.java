@@ -3,6 +3,7 @@ package reviewnet.platform.service;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.Collections;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -98,7 +99,9 @@ public class PostService {
         	catch(Exception e) {
         	}
         }
-        return posts;
+        List<Post> postsInOrder = posts.subList(0, posts.size());
+        Collections.reverse(postsInOrder);
+        return postsInOrder;
 	}
 	
 	public Iterable<Post> getUserPosts(String id) {
@@ -118,7 +121,9 @@ public class PostService {
         	}
         	catch(Exception e) {}
         }
-        return posts;
+        List<Post> postsInOrder = posts.subList(0, posts.size());
+        Collections.reverse(postsInOrder);
+        return postsInOrder;
 	}
 	
 	public Iterable<Post> getUserPosted(String id) {
@@ -138,7 +143,9 @@ public class PostService {
         	}
         	catch(Exception e) {}
         }
-        return posts;
+        List<Post> postsInOrder = posts.subList(0, posts.size());
+        Collections.reverse(postsInOrder);
+        return postsInOrder;
 	}
 	
 }

@@ -79,7 +79,7 @@ function UserSearchPage(){
         console.log(loadedUser);
         searchCard =<FriendCard
         username={loadedUser.username}name={loadedUser.name} surname={loadedUser.surname}
-        imgUrl={loadedUser.imgUrl} id={loadedUser.id} settings={loadedUser.settings}/>
+        image={loadedUser.imgUrl} id={loadedUser.id} settings={loadedUser.settings}/>
     }
 
     return(
