@@ -8,6 +8,7 @@ import { Grid, Button, Card, CardActions, CardContent, CardHeader, Typography, C
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 import AdminPanelSettingsIcon from '@mui/icons-material/AdminPanelSettings';
+import EqualizerIcon from '@mui/icons-material/Equalizer';
 
 function ModeratedReviewElementViewCard(props) {
 
@@ -88,6 +89,8 @@ function ModeratedReviewElementViewCard(props) {
         {subscribeButton}
         <Button sx={{marginLeft:"3px"}} variant="contained" color="success" 
         component={Link} to={"/reviewElement/"+props.name+"/moderators/"+props.id}>Moderators<AdminPanelSettingsIcon/>: {props.moderators.length}</Button>
+        <Button variant="contained" color="warning" 
+        component={Link} to={"/reviewElement/"+props.name+"/analytics/"+props.id}>Statistics<EqualizerIcon/></Button>
       </CardActions>
       </Card>
       </Grid>

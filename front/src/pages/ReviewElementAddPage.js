@@ -3,12 +3,17 @@ import ReviewElementForm from "../components/forms/ReviewElementForm";
 import MainLayout from '../components/layout/MainLayout';
 import {Navigate } from 'react-router-dom';
 
-import {useState} from 'react';
+import { useContext } from 'react';
+import UserContext from '../store/user-context';
 
+import {useState} from 'react';
+import { Typography } from '@mui/material';
 
 function ReviewElementAddPage() {
     
     const [redirect, setRedirect] = useState(false);
+
+    const userCtx = useContext(UserContext);
 
     function addReviewElementHandler(reviewElementData) {
     fetch(
@@ -31,6 +36,8 @@ function ReviewElementAddPage() {
        return <Navigate to="/reviewElements"/>
      }
 
+
+     if(!(userCtx.restrictions.includes("ADD_NEW_ELEMENT"))) {
      return(
         <MainLayout>
           <section>
@@ -39,6 +46,14 @@ function ReviewElementAddPage() {
         </MainLayout>
         
       );
+    }
+    return(
+      <MainLayout>
+          <section>
+            <Typography sx={{fontWeight:"bold"}} variant="h4">User is banned from adding new elements!</Typography>
+          </section>
+        </MainLayout>
+    );
 
 }
 

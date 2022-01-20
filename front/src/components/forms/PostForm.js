@@ -24,6 +24,19 @@ function PostForm(props) {
 
     const userCtx = useContext(UserContext);
 
+    let type = props.postLocation.split(" ")[1];
+    let postType = "";
+
+    if(type !== "Complains" && type !== "RoadMap"){
+      postType = "Forum"
+    }
+    else{
+      postType = type;
+    }
+
+
+    
+
     let buttonText = "Post";
     const nameInputRef = useRef();
     const contentInputRef = useRef();
@@ -44,7 +57,8 @@ function PostForm(props) {
         authorUsername: authorUsername,
         elementId : props.elementId,
         domainId : props.domainId,
-        postLocation : props.postLocation
+        postLocation : props.postLocation,
+        type : postType
     }
 
       props.onPostAdd(postData);

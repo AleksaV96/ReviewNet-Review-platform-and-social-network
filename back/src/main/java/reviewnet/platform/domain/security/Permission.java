@@ -11,6 +11,8 @@ public class Permission {
 
     @Id
     private String id;
+    
+    private String userId;
 
     private String authority;
     
@@ -27,8 +29,16 @@ public class Permission {
     public void setId(String id) {
         this.id = id;
     }
+    
+    public String getUserId() {
+		return userId;
+	}
 
-    public String getAuthority() {
+	public void setUserId(String userId) {
+		this.userId = userId;
+	}
+
+	public String getAuthority() {
         return authority;
     }
 

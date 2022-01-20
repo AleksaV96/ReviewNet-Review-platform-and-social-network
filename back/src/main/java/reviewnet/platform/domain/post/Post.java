@@ -21,6 +21,7 @@ public class Post {
 	private String elementId;
 	private String domainId;
 	private String postLocation;
+	private String type;
 	private List<Like> likes = new ArrayList<Like>();
 	private List<String> replies = new ArrayList<String>();
 	
@@ -28,15 +29,16 @@ public class Post {
 	}
 	
 	public Post(String id, String name, String content, String authorUsername, User author, String elementId, String domainId,
-			String postLocation, List<Like> likes, List<String> replies) {
+			String postLocation, String type, List<Like> likes, List<String> replies) {
 		this.id = id;
 		this.name = name;
 		this.content = content;
 		this.authorUsername = authorUsername;
-		this.postLocation = postLocation;
 		this.author = author;
 		this.elementId = elementId;
 		this.domainId = domainId;
+		this.postLocation = postLocation;
+		this.type = type;
 		this.likes = likes;
 		this.replies = replies;
 	}
@@ -103,6 +105,14 @@ public class Post {
 
 	public void setPostLocation(String postLocation) {
 		this.postLocation = postLocation;
+	}
+	
+	public String getType() {
+		return type;
+	}
+
+	public void setType(String type) {
+		this.type = type;
 	}
 
 	public List<Like> getLikes() {

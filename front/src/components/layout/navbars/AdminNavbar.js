@@ -89,7 +89,7 @@ function AdminNavbar() {
             </ListItemButton>
           </ListItem>
           <ListItem disablePadding>
-            <ListItemButton>
+            <ListItemButton component={Link} to="/analytics">
               <ListItemIcon>
                 <AnalyticsIcon />
               </ListItemIcon>

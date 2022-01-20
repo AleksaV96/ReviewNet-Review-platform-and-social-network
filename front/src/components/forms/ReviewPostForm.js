@@ -74,7 +74,8 @@ function ReviewPostForm(props) {
         authorUsername : authorUsername,
         elementId : props.elementId,
         domainId : props.domainId,
-        postLocation : props.postLocation
+        postLocation : props.postLocation,
+        type : "Review"
     }
 
       props.onPostAdd(postData);

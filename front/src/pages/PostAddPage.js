@@ -4,6 +4,7 @@ import ReviewPostForm from "../components/forms/ReviewPostForm";
 
 import { useContext } from 'react';
 import UserContext from '../store/user-context';
+import { Typography } from '@mui/material';
 
 function PostAddPage(props) {
 
@@ -60,6 +61,8 @@ function PostAddPage(props) {
                  name : postData.name,
                  content : postData.content,
                  authorUsername : postData.authorUsername,
+                 elementId : postData.elementId,
+                 type : "Reply"
              }
              ),
              headers: {
@@ -84,7 +87,7 @@ function PostAddPage(props) {
             );
     }
     return(
-        <h1>User {userCtx.content.username} is banned from commenting!</h1>
+        <Typography sx={{fontWeight:"bold"}} variant="h4">User {userCtx.content.username} is banned from commenting!</Typography>
     );
 
 }

@@ -15,10 +15,8 @@ public class RoadMapPost extends Post {
 	}
 
 	public RoadMapPost(String id, String name, String content, String authorUsername, User author, String elementId,
-			String domainId, String postLocation, List<Like> likes, List<String> replies) {
-		super(id, name, content, authorUsername, author, elementId, domainId, postLocation, likes, replies);
-
+			String domainId, String postLocation, String type, List<Like> likes, List<String> replies) {
+		super(id, name, content, authorUsername, author, elementId, domainId, postLocation, type, likes, replies);
 	}
-
 
 }

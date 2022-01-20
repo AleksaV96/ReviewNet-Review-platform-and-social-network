@@ -81,6 +81,15 @@ public class PostService {
 	
 	public void removePost(String id) {
 		Optional<Post> post = postRepository.findById(id);
+		List<String> replies = post.get().getReplies();
+		if (post.isPresent()) {
+			for(String reply : replies) {
+				Query query = new Query();
+	            query.addCriteria(Criteria.where("id").is(reply));
+	            List<Post> queryPosts = mongoTemplate.find(query, Post.class);
+		        postRepository.delete(queryPosts.get(0));
+			}
+        }
 		postRepository.delete(post.get());
 	}
 	

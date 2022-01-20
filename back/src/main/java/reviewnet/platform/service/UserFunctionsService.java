@@ -6,11 +6,15 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.mongodb.core.MongoTemplate;
+import org.springframework.data.mongodb.core.query.Criteria;
+import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.PathVariable;
 
 import reviewnet.platform.domain.element.ReviewElement;
 import reviewnet.platform.domain.post.Post;
+import reviewnet.platform.domain.security.Permission;
 import reviewnet.platform.domain.user.ProfileSettings;
 import reviewnet.platform.domain.user.User;
 import reviewnet.platform.domain.user.role.Moderator;
@@ -35,6 +39,9 @@ public class UserFunctionsService {
 	
 	@Autowired
 	ReviewElementService elementService;
+	
+	@Autowired
+    private MongoTemplate mongoTemplate;
 	
 	public Optional<User> addFriend (String id, String friendId){
 		Optional<User> selectedUser = userAccService.getById(id);
@@ -122,19 +129,27 @@ public class UserFunctionsService {
 	}
 	
 	public Optional<User> updateUserRole(@PathVariable String id, @PathVariable String option){
+		Query query = new Query();
 		Optional<User> user = userAccService.getById(id);
 		if(user.isPresent()) {
+			
+		query.addCriteria(Criteria.where("userId").is(user.get().getId()));
+		List<Permission> oldPermissions= mongoTemplate.find(query, Permission.class);
+        for(Permission permission : oldPermissions){
+            permissionService.deletePermission(permission);
+        }
+        
 		switch(option) {
 			case "subscriber":
-				permissionService.addSubscriberPermission(user.get().getPermission());
+				permissionService.addSubscriberPermission(user.get().getPermission(), user.get().getId());
 				userFunctionsRepository.save(user.get());
 				return user;
 			case "moderator":
-				permissionService.addModeratorPermission(user.get().getPermission());
+				permissionService.addModeratorPermission(user.get().getPermission(), user.get().getId());
 				userFunctionsRepository.save(user.get());
 				return user;
 			case "admin":
-				permissionService.addAdminPermission(user.get().getPermission());
+				permissionService.addAdminPermission(user.get().getPermission(), user.get().getId());
 				userFunctionsRepository.save(user.get());
 				return user;
 			default:

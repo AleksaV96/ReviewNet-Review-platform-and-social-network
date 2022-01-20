@@ -36,6 +36,8 @@ import UserSearchPage from './pages/UserSearchPage';
 import ElementSearchPage from './pages/ElementSearchPage';
 import AdminUserSearchPage from './pages/AdminUserSearchPage';
 import AdminElementSearchPage from './pages/AdminElementSearchPage';
+import AnalyticsPage from './pages/AnalyticsPage';
+import ModeratorElementAnalyticsPage from './pages/ModeratorElementAnalyticsPage';
 
 function App() {
 
@@ -113,6 +115,7 @@ function App() {
               <Route path='/reviewElements/moderated' element={<ModeratedPage />} />
               <Route path='/moderatedReviewElement/:id' element={<ModeratedReviewElementPage />} />
               <Route path='/reviewElement/:elementName/moderators/:id' element={<ModeratorsPage />} />
+              <Route path='/reviewElement/:elementName/analytics/:id' element={<ModeratorElementAnalyticsPage />} />
               <Route path='/profileSettings' element={<ProfileSettingsPage />} />
               <Route path='/userSearch' element={<UserSearchPage/>} />
               <Route path='/elementSearch' element={<ElementSearchPage/>} />
@@ -123,6 +126,7 @@ function App() {
               <Route path='/adminUserSearch' element={<AdminUserSearchPage/>} />
               <Route path='/adminReviewElements' element={<AdminReviewElementListPage />} />
               <Route path='/adminElementSearch' element={<AdminElementSearchPage/>} />
+              <Route path='/analytics' element={<AnalyticsPage/>} />
           </Route>
       </Routes>
     </div>

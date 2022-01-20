@@ -14,6 +14,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import reviewnet.platform.domain.element.ReviewElement;
 import reviewnet.platform.domain.security.AuthProvider;
 import reviewnet.platform.domain.security.PasswordChangeAttempt;
+import reviewnet.platform.domain.security.Permission;
 import reviewnet.platform.domain.user.User;
 import reviewnet.platform.dto.UserViewDTO;
 import reviewnet.platform.repository.user.UserRepository;
@@ -72,8 +73,8 @@ public class UserAccService {
         } else {
             user.setPassword(passwordEncoder.encode(user.getPassword()));
             user.setProvider(AuthProvider.local);
-            
-            permissionService.addSubscriberPermission(user.getPermission());
+            userAccRepository.save(user);
+            permissionService.addSubscriberPermission(user.getPermission(), user.getId());
             userAccRepository.save(user);
             return HttpStatus.CREATED;
         }
@@ -87,8 +88,8 @@ public class UserAccService {
         } else {
             user.setPassword(passwordEncoder.encode(user.getPassword()));
             user.setProvider(AuthProvider.local);
-            
-            permissionService.addModeratorPermission(user.getPermission());
+            userAccRepository.save(user);
+            permissionService.addModeratorPermission(user.getPermission(), user.getId());
             userAccRepository.save(user);
             return HttpStatus.CREATED;
         }
@@ -102,8 +103,8 @@ public class UserAccService {
         } else {
             user.setPassword(passwordEncoder.encode(user.getPassword()));
             user.setProvider(AuthProvider.local);
-            
-            permissionService.addAdminPermission(user.getPermission());
+            userAccRepository.save(user);
+            permissionService.addAdminPermission(user.getPermission(), user.getId());
             userAccRepository.save(user);
             return HttpStatus.CREATED;
         }
@@ -131,6 +132,7 @@ public class UserAccService {
 		Query query = new Query();
 		Query query2 = new Query();
 		Query query3 = new Query();
+		Query query4 = new Query();
         Optional<User> user = userAccRepository.findById(id);
         if(user.isPresent()) {
         	query.addCriteria(Criteria.where("subscribers").in(id));
@@ -151,6 +153,11 @@ public class UserAccService {
         		friend.getFriends().remove(id);
         		userAccRepository.save(friend);
         	}
+        	query4.addCriteria(Criteria.where("userId").is(user.get().getId()));
+    		List<Permission> oldPermissions= mongoTemplate.find(query4, Permission.class);
+            for(Permission permission : oldPermissions){
+                permissionService.deletePermission(permission);
+            }
         }
         userAccRepository.delete(user.get());
     }

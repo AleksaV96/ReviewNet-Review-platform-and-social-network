@@ -16,19 +16,26 @@ public class PermissionService {
 	@Autowired
 	private PermissionRepository permissionRepository;
 	
-	public void addSubscriberPermission(Permission permission) {
+	public void deletePermission(Permission permission) {
+		permissionRepository.delete(permission);
+	}
+	
+	public void addSubscriberPermission(Permission permission, String userId) {
+		permission.setUserId(userId);
 		permission.setAuthority("ROLE_SUBSCRIBER");
 		permission.setRoleDetails(new Subscriber());
         permissionRepository.save(permission);
 	}
 	
-	public void addModeratorPermission(Permission permission) {
+	public void addModeratorPermission(Permission permission, String userId) {
+		permission.setUserId(userId);
 		permission.setAuthority("ROLE_MODERATOR");
 		permission.setRoleDetails(new Moderator());
         permissionRepository.save(permission);
 	}
 	
-	public void addAdminPermission(Permission permission) {
+	public void addAdminPermission(Permission permission, String userId) {
+		permission.setUserId(userId);
 		permission.setAuthority("ROLE_ADMIN");
 		permission.setRoleDetails(new Admin());
         permissionRepository.save(permission);
