@@ -57,7 +57,7 @@ function ProfileView(props) {
             subheader = {<Typography variant="h5">{loadedProfile.name} {loadedProfile.surname}</Typography>}
         />
         <CardContent>
-         <Typography  variant="h5">email: {loadedProfile.email}</Typography>
+         <Typography  variant="h5">{loadedProfile.email}</Typography>
          </CardContent>
         <CardActions disableSpacing>
             <Button component={Link} to="/friends"><PeopleIcon/>Friends {friendsCount}</Button>

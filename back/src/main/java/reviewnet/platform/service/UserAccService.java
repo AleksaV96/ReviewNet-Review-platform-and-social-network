@@ -1,20 +1,26 @@
 package reviewnet.platform.service;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
+import reviewnet.platform.domain.element.ReviewElement;
 import reviewnet.platform.domain.security.AuthProvider;
 import reviewnet.platform.domain.security.PasswordChangeAttempt;
 import reviewnet.platform.domain.user.User;
 import reviewnet.platform.dto.UserViewDTO;
 import reviewnet.platform.repository.user.UserRepository;
 import reviewnet.platform.service.security.PermissionService;
+
+import org.springframework.data.mongodb.core.query.Criteria;
+import org.springframework.data.mongodb.core.query.Query;
 
 @Service
 public class UserAccService {
@@ -24,12 +30,18 @@ public class UserAccService {
 	
 	@Autowired
     PermissionService permissionService;
+	
+	@Autowired
+	ReviewElementService elementService;
 
     @Autowired
     PasswordEncoder passwordEncoder;
     
     @Autowired
     ModelMapper modelMapper;
+    
+    @Autowired
+    private MongoTemplate mongoTemplate;
 
 	public Iterable<User> getAll() {
         return userAccRepository.findAll();
@@ -116,7 +128,30 @@ public class UserAccService {
 	}
 	
 	public void removeUser(String id) {
+		Query query = new Query();
+		Query query2 = new Query();
+		Query query3 = new Query();
         Optional<User> user = userAccRepository.findById(id);
+        if(user.isPresent()) {
+        	query.addCriteria(Criteria.where("subscribers").in(id));
+        	List<ReviewElement> elements= mongoTemplate.find(query, ReviewElement.class);
+        	for(ReviewElement element : elements){
+        		element.getSubscribers().remove(id);
+        		elementService.addElement(element);
+        	}
+        	query2.addCriteria(Criteria.where("moderators").in(id));
+        	List<ReviewElement> modElements= mongoTemplate.find(query2, ReviewElement.class);
+        	for(ReviewElement element : modElements){
+        		element.getModerators().remove(id);
+        		elementService.addElement(element);
+        	}
+        	query3.addCriteria(Criteria.where("friends").in(id));
+        	List<User> friends= mongoTemplate.find(query3, User.class);
+        	for(User friend : friends){
+        		friend.getFriends().remove(id);
+        		userAccRepository.save(friend);
+        	}
+        }
         userAccRepository.delete(user.get());
     }
 	

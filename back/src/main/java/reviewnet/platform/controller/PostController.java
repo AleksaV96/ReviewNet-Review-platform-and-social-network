@@ -107,6 +107,16 @@ public class PostController {
         return new ResponseEntity<Post>(HttpStatus.NO_CONTENT);
     }
 	
+	@DeleteMapping(value="/postId/{id}/removeReply")
+    public ResponseEntity<Post> removeReply(@PathVariable String id){
+        try {
+        	postService.removeReply(id);
+        }catch(Exception e){
+            return new ResponseEntity<Post>(HttpStatus.NOT_FOUND);
+        }
+        return new ResponseEntity<Post>(HttpStatus.NO_CONTENT);
+    }
+	
 	@PostMapping(value = "postId/{id}/like")
     public ResponseEntity<String> likePost(@PathVariable String id, @RequestBody Like like) {
         likeService.likePost(id, like.getLikeCreatorName(), like.getType(), like.getValue());

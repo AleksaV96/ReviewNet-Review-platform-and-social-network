@@ -6,6 +6,9 @@ import java.util.Optional;
 import java.util.Collections;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.mongodb.core.MongoTemplate;
+import org.springframework.data.mongodb.core.query.Criteria;
+import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.stereotype.Service;
 
 import reviewnet.platform.domain.post.Post;
@@ -37,12 +40,19 @@ public class PostService {
 	@Autowired
 	ThemeRepository themeRepository;
 	
+	@Autowired
+    private MongoTemplate mongoTemplate;
+	
 	public Iterable<Post> getAll() {
 		return postRepository.findAll();
 	}
 	
 	public Optional<Post> getById(String id){
 		return postRepository.findById(id);
+	}
+	
+	public void deletePost(Post post) {
+		postRepository.delete(post);
 	}
 	
 	public Optional<AbstractPostSpace> addPost(String id, Post post) {
@@ -71,6 +81,20 @@ public class PostService {
 	
 	public void removePost(String id) {
 		Optional<Post> post = postRepository.findById(id);
+		postRepository.delete(post.get());
+	}
+	
+	public void removeReply(String id) {
+		Query query = new Query();
+		Optional<Post> post = postRepository.findById(id);
+		if (post.isPresent()) {
+            query.addCriteria(Criteria.where("replies").is(id));
+            List<Post> queryPosts= mongoTemplate.find(query, Post.class);
+            for(Post queryPost : queryPosts){
+            	queryPost.getReplies().remove(id);
+            	postRepository.save(queryPost);
+        	}
+        }
 		postRepository.delete(post.get());
 	}
 	

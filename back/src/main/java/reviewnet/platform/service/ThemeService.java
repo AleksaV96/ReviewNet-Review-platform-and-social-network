@@ -1,6 +1,7 @@
 package reviewnet.platform.service;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
@@ -27,6 +28,10 @@ public class ThemeService {
 	
 	public Optional<Theme> getById(String id){
 		return themeRepository.findById(id);
+	}
+	
+	public void delTheme(Theme theme) {
+		themeRepository.delete(theme);
 	}
 	
 	public Optional<AbstractPostSpace> addTheme(String id, Theme theme){
@@ -66,7 +71,9 @@ public class ThemeService {
         	}
         	catch(Exception e) {}
         }
-        return themes;
+        List<Theme> themesInOrder = themes.subList(0, themes.size());
+        Collections.reverse(themesInOrder);
+        return themesInOrder;
 	}
 	
 	public Iterable<Post> getThemePosts(String id) {
@@ -83,7 +90,9 @@ public class ThemeService {
         	}
         	catch(Exception e) {}
         }
-        return posts;
+        List<Post> postsInOrder = posts.subList(0, posts.size());
+        Collections.reverse(postsInOrder);
+        return postsInOrder;
 	}
 
 

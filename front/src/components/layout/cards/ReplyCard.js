@@ -215,7 +215,7 @@ function ReplyCard(props) {
 
           function removeHandler() {
             fetch(
-              'http://localhost:8080/posts/postId/' + props.id + '/remove',
+              'http://localhost:8080/posts/postId/' + props.id + '/removeReply',
             {
               method: 'DELETE',
               headers: {
@@ -320,9 +320,9 @@ function ReplyCard(props) {
             postUserImg={props.user.imgUrl}
             replies={post.replies}
             //postUserImg={props.postUserImg}  
-            postUserName={props.postUserName} 
-            postUserSurname={props.postUserSurname}
-            postUserUsername={props.postUserUsername}   
+            postUserName={props.user.name} 
+            postUserSurname={props.user.surname}
+            postUserUsername={props.user.authorUsername}   
             iteration={replyIteration}
             elementId={props.elementId}
             parentId={props.parentId}

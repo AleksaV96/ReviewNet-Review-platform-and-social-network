@@ -6,6 +6,9 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.mongodb.core.MongoTemplate;
+import org.springframework.data.mongodb.core.query.Criteria;
+import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.stereotype.Service;
 
 import reviewnet.platform.domain.element.ReviewElement;
@@ -24,8 +27,14 @@ public class ReviewElementService {
 	@Autowired
 	UserAccService userService;
 	
+	@Autowired 
+	AbstractPostSpaceService postSpaceService;
+	
 	@Autowired
 	PostService postService;
+	
+	@Autowired
+    private MongoTemplate mongoTemplate;
 	
 	public Iterable<ReviewElement> getAll() {
 		List<ReviewElement> elements = reviewElementRepository.findAll();
@@ -47,11 +56,27 @@ public class ReviewElementService {
 	}
 	
 	public void removeElement(String id) {
+		Query query = new Query();
+		Query query2 = new Query();
 		Optional<ReviewElement> element = reviewElementRepository.findById(id);
 		String creatorId = element.get().getCreatorId();
 		Optional<User> creator = userService.getById(creatorId);
 		((Moderator) creator.get().getPermission().getRoleDetails()).getModerated().remove(id);
 		userService.addUser(creator.get());
+		
+		query.addCriteria(Criteria.where("subscribed").in(id));
+    	List<User> users= mongoTemplate.find(query, User.class);
+    	for(User user : users){
+    		user.getSubscribed().remove(id);
+    		userService.addUser(user);
+    	}
+    	
+    	query2.addCriteria(Criteria.where("parentId").is(id));
+    	List<AbstractPostSpace> domains = mongoTemplate.find(query2, AbstractPostSpace.class);
+    	for(AbstractPostSpace domain : domains){
+    		postSpaceService.removePostSpace(domain, domain.getId());
+    	}
+		
 		reviewElementRepository.delete(element.get());
 	}
 	
