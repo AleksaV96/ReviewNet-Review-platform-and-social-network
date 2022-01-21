@@ -37,7 +37,8 @@ function ModeratedReviewElementPage() {
                 "name" : data.name,
                 "description" : data.description,
                 "imgUrl" : data.imgUrl,
-                "moderators" : data.moderators
+                "moderators" : data.moderators,
+                "subscribers" : data.subscribers
             }
 
             elm.push(element);

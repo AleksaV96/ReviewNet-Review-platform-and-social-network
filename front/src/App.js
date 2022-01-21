@@ -38,6 +38,7 @@ import AdminUserSearchPage from './pages/AdminUserSearchPage';
 import AdminElementSearchPage from './pages/AdminElementSearchPage';
 import AnalyticsPage from './pages/AnalyticsPage';
 import ModeratorElementAnalyticsPage from './pages/ModeratorElementAnalyticsPage';
+import ElementSubscribersPage from './pages/ElementSubscribersPage';
 
 function App() {
 
@@ -103,6 +104,7 @@ function App() {
               <Route path='/main' element={<MainPage />} />
               <Route path='/reviewElements' element={<ReviewElementListPage />} />
               <Route path='/reviewElement/:id' element={<ReviewElementView />} />
+              <Route path='/reviewElement/:elementName/:id/subscribers' element={<ElementSubscribersPage/>} />
               <Route path='/reviewElement/:elementName/domain/:id' element={<DomainPage />} />
               <Route path='/reviewElements/create-company' element={<ReviewElementAddPage />} />
               <Route path='/profile/:username' element ={<ProfilePage />} />

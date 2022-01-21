@@ -8,6 +8,8 @@ import AddCircleIcon from '@mui/icons-material/AddCircle';
 import RemoveCircleIcon from '@mui/icons-material/RemoveCircle';
 import PersonOutlineIcon from '@mui/icons-material/PersonOutline';
 
+import { Link } from 'react-router-dom';
+
 function ReviewElementViewCard(props) {
 
       const userCtx = useContext(UserContext); 
@@ -87,13 +89,13 @@ function ReviewElementViewCard(props) {
           </Typography>}
           />
           <CardContent >
-            <Typography variant="body1" color="text.secondary">
+            <Typography variant="h6" sx={{fontWeight:"400"}} color="text.secondary">
               {props.description}
             </Typography>
         </CardContent>
       <CardActions>
         {subscribeButton}
-        <Button><PersonOutlineIcon/>subscribers: {subscribersNumb}</Button>
+        <Button component={Link} to={'/reviewElement/'+props.name+"/"+props.id+"/subscribers"}><PersonOutlineIcon/>subscribers: {subscribersNumb}</Button>
       </CardActions>
       </Card>
       </Grid>

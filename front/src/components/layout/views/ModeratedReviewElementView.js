@@ -14,6 +14,7 @@ function ModeratedReviewElementView(props) {
           description={element.description}
           image={element.imgUrl}
           moderators={element.moderators}
+          subscribers={element.subscribers}
         />
         </div>
       ))}

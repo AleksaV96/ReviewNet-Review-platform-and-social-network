@@ -80,7 +80,7 @@ function ModeratorElementAnalyticsPage(){
         return (
             <MainLayout>
             <section>
-            <Typography sx={{marginBottom:"5mm", fontWeight:"bold"}}variant="h3">{elementName} post statistics</Typography>
+            <Typography sx={{marginBottom:"5mm", fontWeight:"bold"}}variant="h3">{elementName} posts statistics</Typography>
             <Typography variant="h5"><span style={{fontWeight:"bold"}}>Total posts:</span> {postSum}</Typography>
             <Typography><span style={{fontWeight:"bold"}}>Forum:</span> {postStats[0]}</Typography>
             <Typography><span style={{fontWeight:"bold"}}>Review:</span> {postStats[1]}</Typography>

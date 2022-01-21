@@ -9,11 +9,20 @@ import VisibilityIcon from '@mui/icons-material/Visibility';
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 import AdminPanelSettingsIcon from '@mui/icons-material/AdminPanelSettings';
 import EqualizerIcon from '@mui/icons-material/Equalizer';
+import PersonOutlineIcon from '@mui/icons-material/PersonOutline';
 
 function ModeratedReviewElementViewCard(props) {
 
       const userCtx = useContext(UserContext); 
       var subscriptions = [];
+      var subscribersNumb = 0;
+
+      try{
+        subscribersNumb = props.subscribers.length;
+      }
+      catch(e){
+        console.log(e);
+      }
 
       var subscribeButton = <Button onClick={subscribeHandler} variant="contained">Track<VisibilityIcon/></Button>
 
@@ -81,12 +90,13 @@ function ModeratedReviewElementViewCard(props) {
           </Typography>}
           />
           <CardContent >
-            <Typography variant="body1" color="text.secondary">
+            <Typography variant="h6" sx={{fontWeight:"400"}} color="text.secondary">
               {props.description}
             </Typography>
         </CardContent>
       <CardActions>
         {subscribeButton}
+        <Button component={Link} sx={{marginLeft:"2mm"}} variant="outlined" to={'/reviewElement/'+props.name+"/"+props.id+"/subscribers"}><PersonOutlineIcon/>subscribers: {subscribersNumb}</Button>
         <Button sx={{marginLeft:"3px"}} variant="contained" color="success" 
         component={Link} to={"/reviewElement/"+props.name+"/moderators/"+props.id}>Moderators<AdminPanelSettingsIcon/>: {props.moderators.length}</Button>
         <Button variant="contained" color="warning" 

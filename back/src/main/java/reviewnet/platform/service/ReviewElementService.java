@@ -111,6 +111,19 @@ public class ReviewElementService {
 		return moderators;
 	}
 	
+	public Iterable<User> getSubscribers(String id) {
+		Optional<ReviewElement> selectedElement = getById(id);
+		List<String> subIds = selectedElement.get().getSubscribers();
+		List<User> subscribers = new ArrayList<User>();
+		for(String subId : subIds) {
+			try {
+				subscribers.add(userService.getById(subId).get());
+			}
+			catch(Exception e) {}
+		}
+		return subscribers;
+	}
+	
 	public Iterable<Post> getReviewElementPosts(String id) {
 		List<AbstractPostSpace> postSpaceList;
         List<Post> reviewElementPosts = new ArrayList<Post>();

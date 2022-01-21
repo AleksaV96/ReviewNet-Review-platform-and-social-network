@@ -100,6 +100,11 @@ public class ReviewElementController {
 		return new ResponseEntity<Iterable<User>>(reviewElementService.getModerators(id), HttpStatus.OK);
 	}
 	
+	@GetMapping(value="/elementId/{id}/get-subscribers")
+	public ResponseEntity<Iterable<User>> getSubscribers(@PathVariable String id){
+		return new ResponseEntity<Iterable<User>>(reviewElementService.getSubscribers(id), HttpStatus.OK);
+	}
+	
 	@DeleteMapping(value="/reviewElementId/{id}/remove")
     public ResponseEntity<ReviewElement> removeElement(@PathVariable String id){
         try {
