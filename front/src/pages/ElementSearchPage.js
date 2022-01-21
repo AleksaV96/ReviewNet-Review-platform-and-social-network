@@ -83,7 +83,9 @@ function ElementSearchPage(){
     return(
         <MainLayout>
             <SearchForm onSearch={elementSearchHandler}/>
+            <div style={{width:"70%"}}>
             {searchCard}
+            </div>
             <Snackbar sx={{ width: '30%' }} open={open} autoHideDuration={1800} anchorOrigin={{horizontal:"center", vertical:"bottom"}} onClose={handleClose}>
             <Alert onClose={handleClose} severity="error" sx={{ width: '100%' }}>
                 {errorMessage}

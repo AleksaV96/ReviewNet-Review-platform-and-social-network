@@ -3,7 +3,7 @@ import { useParams } from "react-router";
 
 import MainLayout from '../components/layout/MainLayout'
 import FriendList from '../components/layout/lists/FriendList';
-import { Card, Typography } from '@mui/material';
+import { Typography } from '@mui/material';
 
 
 

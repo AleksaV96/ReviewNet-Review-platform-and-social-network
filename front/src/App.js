@@ -14,7 +14,9 @@ import Dashboard from './pages/Dashboard';
 import ProfileAdminEdit from './components/layout/views/ProfileAdminEdit';
 
 import ProtectedRoutes from './logic/ProtectedRoutes';
+import ModeratorRoutes from './logic/ModeratorRoutes';
 import AdminRoutes from './logic/AdminRoutes';
+
 
 import parseJwt from './logic/JWTutil'
 
@@ -105,8 +107,7 @@ function App() {
               <Route path='/reviewElements' element={<ReviewElementListPage />} />
               <Route path='/reviewElement/:id' element={<ReviewElementView />} />
               <Route path='/reviewElement/:elementName/:id/subscribers' element={<ElementSubscribersPage/>} />
-              <Route path='/reviewElement/:elementName/domain/:id' element={<DomainPage />} />
-              <Route path='/reviewElements/create-company' element={<ReviewElementAddPage />} />
+              <Route path='/reviewElement/:elementName/domain/:id' element={<DomainPage />} />        
               <Route path='/profile/:username' element ={<ProfilePage />} />
               <Route path='/user/:username' element={<UserPage />} />
               <Route path='/subscriptions' element={<SubscriptionsPage />} />
@@ -114,10 +115,6 @@ function App() {
               <Route path='/friends' element={<FriendsPage />} />
               <Route path='/user/:id/friends' element={<UserFriendsPage />} />
               <Route path='/reviewElement/:elementName/domain/theme/:id' element={<ThemePage />} />
-              <Route path='/reviewElements/moderated' element={<ModeratedPage />} />
-              <Route path='/moderatedReviewElement/:id' element={<ModeratedReviewElementPage />} />
-              <Route path='/reviewElement/:elementName/moderators/:id' element={<ModeratorsPage />} />
-              <Route path='/reviewElement/:elementName/analytics/:id' element={<ModeratorElementAnalyticsPage />} />
               <Route path='/profileSettings' element={<ProfileSettingsPage />} />
               <Route path='/userSearch' element={<UserSearchPage/>} />
               <Route path='/elementSearch' element={<ElementSearchPage/>} />
@@ -129,6 +126,19 @@ function App() {
               <Route path='/adminReviewElements' element={<AdminReviewElementListPage />} />
               <Route path='/adminElementSearch' element={<AdminElementSearchPage/>} />
               <Route path='/analytics' element={<AnalyticsPage/>} />
+
+              <Route path='/reviewElements/create-company' element={<ReviewElementAddPage />} />
+              <Route path='/reviewElements/moderated' element={<ModeratedPage />} />
+              <Route path='/moderatedReviewElement/:id' element={<ModeratedReviewElementPage />} />
+              <Route path='/reviewElement/:elementName/moderators/:id' element={<ModeratorsPage />} />
+              <Route path='/reviewElement/:elementName/analytics/:id' element={<ModeratorElementAnalyticsPage />} />
+          </Route>
+          <Route element={<ModeratorRoutes />}>
+              <Route path='/reviewElements/create-company' element={<ReviewElementAddPage />} />
+              <Route path='/reviewElements/moderated' element={<ModeratedPage />} />
+              <Route path='/moderatedReviewElement/:id' element={<ModeratedReviewElementPage />} />
+              <Route path='/reviewElement/:elementName/moderators/:id' element={<ModeratorsPage />} />
+              <Route path='/reviewElement/:elementName/analytics/:id' element={<ModeratorElementAnalyticsPage />} />
           </Route>
       </Routes>
     </div>
