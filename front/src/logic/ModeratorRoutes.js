@@ -11,7 +11,7 @@ function ModeratorRoutes() {
 
         if(token !== null) {
             const role = parseJwt(token).role[0].authority;
-            if(role === 'ROLE_MODERATOR') {
+            if(role === 'ROLE_MODERATOR' || role === 'ROLE_ADMIN') {
                 return true
             }
         }

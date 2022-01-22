@@ -119,6 +119,13 @@ function App() {
               <Route path='/userSearch' element={<UserSearchPage/>} />
               <Route path='/elementSearch' element={<ElementSearchPage/>} />
           </Route>
+          <Route element={<ModeratorRoutes />}>
+              <Route path='/reviewElements/create-company' element={<ReviewElementAddPage />} />
+              <Route path='/reviewElements/moderated' element={<ModeratedPage />} />
+              <Route path='/moderatedReviewElement/:id' element={<ModeratedReviewElementPage />} />
+              <Route path='/reviewElement/:elementName/moderators/:id' element={<ModeratorsPage />} />
+              <Route path='/reviewElement/:elementName/analytics/:id' element={<ModeratorElementAnalyticsPage />} />
+          </Route>
           <Route element={<AdminRoutes />}>
               <Route path='/dashboard' element={<Dashboard/>} />
               <Route path='/dashboard/user/:id' element={<ProfileAdminEdit/>} />
@@ -126,19 +133,6 @@ function App() {
               <Route path='/adminReviewElements' element={<AdminReviewElementListPage />} />
               <Route path='/adminElementSearch' element={<AdminElementSearchPage/>} />
               <Route path='/analytics' element={<AnalyticsPage/>} />
-
-              <Route path='/reviewElements/create-company' element={<ReviewElementAddPage />} />
-              <Route path='/reviewElements/moderated' element={<ModeratedPage />} />
-              <Route path='/moderatedReviewElement/:id' element={<ModeratedReviewElementPage />} />
-              <Route path='/reviewElement/:elementName/moderators/:id' element={<ModeratorsPage />} />
-              <Route path='/reviewElement/:elementName/analytics/:id' element={<ModeratorElementAnalyticsPage />} />
-          </Route>
-          <Route element={<ModeratorRoutes />}>
-              <Route path='/reviewElements/create-company' element={<ReviewElementAddPage />} />
-              <Route path='/reviewElements/moderated' element={<ModeratedPage />} />
-              <Route path='/moderatedReviewElement/:id' element={<ModeratedReviewElementPage />} />
-              <Route path='/reviewElement/:elementName/moderators/:id' element={<ModeratorsPage />} />
-              <Route path='/reviewElement/:elementName/analytics/:id' element={<ModeratorElementAnalyticsPage />} />
           </Route>
       </Routes>
     </div>
